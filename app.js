@@ -18,28 +18,32 @@ app.set("view engine", "handlebars");
 //index page
 app.get("/", (req, res) => {
     res.render("page/login", {
-        title: "Login"
+        title: "Login",
+        page: "login"
     });
 });
 
 //login page
 app.get("/index", (req, res) => {
     res.render("page/index", {
-        title: "Cryptociety"
+        title: "Cryptociety",
+        page: "index"
     });
 });
 
 //profile page
 app.get("/profile", (req, res) => {
     res.render("page/profile", {
-        title: "Profile"
+        title: "Profile",
+        page: "profile"
     });
 });
 
 //404 page
 app.use((req, res) => {
     res.status(404).render("page/404", {
-        title: "404"
+        title: "404",
+        page: "404"
     });
 });
 
