@@ -1,0 +1,23 @@
+{
+  "name": "cryptociety",
+  "version": "1.0.0",
+  "description": "Project for Xccelerate.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZeWai/Cryptociety.git"
+  },
+  "author": "Mio / Zewai / Ivan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZeWai/Cryptociety/issues"
+  },
+  "homepage": "https://github.com/ZeWai/Cryptociety#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-handlebars": "^6.0.2"
+  }
+}
