@@ -1,0 +1,45 @@
+#icon {
+    margin-top: 5vh;
+}
+#icon a img {
+    height: 200px;
+    width: 200px;
+    object-fit: contain;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
+    border-radius: 100%;
+}
+#icon a img:hover {
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8);
+}
+#userId{
+    margin-top: 20px;
+    color:  rgba(0, 0, 0,0.4);
+}
+#userName{
+    color:  rgb(0, 0, 0);
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#userName p{
+    margin-top: 10px;
+    font-weight: 700;
+}
+#userName a{
+    margin-left: 40px;
+    width: 100px;
+    color:white;
+    background-color: rgba(13, 110, 253,0.4);
+}
+#userName a i{
+    margin-left: 10px;
+}
+#userName a:hover{
+    background-color: rgba(13, 110, 253,0.8);
+}
+
+#joinDate{
+    margin-top: 20px;
+    color:  rgba(0, 0, 0,0.4);
+}
