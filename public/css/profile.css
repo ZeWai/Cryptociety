@@ -11,35 +11,33 @@
 #icon a img:hover {
     box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8);
 }
-#userId{
+.message{
     margin-top: 20px;
     color:  rgba(0, 0, 0,0.4);
 }
-#userName{
+.edit{
+    margin-left: 40px;
+    width: 100px;
+    color:white;
+    background-color: rgba(13, 110, 253,0.4);
+}
+.edit:hover{
+    color:white;
+    background-color: rgba(13, 110, 253,0.8);
+}
+.info{
     color:  rgb(0, 0, 0);
     font-size: 18px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-#userName p{
+.info p{
     margin-top: 10px;
     font-weight: 700;
 }
-#userName a{
-    margin-left: 40px;
-    width: 100px;
-    color:white;
-    background-color: rgba(13, 110, 253,0.4);
-}
-#userName a i{
+
+.info a i{
     margin-left: 10px;
 }
-#userName a:hover{
-    background-color: rgba(13, 110, 253,0.8);
-}
 
-#joinDate{
-    margin-top: 20px;
-    color:  rgba(0, 0, 0,0.4);
-}
