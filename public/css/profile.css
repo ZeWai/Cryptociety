@@ -1,3 +1,11 @@
+#info_page{
+    padding: 10px 10px 10px 10px;
+    background-color: burlywood;
+}
+#edit_page{
+    padding: 10px 10px 10px 10px;
+    background-color: aqua;
+}
 #icon {
     margin-top: 5vh;
 }
@@ -14,6 +22,25 @@
 .message{
     margin-top: 20px;
     color:  rgba(0, 0, 0,0.4);
+}
+.subscriber a{
+    color:  rgba(0, 0, 0,0.5);
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+.subscriber a span{
+    padding-right: 5px;
+}
+.subscriber a:hover{
+    color:  rgba(0, 0, 0,1);
+}
+#subscriber {
+    display: flex;
+    justify-content: right;
+}
+#followers{
+    display: flex;
+    justify-content: left;
 }
 .edit{
     margin-left: 40px;
@@ -35,6 +62,8 @@
 .info p{
     margin-top: 10px;
     font-weight: 700;
+    display: flex;
+    justify-content: right;
 }
 
 .info a i{
