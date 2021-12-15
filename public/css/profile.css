@@ -1,10 +1,10 @@
 #info_page{
     padding: 10px 10px 10px 10px;
-    background-color: burlywood;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    clip-path: inset(0px -15px 0px 0px);
 }
 #edit_page{
     padding: 10px 10px 10px 10px;
-    background-color: aqua;
 }
 #icon {
     margin-top: 5vh;
@@ -52,6 +52,26 @@
     color:white;
     background-color: rgba(13, 110, 253,0.8);
 }
+.logout{
+    margin-left: 40px;
+    width: 120px;
+    color:white;
+    background-color: rgba(240, 95, 64,0.4);
+}
+.logout:hover{
+    color:white;
+    background-color: rgba(235, 56, 18,0.8);
+}
+.album{
+    margin-left: 40px;
+    width: 120px;
+    color:white;
+    background-color: rgba(57, 209, 179,0.4);
+}
+.album:hover{
+    color:white;
+    background-color: rgba(45, 188, 159,0.8);
+}
 .info{
     color:  rgb(0, 0, 0);
     font-size: 18px;
@@ -65,7 +85,6 @@
     display: flex;
     justify-content: right;
 }
-
 .info a i{
     margin-left: 10px;
 }

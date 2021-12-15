@@ -8,7 +8,7 @@ const port = 3000;
 const ip = "localhost";
 
 //public css
-app.use(express.static("public"));
+app.use(express.static(__dirname + "/public"));
 
 //handlebars setting
 app.engine("handlebars", engine({ defaultLayout: "main" }));
