@@ -48,7 +48,6 @@ app.get("/", (req, res) => {
     res.render("page/login", {
         title: "Login",
         page: "login",
-        layout: "login"
     });
 });
 
