@@ -47,7 +47,7 @@ app.get("/setting", (req, res) => {
 app.get("/", (req, res) => {
     res.render("page/login", {
         title: "Login",
-        page: "login",
+        page: "login"
     });
 });
 
