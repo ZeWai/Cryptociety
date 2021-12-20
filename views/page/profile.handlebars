@@ -27,16 +27,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-12 info" id="email">
-                <div class="row">
-                    <div class="col-6">
-                        <p>miofong@live.hk</p>
-                    </div>
-                    <div class="col-6">
-                        <a class="btn edit" href="#" id="emailEdit">Edit<i class="fas fa-edit"></i></a>
-                    </div>
-                </div>
-            </div>
             <div class="col-12 info" id="password">
                 <div class="row">
                     <div class="col-6">
@@ -98,7 +88,19 @@
             </div>
         </div>
         <div class="col-xl-9 col-lg-12" id="edit_page">
-            <h2 class="editing">username edit</h2>
+            <section id="edit_title">
+                <h2 class="editing">username edit</h2>
+            </section>
+            <section id="edit_password_verify">
+                <form>
+                    <input class="form-control edit_input" type="password" placeholder="Enter password..."
+                        aria-label="password">
+                </form>
+            </section>
+            <section id="edit_submit">
+                <a class="btn submit" href="#" id="edit_submit_btn">Submit<i class="fas fa-paper-plane"></i></a>
+                <a class="btn cancel" href="#" id="edit_cancel_btn">Cancel<i class="fas fa-trash-alt"></i></a>
+            </section>
         </div>
     </div>
 </div>

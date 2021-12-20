@@ -72,6 +72,34 @@
     color:white;
     background-color: rgba(13, 110, 253,0.8);
 }
+.submit{
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 120px;
+    color:white;
+    background-color: rgba(57, 209, 179,0.4);
+}
+.submit:hover{
+    color:white;
+    background-color: #2dbc9fcc;
+}
+.submit i{
+    margin-left: 10px;
+}
+.cancel{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 120px;
+    color:white;
+    background-color: rgba(240, 95, 64,0.4);
+}
+.cancel:hover{
+    color:white;
+    background-color: rgba(235, 56, 18,0.8);
+}
+.cancel i{
+    margin-left: 10px;
+}
 .info{
     color:  rgb(0, 0, 0);
     font-size: 18px;
@@ -100,8 +128,14 @@
 }
 form{
     padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
 }
 .editing{
-    padding: 10px 0 10px 0;
+    padding: 20px 0 10px 0;
     color: rgba(128, 128, 128,0.6);
+}
+.edit_input {
+    width: 400px;
+    padding-top: 10px;
 }
