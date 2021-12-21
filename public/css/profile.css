@@ -38,7 +38,7 @@
     display: flex;
     justify-content: right;
 }
-#followers{
+#follower{
     display: flex;
     justify-content: left;
 }
@@ -138,4 +138,59 @@ form{
 .edit_input {
     width: 400px;
     padding-top: 10px;
+}
+#new_password {
+    margin-bottom: 10px;
+}
+#subscriber_list{
+    margin: 10px;
+}
+#subscriber_btn{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+#subscriber_icon{
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
+    border-radius: 100%;
+}
+#subscriber_name {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-weight: 700;
+}
+#follower_list{
+    margin: 10px;
+}
+#follower_btn{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+#follower_icon{
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
+    border-radius: 100%;
+}
+#follower_name {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-weight: 700;
+}
+#unfollow_btn{
+    color: white;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+#remove_follow_btn{
+    color: white;
+    display: flex;
+    justify-content: right;
+    align-items: center;
 }
