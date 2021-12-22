@@ -1,6 +1,8 @@
 //basic Package
 const express = require("express");
 const { engine } = require("express-handlebars");
+const fs = require("fs");
+const fileUpload = require('express-fileupload');
 
 //express setting
 const app = express();
@@ -9,6 +11,7 @@ const ip = "localhost";
 
 //public css
 app.use(express.static(__dirname + "/public"));
+app.use(fileUpload());
 
 //handlebars setting
 app.engine("handlebars", engine({ defaultLayout: "main" }));
@@ -30,7 +33,25 @@ app.get("/profile", (req, res) => {
     res.render("page/profile", {
         title: "Profile",
         page: "profile",
-        layout: "other"
+        layout: "other",
+        icon: () => {
+            const iconExists = fs.existsSync(__dirname + "/public/image/uploaded/userIcon.png")
+            if (iconExists) {
+                return "../../../../image/uploaded/userIcon.png";
+            } else {
+                return "";
+            }
+        }
+    });
+});
+
+app.post("/profile", (req, res) => {
+    //create new icon
+    let data = req.files.files
+    fs.writeFile(__dirname + "/public/image/uploaded/userIcon.png", data.data, (err) => {
+        if (err) {
+            console.log(err);
+        }
     });
 });
 

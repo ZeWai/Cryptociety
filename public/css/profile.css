@@ -2,25 +2,99 @@
     padding: 10px 10px 10px 10px;
     box-shadow: 0 0 2px rgba(0,0,0,0.4);
     clip-path: inset(0px -2px 0px 0px);
+    background-color: white;
 }
 #edit_page{
     padding: 10px 10px 10px 10px;
+    background-color: whitesmoke;
 }
-#icon {
-    margin-top: 5vh;
+#icon_btn {
+    height: 350px;
 }
-#icon a img {
-    height: 200px;
-    width: 200px;
+#icon_btn .wrapper{
+    position: relative;
+    height: 300px;
+    border: 2px dashed #c2cdda;
+    border-radius: 10px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+#icon_btn .wrapper.active{
+    border: none;
+}
+
+#icon_btn .wrapper .image{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     object-fit: contain;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
-    border-radius: 100%;
 }
-#icon a img:hover {
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8);
+#icon_btn .wrapper .icon{
+    font-size: 100px;
+    color: #2dbc9fcc;
+}
+#icon_btn .wrapper .text{
+    font-size: 20px;
+    font-weight: 500;
+    color: #2dbc9fcc;
+}
+#icon_cancel_btn{
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #2dbc9fcc;
+    display: none;
+}
+.wrapper.active:hover #icon_cancel_btn{
+    display: block;
+}
+.wrapper #icon_cancel_btn:hover{
+    color:rgb(235, 56, 18)
+}
+.file_name{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    color: white;
+    background: #2dbc9fcc;
+    padding: 8px 0;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: none;
+}
+.wrapper.active:hover .file_name{
+    display: block;
+}
+#custom_btn{
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+    display: block;
+    border: none;
+    background: #39d1b366;
+    font-size: 18px;
+    font-weight: 700;
+    color:white;
+    border-radius: 20px;
+    text-transform: uppercase;
+    cursor:pointer;
+    outline:none;
+}
+#custom_btn:hover{
+    color:white;
+    background-color: #2dbc9fcc;
 }
 .message{
-    margin-top: 20px;
+    margin-top: 40px;
     color:  rgba(0, 0, 0,0.4);
 }
 .subscriber a{
@@ -116,7 +190,7 @@
 .info a i{
     margin-left: 10px;
 }
-#slogan_bar {
+#slogan_input {
     width: 100%;
     height: 150px;
     padding: 12px 20px;

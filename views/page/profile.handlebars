@@ -1,10 +1,20 @@
 <div class="container-fluid">
     <div class="row text-center">
         <div class="col-xl-3 col-lg-12" id="info_page">
-            <div class="col-12" id="icon">
-                <a href="#">
-                    <img src="../image/btn/logo_btn.png" alt="icon">
-                </a>
+            <div class="col-12" id="icon_btn">
+                <div class="wrapper">
+                    <div class="image">
+                        <img src="{{icon}}" id="icon_img">
+                    </div>
+                    <div class="content">
+                        <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <div class="text">No file chosen, yet!</div>
+                    </div>
+                    <div id="icon_cancel_btn"><i class="fas fa-times"></i></div>
+                    <div class="file_name">File name</div>
+                </div>
+                <input type="file" id="default_btn" hidden>
+                <button class="btn" id="custom_btn">Upload icon</button>
             </div>
             <div class="col-12 message" id="userId">
                 <p>Id : 48466d229fa0df5d4c18ef91</p>
@@ -12,10 +22,10 @@
             </div>
             <div class="row">
                 <div class="col-6 subscriber" id="subscriber">
-                    <a class="btn" href="#"><span>0</span>Subscriber</a>
+                    <a class="btn" type="file" href="#" id="subscriber_list_btn"><span>0</span>Subscriber</a>
                 </div>
                 <div class="col-6 subscriber" id="follower">
-                    <a class="btn" href="#"><span>0</span>Follower</a>
+                    <a class="btn" href="#" id="follower_list_btn"><span>0</span>Follower</a>
                 </div>
             </div>
             <div class="col-12 info" id="userName">
@@ -24,7 +34,7 @@
                         <p>Mio Fong</p>
                     </div>
                     <div class="col-6">
-                        <a class="btn edit" href="#" id="userIdEdit">Edit<i class="fas fa-edit"></i></a>
+                        <a class="btn edit" href="#" id="edit_username_btn">Edit<i class="fas fa-edit"></i></a>
                     </div>
                 </div>
             </div>
@@ -34,7 +44,7 @@
                         <p>********</p>
                     </div>
                     <div class="col-6">
-                        <a class="btn edit" href="#" id="passwordEdit">Edit<i class="fas fa-edit"></i></a>
+                        <a class="btn edit" href="#" id="edit_passoword_btn">Edit<i class="fas fa-edit"></i></a>
                     </div>
                 </div>
             </div>
@@ -44,7 +54,7 @@
                         <p>male</p>
                     </div>
                     <div class="col-6">
-                        <a class="btn edit" href="#" id="genderEdit">Edit<i class="fas fa-edit"></i></a>
+                        <a class="btn edit" href="#" id="edit_gender_btn">Edit<i class="fas fa-edit"></i></a>
                     </div>
                 </div>
             </div>
@@ -54,7 +64,7 @@
                         <p>15/09/1990</p>
                     </div>
                     <div class="col-6">
-                        <a class="btn edit" href="#" id="birthdayEdit">Edit<i class="fas fa-edit"></i></a>
+                        <a class="btn edit" href="#" id="edit_birthday_btn">Edit<i class="fas fa-edit"></i></a>
                     </div>
                 </div>
             </div>
@@ -64,7 +74,7 @@
                         <p>Hong Kong</p>
                     </div>
                     <div class="col-6">
-                        <a class="btn edit" href="#" id="countryEdit">Edit<i class="fas fa-edit"></i></a>
+                        <a class="btn edit" href="#" id="edit_country_btn">Edit<i class="fas fa-edit"></i></a>
                     </div>
                 </div>
             </div>
@@ -83,7 +93,7 @@
             </div>
             <div class="col-12">
                 <form>
-                    <input class="form-control" type="text" placeholder="Write down something..." id="slogan_bar"
+                    <input class="form-control" type="text" placeholder="Write down something..." id="slogan_input"
                         value="">
                 </form>
             </div>
