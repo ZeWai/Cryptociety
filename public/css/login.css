@@ -1,6 +1,6 @@
-/* Google Fonts */
+/*////////////////////////////////////////////////////////////////////////// Google Fonts //////////////////////////////////////////////////////////////////////////*/
 @import url(https://fonts.googleapis.com/css?family=Anonymous+Pro);
-
+/*////////////////////////////////////////////////////////////////////////// Google Fonts //////////////////////////////////////////////////////////////////////////*/
 /* Global */
 html {
   min-height: 100%;
@@ -24,10 +24,10 @@ body {
 }
 
 .center {
-  background-color: rgba(85, 85, 85, 0.541);
+  background-color: rgba(100, 100, 100, 0.3);
   border-radius: 20px;
   margin-top: 15%;
-  padding:20px 0;
+  padding: 20px 0;
   font-family: "VT323", monospace;
   text-align: center;
   display: grid;
@@ -36,36 +36,36 @@ body {
   padding: 75px 30px;
 }
 
-.logo{
-    border-right: 2px solid black;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 1;
-    grid-row-end: 4;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
+.logo {
+  border-right: 2px solid black;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
 }
-.description{
-    border-right: 2px solid black;
-    grid-column-start: 1;
-    grid-column-end: 3;
-    grid-row-start: 4;
-    grid-row-end: 6;
-    font-size: 30px;
+.description {
+  border-right: 2px solid black;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 4;
+  grid-row-end: 6;
+  font-size: 30px;
 }
-.login{
-    grid-column-start: 3;
-    grid-column-end: 6;
-    grid-row-start: 1;
-    grid-row-end: 2;
-    font-size: 20px;
+.login {
+  grid-column-start: 3;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  font-size: 20px;
 }
-.inputarea{
-    grid-column-start: 3;
-    grid-column-end: 6;
-    grid-row-start: 2;
-    grid-row-end: 6;
-    font-size: 15px;
+.inputarea {
+  grid-column-start: 3;
+  grid-column-end: 6;
+  grid-row-start: 2;
+  grid-row-end: 6;
+  font-size: 15px;
 }

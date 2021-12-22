@@ -1,3 +1,11 @@
+#info_page{
+    padding: 10px 10px 10px 10px;
+    box-shadow: 0 0 2px rgba(0,0,0,0.4);
+    clip-path: inset(0px -2px 0px 0px);
+}
+#edit_page{
+    padding: 10px 10px 10px 10px;
+}
 #icon {
     margin-top: 5vh;
 }
@@ -15,15 +23,82 @@
     margin-top: 20px;
     color:  rgba(0, 0, 0,0.4);
 }
+.subscriber a{
+    color:  rgba(0, 0, 0,0.5);
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+.subscriber a span{
+    padding-right: 5px;
+}
+.subscriber a:hover{
+    color:  rgba(0, 0, 0,1);
+}
+#subscriber {
+    display: flex;
+    justify-content: right;
+}
+#follower{
+    display: flex;
+    justify-content: left;
+}
 .edit{
     margin-left: 40px;
     width: 100px;
     color:white;
-    background-color: rgba(13, 110, 253,0.4);
+    background-color: rgba(57, 209, 179,0.4);
 }
 .edit:hover{
     color:white;
+    background-color: #2dbc9fcc;
+}
+.logout{
+    margin-left: 40px;
+    width: 120px;
+    color:white;
+    background-color: rgba(240, 95, 64,0.4);
+}
+.logout:hover{
+    color:white;
+    background-color: rgba(235, 56, 18,0.8);
+}
+.album{
+    margin-left: 40px;
+    width: 120px;
+    color:white;
+    background-color: rgba(13, 110, 253,0.4);
+}
+.album:hover{
+    color:white;
     background-color: rgba(13, 110, 253,0.8);
+}
+.submit{
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 120px;
+    color:white;
+    background-color: rgba(57, 209, 179,0.4);
+}
+.submit:hover{
+    color:white;
+    background-color: #2dbc9fcc;
+}
+.submit i{
+    margin-left: 10px;
+}
+.cancel{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 120px;
+    color:white;
+    background-color: rgba(240, 95, 64,0.4);
+}
+.cancel:hover{
+    color:white;
+    background-color: rgba(235, 56, 18,0.8);
+}
+.cancel i{
+    margin-left: 10px;
 }
 .info{
     color:  rgb(0, 0, 0);
@@ -35,9 +110,87 @@
 .info p{
     margin-top: 10px;
     font-weight: 700;
+    display: flex;
+    justify-content: right;
 }
-
 .info a i{
     margin-left: 10px;
 }
-
+#slogan_bar {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0,0.4);
+    border-radius: 4px;
+    background-color: rgba(248, 248, 248,0.4);
+    resize: none;
+}
+form{
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+.editing{
+    padding: 20px 0 10px 0;
+    color: rgba(128, 128, 128,0.6);
+}
+.edit_input {
+    width: 400px;
+    padding-top: 10px;
+}
+#new_password {
+    margin-bottom: 10px;
+}
+#subscriber_list{
+    margin: 10px;
+}
+#subscriber_btn{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+#subscriber_icon{
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
+    border-radius: 100%;
+}
+#subscriber_name {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-weight: 700;
+}
+#follower_list{
+    margin: 10px;
+}
+#follower_btn{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+#follower_icon{
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
+    border-radius: 100%;
+}
+#follower_name {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-weight: 700;
+}
+#unfollow_btn{
+    color: white;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
+#remove_follow_btn{
+    color: white;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+}
