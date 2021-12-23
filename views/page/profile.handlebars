@@ -8,13 +8,14 @@
             </div>
             <div class="col-12 message" id="userId">
                 <p>Id : 48466d229fa0df5d4c18ef91</p>
+                <p>email : miofong@live.hk</p>
             </div>
             <div class="row">
                 <div class="col-6 subscriber" id="subscriber">
                     <a class="btn" href="#"><span>0</span>Subscriber</a>
                 </div>
-                <div class="col-6 subscriber" id="followers">
-                    <a class="btn" href="#"><span>0</span>Followers</a>
+                <div class="col-6 subscriber" id="follower">
+                    <a class="btn" href="#"><span>0</span>Follower</a>
                 </div>
             </div>
             <div class="col-12 info" id="userName">
@@ -24,16 +25,6 @@
                     </div>
                     <div class="col-6">
                         <a class="btn edit" href="#" id="userIdEdit">Edit<i class="fas fa-edit"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 info" id="email">
-                <div class="row">
-                    <div class="col-6">
-                        <p>miofong@live.hk</p>
-                    </div>
-                    <div class="col-6">
-                        <a class="btn edit" href="#" id="emailEdit">Edit<i class="fas fa-edit"></i></a>
                     </div>
                 </div>
             </div>
@@ -92,13 +83,111 @@
             </div>
             <div class="col-12">
                 <form>
-                    <input class="form-control" type="text" placeholder="Write down something..." aria-label="slogan"
-                        id="slogan_bar">
+                    <input class="form-control" type="text" placeholder="Write down something..." id="slogan_bar"
+                        value="">
                 </form>
             </div>
         </div>
         <div class="col-xl-9 col-lg-12" id="edit_page">
-            <h2 class="editing">username edit</h2>
+            <section id="edit_title">
+                <h2 class="editing">Subscriber</h2>
+            </section>
+            <section id="subscriber_list">
+                <div class="row">
+                    <div class="col-8">
+                        <a class="btn" href="#" id="subscriber_btn">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="../../../image/btn/logo_btn.png" alt="subscriber_icon"
+                                        id="subscriber_icon">
+                                </div>
+                                <div class="col-6">
+                                    <p id="subscriber_name">ZeWai</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-4" id="unfollow_btn">
+                        <a class="btn logout" href="#">Unfollow</a>
+                    </div>
+                </div>
+            </section>
+            <section id="follower_list" hidden>
+                <div class="row">
+                    <div class="col-8">
+                        <a class="btn" href="#" id="follower_btn">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="../../../image/btn/logo_btn.png" alt="follower_icon" id="follower_icon">
+                                </div>
+                                <div class="col-6">
+                                    <p id="follower_name">Ivan</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-4" id="remove_follow_btn">
+                        <div class="row">
+                            <div class="col-6" id="follow_btn">
+                                <a class="btn album" href="#">Follow</a>
+                            </div>
+                            <div class="col-6" id="remove_btn">
+                                <a class="btn logout" href="#">Remove</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section id="edit_password_verify" hidden>
+                <form>
+                    <input class="form-control edit_input" type="password" placeholder="Enter password"
+                        id="password_verify">
+                </form>
+            </section>
+            <section id="edit_username" hidden>
+                <form>
+                    <input class="form-control edit_input" type="text"
+                        placeholder="Enter not less than 6 characters new username..." id="new_username">
+                </form>
+            </section>
+            <section id="edit_password" hidden>
+                <form>
+                    <div>
+                        <input class="form-control edit_input" type="password"
+                            placeholder="Enter not less than 8 characters new password..." id="new_password">
+                        <input class="form-control edit_input" type="password" placeholder="Confirm new password"
+                            id="confirm_new_password">
+                    </div>
+                </form>
+            </section>
+            <section id="gender" hidden>
+                <form>
+                    <input class="form-control edit_input" list="gender-list" type="text" placeholder="Select gender"
+                        id="new_gender" value="Male">
+                    <datalist id="gender-list">
+                        <option value="Male">
+                        <option value="Female">
+                        <option value="Disable">
+                    </datalist>
+                </form>
+            </section>
+            <section id="birthday" hidden>
+                <form>
+                    <input class="form-control edit_input" type="date" id="new_birthday" name="trip-start"
+                        value="1990-09-15">
+                </form>
+            </section>
+            <section id="country" hidden>
+                <form>
+                    <input class="form-control edit_input" list="country-list" type="text" placeholder="Select country"
+                        id="new_country" value="Hong Kong">
+                    <datalist id="country-list"></datalist>
+                </form>
+            </section>
+            <section id="edit_submit" hidden>
+                <a class="btn submit" href="#" id="edit_submit_btn">Submit<i class="fas fa-paper-plane"></i></a>
+                <a class="btn cancel" href="#" id="edit_cancel_btn">Cancel<i class="fas fa-trash-alt"></i></a>
+            </section>
         </div>
     </div>
 </div>
