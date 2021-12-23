@@ -56,7 +56,6 @@ app.get("/api/profile", (req, res) => {
         "photo": files
     })
 })
-
 app.post("/profile", (req, res) => {
     //create new icon
     let data = req.files.files
@@ -76,7 +75,6 @@ app.post("/profile", (req, res) => {
         }
     });
 });
-
 app.delete("/profile", (req, res) => {
     fs.unlink(__dirname + "/public/image/uploaded/userIcon.png", (err) => {
         if (err) {
