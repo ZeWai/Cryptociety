@@ -1,5 +1,6 @@
 //get conutries from API.
 $().ready(() => {
+
   //fetch api
   $.ajax({
     url: "https://restcountries.com/v2/all",
