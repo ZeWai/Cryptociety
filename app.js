@@ -27,13 +27,45 @@ app.get("/index", (req, res) => {
         layout: "other"
     });
 });
-
 //profile page
 app.get("/profile", (req, res) => {
     res.render("page/profile", {
         title: "Profile",
         page: "profile",
         layout: "other",
+        icon: () => {
+            //check icon Exists
+            const iconExists = fs.existsSync(__dirname + "/public/image/uploaded/userIcon.png")
+            if (iconExists) {
+                let img = "/image/uploaded/userIcon.png"
+                return img;
+            } else {
+                return "";
+            }
+        },
+        photo: () => {
+            //check photo Exists
+            let files = fs.readdirSync(__dirname + "/public/image/photo");
+            return files[0];
+        }
+    });
+});
+app.get("/api/profile", (req, res) => {
+    let files = fs.readdirSync(__dirname + "/public/image/photo");
+    res.json({
+        "photo": files
+    })
+})
+
+app.post("/profile", (req, res) => {
+    //create new icon
+    let data = req.files.files
+    fs.writeFile(__dirname + "/public/image/uploaded/userIcon.png", data.data, (err) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+    res.render("page/profile", {
         icon: () => {
             const iconExists = fs.existsSync(__dirname + "/public/image/uploaded/userIcon.png")
             if (iconExists) {
@@ -45,12 +77,20 @@ app.get("/profile", (req, res) => {
     });
 });
 
-app.post("/profile", (req, res) => {
-    //create new icon
-    let data = req.files.files
-    fs.writeFile(__dirname + "/public/image/uploaded/userIcon.png", data.data, (err) => {
+app.delete("/profile", (req, res) => {
+    fs.unlink(__dirname + "/public/image/uploaded/userIcon.png", (err) => {
         if (err) {
             console.log(err);
+        }
+    });
+    res.render("page/profile", {
+        icon: () => {
+            const iconExists = fs.existsSync(__dirname + "/public/image/uploaded/userIcon.png")
+            if (iconExists) {
+                return "../../../../image/uploaded/userIcon.png";
+            } else {
+                return "";
+            }
         }
     });
 });

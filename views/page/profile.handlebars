@@ -100,9 +100,9 @@
         </div>
         <div class="col-xl-9 col-lg-12" id="edit_page">
             <section id="edit_title">
-                <h2 class="editing">Subscriber</h2>
+                <h2 class="editing">Ablum</h2>
             </section>
-            <section id="subscriber_list">
+            <section id="subscriber_list" hidden>
                 <div class="row">
                     <div class="col-8">
                         <a class="btn" href="#" id="subscriber_btn">
@@ -170,7 +170,7 @@
                     </div>
                 </form>
             </section>
-            <section id="gender" hidden>
+            <section id="edit_gender" hidden>
                 <form>
                     <input class="form-control edit_input" list="gender-list" type="text" placeholder="Select gender"
                         id="new_gender" value="Male">
@@ -181,18 +181,28 @@
                     </datalist>
                 </form>
             </section>
-            <section id="birthday" hidden>
+            <section id="edit_birthday" hidden>
                 <form>
                     <input class="form-control edit_input" type="date" id="new_birthday" name="trip-start"
                         value="1990-09-15">
                 </form>
             </section>
-            <section id="country" hidden>
+            <section id="edit_country" hidden>
                 <form>
                     <input class="form-control edit_input" list="country-list" type="text" placeholder="Select country"
                         id="new_country" value="Hong Kong">
                     <datalist id="country-list"></datalist>
                 </form>
+            </section>
+            <section id="album_list" hidden>
+                <ul class="row">
+                    <li class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3 photo_list">
+                        <p class="text-center"><i class="fas fa-image"></i>{{photo}}</p>
+                        <img src="../../../image/photo/{{photo}}" alt="{{photo}}">
+                        <a class="btn submit col-6" href="#" id="album_download_btn">Download</a>
+                        <a class="btn cancel col-6" href="#" id="album_delete_btn">Delete</a>
+                    </li>
+                </ul>
             </section>
             <section id="edit_submit" hidden>
                 <a class="btn submit" href="#" id="edit_submit_btn">Submit<i class="fas fa-paper-plane"></i></a>

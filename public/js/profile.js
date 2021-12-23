@@ -15,7 +15,6 @@ $().ready(() => {
       console.log(err)
     }
   })
-
   //change new icon button handling
   //check icon exists
   const iconSrc = $("#icon_img").attr('src') != "";
@@ -68,55 +67,163 @@ $().ready(() => {
     $(".text").attr("hidden", false);
     $(wrapper).removeClass("active");
     //send delete req to server
-    formData.append("files", files);
     $.ajax({
-      url: "/profile",
-      method: "delete",
-      data: formData,
-      cache: false,
-      processData: false,
-      contentType: false
+      url: '/profile',
+      method: 'DELETE',
+      success: function (result) {
+        console.log(`${result} already deleted!`)
+      }
     });
   });
 
   //subscriber list button handling
   $(`#subscriber_list_btn`).click(() => {
-    alert("subscriber_list")
+    $(`#edit_title h2`).html(`Subscribers`)
+    //hidden
+    $(`#follower_list`).attr(`hidden`, true)
+    $(`#edit_password_verify`).attr(`hidden`, true)
+    $(`#edit_username`).attr(`hidden`, true)
+    $(`#edit_password`).attr(`hidden`, true)
+    $(`#edit_gender`).attr(`hidden`, true)
+    $(`#edit_submit`).attr(`hidden`, true)
+    $(`#edit_birthday`).attr(`hidden`, true)
+    $(`#edit_country`).attr(`hidden`, true)
+    $(`#album_list`).attr(`hidden`, true)
+    //show
+    $(`#subscriber_list`).attr(`hidden`, false)
   })
 
   //follower list button handling
   $(`#follower_list_btn`).click(() => {
-    alert("follower_list")
+    $(`#edit_title h2`).html(`Followers`)
+    //hidden
+    $(`#subscriber_list`).attr(`hidden`, true)
+    $(`#edit_password_verify`).attr(`hidden`, true)
+    $(`#edit_username`).attr(`hidden`, true)
+    $(`#edit_password`).attr(`hidden`, true)
+    $(`#edit_gender`).attr(`hidden`, true)
+    $(`#edit_submit`).attr(`hidden`, true)
+    $(`#edit_birthday`).attr(`hidden`, true)
+    $(`#edit_country`).attr(`hidden`, true)
+    $(`#album_list`).attr(`hidden`, true)
+    //show
+    $(`#follower_list`).attr(`hidden`, false)
   })
 
   //username edit button handling
   $(`#edit_username_btn`).click(() => {
-    alert("edit_username")
+    $(`#edit_title h2`).html(`Usernmae`)
+    //hidden
+    $(`#subscriber_list`).attr(`hidden`, true)
+    $(`#follower_list`).attr(`hidden`, true)
+    $(`#edit_password`).attr(`hidden`, true)
+    $(`#edit_gender`).attr(`hidden`, true)
+    $(`#edit_birthday`).attr(`hidden`, true)
+    $(`#edit_country`).attr(`hidden`, true)
+    $(`#album_list`).attr(`hidden`, true)
+    //show
+    $(`#edit_password_verify`).attr(`hidden`, false)
+    $(`#edit_username`).attr(`hidden`, false)
+    $(`#edit_submit`).attr(`hidden`, false)
   })
 
   //password edit button handling
   $(`#edit_passoword_btn`).click(() => {
-    alert("edit_passoword")
+    $(`#edit_title h2`).html(`Password`)
+    //hidden
+    $(`#subscriber_list`).attr(`hidden`, true)
+    $(`#follower_list`).attr(`hidden`, true)
+    $(`#edit_username`).attr(`hidden`, true)
+    $(`#edit_gender`).attr(`hidden`, true)
+    $(`#edit_birthday`).attr(`hidden`, true)
+    $(`#edit_country`).attr(`hidden`, true)
+    $(`#album_list`).attr(`hidden`, true)
+    //show
+    $(`#edit_password_verify`).attr(`hidden`, false)
+    $(`#edit_password`).attr(`hidden`, false)
+    $(`#edit_submit`).attr(`hidden`, false)
   })
 
   //gender edit button handling
   $(`#edit_gender_btn`).click(() => {
-    alert("edit_gender")
+    $(`#edit_title h2`).html(`Gender`)
+    //hidden
+    $(`#subscriber_list`).attr(`hidden`, true)
+    $(`#follower_list`).attr(`hidden`, true)
+    $(`#edit_username`).attr(`hidden`, true)
+    $(`#edit_password`).attr(`hidden`, true)
+    $(`#edit_birthday`).attr(`hidden`, true)
+    $(`#edit_country`).attr(`hidden`, true)
+    $(`#album_list`).attr(`hidden`, true)
+    //show
+    $(`#edit_password_verify`).attr(`hidden`, false)
+    $(`#edit_gender`).attr(`hidden`, false)
+    $(`#edit_submit`).attr(`hidden`, false)
   })
 
   //birthday edit button handling
   $(`#edit_birthday_btn`).click(() => {
-    alert("edit_birthday")
+    $(`#edit_title h2`).html(`Birthday`)
+    //hidden
+    $(`#subscriber_list`).attr(`hidden`, true)
+    $(`#follower_list`).attr(`hidden`, true)
+    $(`#edit_username`).attr(`hidden`, true)
+    $(`#edit_password`).attr(`hidden`, true)
+    $(`#edit_gender`).attr(`hidden`, true)
+    $(`#edit_country`).attr(`hidden`, true)
+    $(`#album_list`).attr(`hidden`, true)
+    //show
+    $(`#edit_password_verify`).attr(`hidden`, false)
+    $(`#edit_birthday`).attr(`hidden`, false)
+    $(`#edit_submit`).attr(`hidden`, false)
   })
 
   //country edit button handling
   $(`#edit_country_btn`).click(() => {
-    alert("edit_country")
+    $(`#edit_title h2`).html(`Country`)
+    //hidden
+    $(`#subscriber_list`).attr(`hidden`, true)
+    $(`#follower_list`).attr(`hidden`, true)
+    $(`#edit_username`).attr(`hidden`, true)
+    $(`#edit_password`).attr(`hidden`, true)
+    $(`#edit_gender`).attr(`hidden`, true)
+    $(`#edit_birthday`).attr(`hidden`, true)
+    $(`#album_list`).attr(`hidden`, true)
+    //show
+    $(`#edit_password_verify`).attr(`hidden`, false)
+    $(`#edit_country`).attr(`hidden`, false)
+    $(`#edit_submit`).attr(`hidden`, false)
   })
 
   //album button handling
   $(`#album_btn`).click(() => {
-    alert("album")
+    $(`#edit_title h2`).html(`Album`)
+    //hidden
+    $(`#subscriber_list`).attr(`hidden`, true)
+    $(`#follower_list`).attr(`hidden`, true)
+    $(`#edit_username`).attr(`hidden`, true)
+    $(`#edit_password`).attr(`hidden`, true)
+    $(`#edit_gender`).attr(`hidden`, true)
+    $(`#edit_birthday`).attr(`hidden`, true)
+    $(`#edit_password_verify`).attr(`hidden`, true)
+    $(`#edit_country`).attr(`hidden`, true)
+    $(`#edit_submit`).attr(`hidden`, true)
+  })
+  //show
+  $.ajax({
+    url: "/api/profile",
+    method: "get",
+    success: (data) => {
+      let photo = data.photo;
+      if (photo.length == 0) {
+        $(`#album_list`).attr(`hidden`, true)
+      } else {
+        $(`#album_list`).attr(`hidden`, false)
+      }
+    },
+    error: (err) => {
+      console.log(err)
+    }
   })
 
   //logout button handling
@@ -146,32 +253,3 @@ $().ready(() => {
     alert("remove")
   })
 })
-
-
-
-
-
-
-//{{!--
-//  <script>
-//      const fileName = ".file_name"
-//      const defaultBtn = "#default_btn"
-//      const img = "#icom_img"
-//      function defaultBtnActive() {
-//          $(defaultBtn).click()
-//      };
-//      $(defaultBtn).change(() => {
-//          const reader = new FileReader()
-//          let files = document.getElementById('default_btn').files;
-//          if (files) {
-//              reader.onload = async (event) => {
-//                  $(img).attr('src', event.target.result)
-//              }
-//              reader.readAsDataURL(files[0])
-//          }
-//          if (files) {
-//              let valueStore = files[0].name;
-//              $(fileName).html(valueStore);
-//          }
-//      });
-//  </script> --}}

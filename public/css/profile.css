@@ -13,7 +13,8 @@
 }
 #icon_btn .wrapper{
     position: relative;
-    height: 300px;
+    height: 100%;
+    width: 100%;
     border: 2px dashed #c2cdda;
     border-radius: 10px;
     background: #fff;
@@ -21,11 +22,11 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    object-fit: cover;
 }
 #icon_btn .wrapper.active{
     border: none;
 }
-
 #icon_btn .wrapper .image{
     position: absolute;
     height: 100%;
@@ -33,7 +34,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    object-fit: contain;
 }
 #icon_btn .wrapper .icon{
     font-size: 100px;
@@ -94,8 +94,11 @@
     background-color: #2dbc9fcc;
 }
 .message{
-    margin-top: 40px;
+    margin-top: 90px;
     color:  rgba(0, 0, 0,0.4);
+}
+#joinDate{
+    margin-top: 20px;
 }
 .subscriber a{
     color:  rgba(0, 0, 0,0.5);
@@ -267,4 +270,22 @@ form{
     display: flex;
     justify-content: right;
     align-items: center;
+}
+ul{
+    list-style-type: none;
+}
+.photo_list{
+    background: #fff;
+    box-shadow: 0 0 8px rgba(0, 0, 0,0.08);
+    height: 330px;
+}
+.photo_list p{
+    font-size: 25px;
+    padding-top: 10px;
+}
+.photo_list img{
+    object-fit: cover;
+    display: block;
+    width: 100%;
+    height: 200px;
 }
