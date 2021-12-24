@@ -197,14 +197,7 @@
                 </form>
             </section>
             <section id="album_list" hidden>
-                <ul class="row">
-                    <li class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3 photo_list">
-                        <p class="text-center"><i class="fas fa-image"></i>{{photo}}</p>
-                        <img src="../../../image/photo/{{photo}}" alt="{{photo}}">
-                        <a class="btn submit col-6" href="#" id="album_download_btn">Download</a>
-                        <a class="btn cancel col-6" href="#" id="album_delete_btn">Delete</a>
-                    </li>
-                </ul>
+                <ul class="row" id="album_ul"></ul>
             </section>
             <section id="edit_submit" hidden>
                 <a class="btn submit" href="#" id="edit_submit_btn">Submit<i class="fas fa-paper-plane"></i></a>

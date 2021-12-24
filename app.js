@@ -3,6 +3,7 @@ const express = require("express");
 const { engine } = require("express-handlebars");
 const fs = require("fs");
 const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
 
 //express setting
 const app = express();
@@ -75,6 +76,39 @@ app.post("/profile", (req, res) => {
         }
     });
 });
+app.get(`/download/album/:name`, (req, res) => {
+    let caches = {};
+    function readFile(file) {
+        return new Promise((resolve, reject) => {
+            fs.readFile(__dirname + "/public/image/photo/" + file, (err, body) => {
+                if (err) {
+                    return reject(err);
+                } else {
+                    resolve(body);
+                }
+            });
+        });
+    }
+    if (caches[req.params.name] == null) {
+        caches[req.params.name] = readFile(req.params.name);
+    }
+    caches[req.params.name]
+        .then((body) => {
+            res.send(body);
+        })
+        .catch((e) => res.status(500).send(e.message));
+});
+app.delete("/delete/album/", (req, res) => {
+    //get data form fontend
+    let data = req.body.image
+    //remove image
+    fs.unlink(__dirname + `/public/image/photo/${data}`, (err) => {
+        if (err) {
+            console.log(err);
+        }
+    });
+});
+
 app.delete("/profile", (req, res) => {
     fs.unlink(__dirname + "/public/image/uploaded/userIcon.png", (err) => {
         if (err) {
