@@ -273,15 +273,22 @@ form{
 }
 ul{
     list-style-type: none;
+    justify-content: center;
+    align-items: center;
 }
 .photo_list{
     background: #fff;
     box-shadow: 0 0 8px rgba(0, 0, 0,0.08);
     height: 330px;
+    width: 330px;
+    margin-bottom: 20px;
 }
 .photo_list p{
     font-size: 25px;
     padding-top: 10px;
+}
+.photo_list p i{
+    margin-right: 10px;
 }
 .photo_list img{
     object-fit: cover;

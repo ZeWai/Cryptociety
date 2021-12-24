@@ -1,6 +1,5 @@
 //get conutries from API.
 $().ready(() => {
-
   //fetch api
   $.ajax({
     url: "https://restcountries.com/v2/all",
@@ -197,6 +196,62 @@ $().ready(() => {
   })
 
   //album button handling
+  //fetch photo
+  $.ajax({
+    url: "/api/profile",
+    method: "get",
+    success: (data) => {
+      let photo = data.photo;
+      if (photo.length == 0) {
+        $(`#album_list`).attr(`hidden`, true)
+      } else {
+        $(`#album_list`).attr(`hidden`, false)
+        let photos = "";
+        $.each(photo, (index) => {
+          photos +=
+            `        
+                <li class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-3 col-xxl-3 photo_list" id="${photo[index]}_li">
+                    <p class="text-center"><i class="fas fa-image"></i>${photo[index]}</p>
+                    <img src="../../../image/photo/${photo[index]}" alt="${photo[index]} id="${photo[index]}">
+                    <a class="btn submit col-6 download" href="#" id="album_download_btn_${photo[index]}">Download</a>
+                    <a class="btn cancel col-6 remove" href="#" id="album_delete_btn_${photo[index]}" >Delete</a>
+                </li>
+              `;
+        })
+        $("#album_list .row").append(photos);
+        //handle download button
+        $(`#album_ul .download`).click((event) => {
+          let image = $(event.currentTarget).attr("id").slice(19);
+          $(event.currentTarget).attr("href", `http://localhost:3000/download/album/${image}`);
+        });
+        //handle delete button
+        $(`#album_ul .remove`).click((event) => {
+          //get image id
+          let image = $(event.currentTarget).attr("id").slice(17);
+          // create new data from to server
+          let formData = new FormData;
+          // append data to data form (key:value)
+          let files = image;
+          formData.append("image", files);
+          //send req to server (req.body.[key]) get value)
+          $.ajax({
+            url: "/delete/album",
+            method: "delete",
+            data: formData,
+            cache: false,
+            processData: false,
+            contentType: false
+          })
+          //re-reader album list
+          location.reload();
+        });
+      };
+    },
+    error: (err) => {
+      console.log(err)
+    }
+  })
+  //event handle
   $(`#album_btn`).click(() => {
     $(`#edit_title h2`).html(`Album`)
     //hidden
@@ -209,22 +264,8 @@ $().ready(() => {
     $(`#edit_password_verify`).attr(`hidden`, true)
     $(`#edit_country`).attr(`hidden`, true)
     $(`#edit_submit`).attr(`hidden`, true)
-  })
-  //show
-  $.ajax({
-    url: "/api/profile",
-    method: "get",
-    success: (data) => {
-      let photo = data.photo;
-      if (photo.length == 0) {
-        $(`#album_list`).attr(`hidden`, true)
-      } else {
-        $(`#album_list`).attr(`hidden`, false)
-      }
-    },
-    error: (err) => {
-      console.log(err)
-    }
+    //show
+    $(`#album_list`).attr(`hidden`, false)
   })
 
   //logout button handling
