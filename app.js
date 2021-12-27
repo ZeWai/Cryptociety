@@ -31,8 +31,17 @@ app.get("/index", (req, res) => {
 //profile page
 app.get("/profile", (req, res) => {
     res.render("page/profile", {
-        title: "Profile",
+        title: "profile",
         page: "profile",
+        layout: "other"
+    });
+});
+
+//setting page
+app.get("/setting", (req, res) => {
+    res.render("page/setting", {
+        title: "setting",
+        page: "setting",
         layout: "other",
         icon: () => {
             //check icon Exists
@@ -51,13 +60,13 @@ app.get("/profile", (req, res) => {
         }
     });
 });
-app.get("/api/profile", (req, res) => {
+app.get("/api/setting", (req, res) => {
     let files = fs.readdirSync(__dirname + "/public/image/photo");
     res.json({
         "photo": files
     })
 })
-app.post("/profile", (req, res) => {
+app.post("/setting", (req, res) => {
     //create new icon
     let data = req.files.files
     fs.writeFile(__dirname + "/public/image/uploaded/userIcon.png", data.data, (err) => {
@@ -65,7 +74,7 @@ app.post("/profile", (req, res) => {
             console.log(err);
         }
     });
-    res.render("page/profile", {
+    res.render("page/setting", {
         icon: () => {
             const iconExists = fs.existsSync(__dirname + "/public/image/uploaded/userIcon.png")
             if (iconExists) {
@@ -109,13 +118,13 @@ app.delete("/delete/album/", (req, res) => {
     });
 });
 
-app.delete("/profile", (req, res) => {
+app.delete("/setting", (req, res) => {
     fs.unlink(__dirname + "/public/image/uploaded/userIcon.png", (err) => {
         if (err) {
             console.log(err);
         }
     });
-    res.render("page/profile", {
+    res.render("page/setting", {
         icon: () => {
             const iconExists = fs.existsSync(__dirname + "/public/image/uploaded/userIcon.png")
             if (iconExists) {
@@ -124,15 +133,6 @@ app.delete("/profile", (req, res) => {
                 return "";
             }
         }
-    });
-});
-
-//setting page
-app.get("/setting", (req, res) => {
-    res.render("page/setting", {
-        title: "Setting",
-        page: "setting",
-        layout: "other"
     });
 });
 

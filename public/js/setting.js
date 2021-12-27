@@ -44,7 +44,7 @@ $().ready(() => {
           //send post req to server
           formData.append("files", files);
           $.ajax({
-            url: "/profile",
+            url: "/setting",
             method: "post",
             data: formData,
             cache: false,
@@ -68,7 +68,7 @@ $().ready(() => {
     $(wrapper).removeClass("active");
     //send delete req to server
     $.ajax({
-      url: '/profile',
+      url: '/detting',
       method: 'DELETE',
       success: function (result) {
         console.log(`${result} already deleted!`)
@@ -198,7 +198,7 @@ $().ready(() => {
   //album button handling
   //fetch photo
   $.ajax({
-    url: "/api/profile",
+    url: "/api/setting",
     method: "get",
     success: (data) => {
       let photo = data.photo;
@@ -242,8 +242,8 @@ $().ready(() => {
             processData: false,
             contentType: false
           })
-          //re-reader album list
-          location.reload();
+          // remove parent element of the delete button
+          $(event.currentTarget).parents("li.photo_list").remove();
         });
       };
     },
@@ -272,7 +272,7 @@ $().ready(() => {
   $(`#logout_btn`).attr("href", `http://localhost:3000/`)
 
   //slogan input handling
-  $(`#slogan_input`).click(() => {
+  $(`#slogan_input`).change(() => {
     alert("slogan")
   })
 
@@ -293,5 +293,12 @@ $().ready(() => {
   //remove button handling
   $(`#remove_btn`).click(() => {
     alert("remove")
+  })
+  //info edit sumbit button
+  $("#edit_submit").click(() => {
+    let userVerify = $(`#password_verify`).val()
+    let newUsername = $(`#new_username`).val()
+    console.log(`${userVerify}`, `${newUsername}`)
+
   })
 })
