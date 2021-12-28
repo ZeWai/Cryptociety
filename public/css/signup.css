@@ -8,7 +8,7 @@ html {
 }
 
 canvas {
-  display: block;
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
@@ -25,7 +25,6 @@ body {
 
 .center {
   border-radius: 20px;
-  margin-top: 15%;
   font-family: "VT323", monospace;
   text-align: center;
 }
@@ -144,4 +143,30 @@ button {
 
 button:hover {
   background-color: rgba(45, 188, 159, 0.8);
+}
+body {
+  /* background-image: radial-gradient(circle, #000 25vmin, #024 100vmax); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+#output {
+  background-image: radial-gradient(
+    circle farthest-corner at 75% 75%,
+    rgba(255, 255, 239, 0.3) 0%,
+    rgba(223, 245, 255, 0.3) 50%,
+    rgba(205, 191, 255, 0.3) 100%
+  );
+  border-radius: 100%;
+  color: rgba(0, 194, 184, 0.6);
+  font-family: "Inconsolata", monospace;
+  font-size: 3vmin;
+  line-height: 0.55em;
+  text-rendering: optimizeSpeed;
+  will-change: contents;
+  white-space: pre;
+  z-index: -1;
+  position: absolute;
 }
