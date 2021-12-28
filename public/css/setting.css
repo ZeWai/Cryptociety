@@ -1,12 +1,12 @@
 /*//////////////// onoff button ////////////////*/
 .switch {
-    position: relative;
-    display: inline-block;
-    width: 100px;
-    height: 34px;
-  }
-  
-.switch input { 
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 34px;
+}
+
+.switch input {
   opacity: 0;
   width: 0;
   height: 0;
@@ -20,8 +20,8 @@
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -32,8 +32,8 @@
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
@@ -57,18 +57,18 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-#darkMode{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: -20px 0 0 0;
+#darkMode {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: -20px 0 0 0;
 }
-#darkMode p{
-    padding-top: 10px;
-    margin-left: 6vw;
+#darkMode p {
+  padding-top: 10px;
+  margin-left: 6vw;
 }
-#darkMode label{
-    margin-right: 2vw;
+#darkMode label {
+  margin-right: 2vw;
 }
 /*//////////////// onoff button ////////////////*/
 
@@ -198,15 +198,15 @@ input:checked + .slider:before {
 }
 /*//////////////// alert box ////////////////*/
 
-#info_page{
-    padding: 10px 10px 10px 10px;
-    box-shadow: 0 0 2px rgba(0,0,0,0.4);
-    clip-path: inset(0px -2px 0px 0px);
-    background-color: white;
+#info_page {
+  padding: 10px 10px 10px 10px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.4);
+  clip-path: inset(0px -2px 0px 0px);
+  background-color: white;
 }
-#edit_page{
-    padding: 10px 10px 10px 10px;
-    background-color: whitesmoke;
+#edit_page {
+  padding: 10px 10px 10px 10px;
+  background-color: whitesmoke;
 }
 #icon_btn {
     height: 350px;
@@ -399,105 +399,105 @@ input:checked + .slider:before {
     margin-left: 10px;
 }
 #slogan_input {
-    width: 100%;
-    height: 150px;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 1px solid rgba(0, 0, 0,0.4);
-    border-radius: 4px;
-    background-color: rgba(248, 248, 248,0.4);
-    resize: none;
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  background-color: rgba(248, 248, 248, 0.4);
+  resize: none;
 }
-form{
-    padding-bottom: 10px;
-    display: flex;
-    justify-content: center;
+form {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
 }
-.editing{
-    padding: 20px 0 10px 0;
-    color: rgba(128, 128, 128,0.6);
+.editing {
+  padding: 20px 0 10px 0;
+  color: rgba(128, 128, 128, 0.6);
 }
 .edit_input {
-    width: 400px;
-    padding-top: 10px;
+  width: 400px;
+  padding-top: 10px;
 }
 #new_password {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
 }
-#subscriber_list{
-    margin: 10px;
+#subscriber_list {
+  margin: 10px;
 }
-#subscriber_btn{
-    display: flex;
-    justify-content: left;
-    align-items: center;
+#subscriber_btn {
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
-#subscriber_icon{
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
-    border-radius: 100%;
+#subscriber_icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 100%;
 }
 #subscriber_name {
-    margin-top: 20px;
-    margin-left: 20px;
-    font-weight: 700;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-weight: 700;
 }
-#follower_list{
-    margin: 10px;
+#follower_list {
+  margin: 10px;
 }
-#follower_btn{
-    display: flex;
-    justify-content: left;
-    align-items: center;
+#follower_btn {
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
-#follower_icon{
-    width: 60px;
-    height: 60px;
-    object-fit: contain;
-    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
-    border-radius: 100%;
+#follower_icon {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 100%;
 }
 #follower_name {
-    margin-top: 20px;
-    margin-left: 20px;
-    font-weight: 700;
+  margin-top: 20px;
+  margin-left: 20px;
+  font-weight: 700;
 }
-#unfollow_btn{
-    color: white;
-    display: flex;
-    justify-content: right;
-    align-items: center;
+#unfollow_btn {
+  color: white;
+  display: flex;
+  justify-content: right;
+  align-items: center;
 }
-#remove_follow_btn{
-    color: white;
-    display: flex;
-    justify-content: right;
-    align-items: center;
+#remove_follow_btn {
+  color: white;
+  display: flex;
+  justify-content: right;
+  align-items: center;
 }
-ul{
-    list-style-type: none;
-    justify-content: center;
-    align-items: center;
+ul {
+  list-style-type: none;
+  justify-content: center;
+  align-items: center;
 }
-.photo_list{
-    background: #fff;
-    box-shadow: 0 0 8px rgba(0, 0, 0,0.08);
-    height: 330px;
-    width: 330px;
-    margin-bottom: 20px;
+.photo_list {
+  background: #fff;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.08);
+  height: 330px;
+  width: 330px;
+  margin-bottom: 20px;
 }
-.photo_list p{
-    font-size: 25px;
-    padding-top: 10px;
+.photo_list p {
+  font-size: 25px;
+  padding-top: 10px;
 }
-.photo_list p i{
-    margin-right: 10px;
+.photo_list p i {
+  margin-right: 10px;
 }
-.photo_list img{
-    object-fit: cover;
-    display: block;
-    width: 100%;
-    height: 200px;
+.photo_list img {
+  object-fit: cover;
+  display: block;
+  width: 100%;
+  height: 200px;
 }

@@ -1,4 +1,3 @@
-
 exports.up = function(knex) {
   return knex.schema.createTable('friendships', function(table) {
       table.integer('request_friend').references('user_profile.id');

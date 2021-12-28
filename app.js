@@ -13,8 +13,6 @@ const ip = "localhost";
 
 //public css
 app.use(express.static(__dirname + "/public"));
-app.use(fileUpload());
-
 //handlebars setting
 app.engine("handlebars", engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
