@@ -346,9 +346,15 @@ $().ready(() => {
       success: (data) => {
         //verify password
         if (data.verify === "fail") {
-          alert("Incorret password! Please try again!")
+          $(".alert").removeClass("hidden")
+          $(".alert").addClass("show")
+          $(".alert_success").removeClass("show")
+          $(".alert_success").addClass("hidden")
         } else {
-          alert("Editing success!")
+          $(".alert_success").removeClass("hidden")
+          $(".alert_success").addClass("show")
+          $(".alert").removeClass("show")
+          $(".alert").addClass("hidden")
           //clear all the input value
           for (let i = 0; i < input.length; i++) {
             $(`${input[i]}`).val("")
@@ -358,6 +364,16 @@ $().ready(() => {
       error: (err) => {
         console.log(err)
       }
+    })
+    //close alert button
+    $(".alert_close_btn").click(() => {
+      $(".alert").removeClass("show")
+      $(".alert").addClass("hidden")
+    })
+    //close alert button
+    $(".alert_success_close_btn").click(() => {
+      $(".alert_success").removeClass("show")
+      $(".alert_success").addClass("hidden")
     })
   })
   //info edit cancel button

@@ -1,4 +1,4 @@
-/*///////////////////////////////////////////////////////////////////////////// onoff button /////////////////////////////////////////////////////////////////////////////*/
+/*//////////////// onoff button ////////////////*/
 .switch {
     position: relative;
     display: inline-block;
@@ -70,7 +70,133 @@ input:checked + .slider:before {
 #darkMode label{
     margin-right: 2vw;
 }
-/*///////////////////////////////////////////////////////////////////////////// onoff button /////////////////////////////////////////////////////////////////////////////*/
+/*//////////////// onoff button ////////////////*/
+
+/*//////////////// alert box ////////////////*/
+.alert{
+    background: #ffdb9b;
+    padding:20px 40px;
+    min-width: 420px;
+    position: absolute;
+    right: 0px;
+    top: 8vh;
+    overflow: hidden;
+    border-radius: 4px;
+    border-left: 8px solid #ffa502;
+}
+.alert.show{
+    animation: show_slide 1s ease forwards;
+}
+@keyframes show_slide {
+    0%{
+        transform: translateX(100%);
+    }
+    40%{
+        transform: translateX(-10%);
+    }
+    80%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(-10px);
+    }
+}
+.alert.hidden{
+    display: none;
+}
+
+.alert .fa-exclamation-circle{
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ce8500;
+    font-size: 30px;
+}
+.alert .alert_msg{
+    padding: 0 20px;
+    font-size: 18px;
+    color: #ce8500;
+}
+.alert .alert_close_btn{
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 20px 18px;
+    cursor: pointer;
+}
+.alert_close_btn:hover{
+    background: #ffc766;
+}
+.alert_close_btn .fa-times{
+    color: #ce8500;
+    font-size: 22px;
+    line-height: 40px;
+}
+.alert_success{
+    background: rgba(46, 189, 160, 0.4);
+    padding:20px 40px;
+    min-width: 420px;
+    position: absolute;
+    right: 0px;
+    top: 8vh;
+    overflow: hidden;
+    border-radius: 4px;
+    border-left: 8px solid #2dbc9fcc;
+}
+.alert_success.show{
+    animation: show_slide 1s ease forwards;
+}
+@keyframes show_slide {
+    0%{
+        transform: translateX(100%);
+    }
+    40%{
+        transform: translateX(-10%);
+    }
+    80%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(-10px);
+    }
+}
+.alert_success.hidden{
+    display: none;
+}
+
+.alert_success .fa-exclamation-circle{
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #2dbc9fcc;
+    font-size: 30px;
+}
+.alert_success .alert_success_msg{
+    padding: 0 20px;
+    font-size: 18px;
+    color: #2dbc9fcc;
+}
+.alert_success .alert_success_close_btn{
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(45, 188, 159, 0.8);
+    padding: 20px 18px;
+    cursor: pointer;
+}
+.alert_success_close_btn:hover{
+    background: rgba(57, 208, 178, 0.4);
+}
+.alert_success_close_btn .fa-times{
+    color: #2dbc9fcc;
+    font-size: 22px;
+    line-height: 40px;
+}
+/*//////////////// alert box ////////////////*/
 
 #info_page{
     padding: 10px 10px 10px 10px;
@@ -233,7 +359,7 @@ input:checked + .slider:before {
     margin-right: 10px;
     width: 120px;
     color:white;
-    background-color: rgba(57, 209, 179,0.4);
+    background-color: #39d1b366;
 }
 .submit:hover{
     color:white;
