@@ -143,6 +143,12 @@ app.get("/", (req, res) => {
     });
 });
 
+app.get("/signup", (req, res) => {
+    res.render("page/signup", {
+        title: "Signup",
+        page: "signup"
+    });
+});
 //404 page
 app.use((req, res) => {
     res.status(404).render("page/404", {
