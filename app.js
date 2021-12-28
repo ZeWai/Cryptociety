@@ -4,6 +4,7 @@ const { engine } = require("express-handlebars");
 const fs = require("fs");
 const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
+require('dotenv').config();
 
 //express setting
 const app = express();
@@ -18,19 +19,20 @@ app.set("view engine", "handlebars");
 
 //response page
 //logged in
-//index page
-app.get("/index", (req, res) => {
-    res.render("page/index", {
-        title: "Cryptociety",
-        page: "index",
+//Market page
+app.get("/market", (req, res) => {
+    res.render("page/market", {
+        title: "Market",
+        page: "market",
         layout: "other"
     });
 });
-//profile page
-app.get("/profile", (req, res) => {
-    res.render("page/profile", {
-        title: "profile",
-        page: "profile",
+
+//index page
+app.get("/index", (req, res) => {
+    res.render("page/index", {
+        title: "Index",
+        page: "index",
         layout: "other"
     });
 });
@@ -38,9 +40,18 @@ app.get("/profile", (req, res) => {
 //setting page
 app.get("/setting", (req, res) => {
     res.render("page/setting", {
-        title: "setting",
+        title: "Setting",
         page: "setting",
         layout: "other",
+        userId: "dhgf6ewf76qew7123r32",
+        email: "miofong@live.hk",
+        username: "Miofong",
+        password: "********",
+        gender: "Boy",
+        birthday: "1990-09-15",
+        country: "Hong Kong",
+        joinDate: "2021-12-28",
+        slogan: "Happy Boy",
         icon: () => {
             //check icon Exists
             const iconExists = fs.existsSync(__dirname + "/public/image/uploaded/userIcon.png")
@@ -83,6 +94,22 @@ app.post("/setting", (req, res) => {
         }
     });
 });
+app.put("/setting", (req, res) => {
+    let data = req.body.input
+    //json to object
+    data = JSON.parse(data)
+    //verify password
+    if (data.password_verify !== process.env.DB_PASSWORD) {
+        res.json({
+            "verify": "fail"
+        })
+    } else {
+        res.json({
+            "verify": "success"
+        })
+    }
+});
+
 app.get(`/download/album/:name`, (req, res) => {
     let caches = {};
     function readFile(file) {
@@ -115,7 +142,6 @@ app.delete("/delete/album/", (req, res) => {
         }
     });
 });
-
 app.delete("/setting", (req, res) => {
     fs.unlink(__dirname + "/public/image/uploaded/userIcon.png", (err) => {
         if (err) {
@@ -133,6 +159,15 @@ app.delete("/setting", (req, res) => {
         }
     });
 });
+//logout
+app.get("/index", (req, res) => {
+    res.render("page/index", {
+        title: "Cryptociety",
+        page: "index",
+        layout: "other"
+    });
+});
+
 
 //logged out
 //login page

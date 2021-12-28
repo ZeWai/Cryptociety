@@ -8,11 +8,11 @@ $("#search_bar").keyup(() => {
     alert(`search bar keyup`);
 });
 
+//market button handling 
+$(`#market_btn`).attr("href", `${ip}market`)
+
 //index button handling 
 $(`#index_btn`).attr("href", `${ip}index`)
-
-//profile button handling 
-$(`#profile_btn`).attr("href", `${ip}profile`)
 
 //setting button handling 
 $(`#setting_btn`).attr("href", `${ip}setting`)

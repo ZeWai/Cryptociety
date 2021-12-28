@@ -83,194 +83,194 @@ input:checked + .slider:before {
   background-color: whitesmoke;
 }
 #icon_btn {
-  height: 350px;
+    height: 350px;
 }
-#icon_btn .wrapper {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  border: 2px dashed #c2cdda;
-  border-radius: 100%;
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  object-fit: cover;
+#icon_btn .wrapper{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border: 2px dashed #c2cdda;
+    border-radius: 10px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
-#icon_btn .wrapper.active {
-  border: none;
+#icon_btn .wrapper.active{
+    border: none;
 }
-#icon_btn .wrapper .image {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+#icon_btn .wrapper .image{
+    position: absolute;
+    height: 350px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-#icon_btn .wrapper .image img {
-  border-radius: 100%;
-  width: 350px;
-  height: 350px;
+#icon_btn .wrapper .image img{
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+    object-fit: contain;
 }
-#icon_btn .wrapper .icon {
-  font-size: 100px;
-  color: #2dbc9fcc;
+#icon_btn .wrapper .icon{
+    font-size: 100px;
+    color: #2dbc9fcc;
 }
-#icon_btn .wrapper .text {
-  font-size: 20px;
-  font-weight: 500;
-  color: #2dbc9fcc;
+#icon_btn .wrapper .text{
+    font-size: 20px;
+    font-weight: 500;
+    color: #2dbc9fcc;
 }
-#icon_cancel_btn {
-  position: absolute;
-  right: 20px;
-  top: 15px;
-  font-size: 20px;
-  cursor: pointer;
-  color: #2dbc9fcc;
-  display: none;
+#icon_cancel_btn{
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #2dbc9fcc;
+    display: none;
 }
-.wrapper.active:hover #icon_cancel_btn {
-  display: block;
+.wrapper.active:hover #icon_cancel_btn{
+    display: block;
 }
-.wrapper #icon_cancel_btn:hover {
-  color: rgb(235, 56, 18);
+.wrapper #icon_cancel_btn:hover{
+    color:rgb(235, 56, 18)
 }
-.file_name {
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
-  color: white;
-  background: #2dbc9fcc;
-  padding: 8px 0;
-  font-size: 18px;
-  font-weight: 700;
-  text-transform: uppercase;
-  display: none;
+.file_name{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    color: white;
+    background: #2dbc9fcc;
+    padding: 8px 0;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: none;
 }
-.wrapper.active:hover .file_name {
-  display: block;
+.wrapper.active:hover .file_name{
+    display: block;
 }
-#custom_btn {
-  margin-top: 20px;
-  width: 100%;
-  height: 50px;
-  display: block;
-  border: none;
-  background: #39d1b366;
-  font-size: 18px;
-  font-weight: 700;
-  color: white;
-  border-radius: 20px;
-  text-transform: uppercase;
-  cursor: pointer;
-  outline: none;
+#custom_btn{
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+    display: block;
+    border: none;
+    background: #39d1b366;
+    font-size: 18px;
+    font-weight: 700;
+    color:white;
+    border-radius: 20px;
+    text-transform: uppercase;
+    cursor:pointer;
+    outline:none;
 }
-#custom_btn:hover {
-  color: white;
-  background-color: #2dbc9fcc;
+#custom_btn:hover{
+    color:white;
+    background-color: #2dbc9fcc;
 }
-.message {
-  margin-top: 90px;
-  color: rgba(0, 0, 0, 0.4);
+.message{
+    margin-top: 90px;
+    color:  rgba(0, 0, 0,0.4);
 }
-#joinDate {
-  margin-top: 20px;
+#joinDate{
+    margin-top: 20px;
 }
-.subscriber a {
-  color: rgba(0, 0, 0, 0.5);
-  margin-bottom: 10px;
-  text-decoration: none;
+.subscriber a{
+    color:  rgba(0, 0, 0,0.5);
+    margin-bottom: 10px;
+    text-decoration: none;
 }
-.subscriber a span {
-  padding-right: 5px;
+.subscriber a span{
+    padding-right: 5px;
 }
-.subscriber a:hover {
-  color: rgba(0, 0, 0, 1);
+.subscriber a:hover{
+    color:  rgba(0, 0, 0,1);
 }
 #subscriber {
-  display: flex;
-  justify-content: right;
+    display: flex;
+    justify-content: right;
 }
-#follower {
-  display: flex;
-  justify-content: left;
+#follower{
+    display: flex;
+    justify-content: left;
 }
-.edit {
-  margin-left: 40px;
-  width: 100px;
-  color: white;
-  background-color: rgba(57, 209, 179, 0.4);
+.edit{
+    margin-left: 40px;
+    width: 100px;
+    color:white;
+    background-color: #39d1b366;
 }
-.edit:hover {
-  color: white;
-  background-color: #2dbc9fcc;
+.edit:hover{
+    color:white;
+    background-color: #2dbc9fcc;
 }
-.logout {
-  margin-left: 40px;
-  width: 120px;
-  color: white;
-  background-color: rgba(240, 95, 64, 0.4);
+.group{
+    margin-left: 40px;
+    width: 120px;
+    color:white;
+    background-color: rgba(210, 18, 235,0.4);
 }
-.logout:hover {
-  color: white;
-  background-color: rgba(235, 56, 18, 0.8);
+.group:hover{
+    color:white;
+    background-color: rgba(210, 18, 235, 0.8);
 }
-.album {
-  margin-left: 40px;
-  width: 120px;
-  color: white;
-  background-color: rgba(13, 110, 253, 0.4);
+.album{
+    margin-left: 40px;
+    width: 120px;
+    color:white;
+    background-color: rgba(13, 110, 253,0.4);
 }
-.album:hover {
-  color: white;
-  background-color: rgba(13, 110, 253, 0.8);
+.album:hover{
+    color:white;
+    background-color: rgba(13, 110, 253,0.8);
 }
-.submit {
-  margin-top: 10px;
-  margin-right: 10px;
-  width: 120px;
-  color: white;
-  background-color: rgba(57, 209, 179, 0.4);
+.submit{
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 120px;
+    color:white;
+    background-color: rgba(57, 209, 179,0.4);
 }
-.submit:hover {
-  color: white;
-  background-color: #2dbc9fcc;
+.submit:hover{
+    color:white;
+    background-color: #2dbc9fcc;
 }
-.submit i {
-  margin-left: 10px;
+.submit i{
+    margin-left: 10px;
 }
-.cancel {
-  margin-top: 10px;
-  margin-left: 10px;
-  width: 120px;
-  color: white;
-  background-color: rgba(240, 95, 64, 0.4);
+.cancel{
+    margin-top: 10px;
+    margin-left: 10px;
+    width: 120px;
+    color:white;
+    background-color: rgba(240, 95, 64,0.4);
 }
-.cancel:hover {
-  color: white;
-  background-color: rgba(235, 56, 18, 0.8);
+.cancel:hover{
+    color:white;
+    background-color: rgba(235, 56, 18,0.8);
 }
-.cancel i {
-  margin-left: 10px;
+.cancel i{
+    margin-left: 10px;
 }
-.info {
-  color: rgb(0, 0, 0);
-  font-size: 18px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.info{
+    color:  rgb(0, 0, 0);
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.info p {
-  margin-top: 10px;
-  font-weight: 700;
-  display: flex;
-  justify-content: right;
+.info p{
+    margin-top: 10px;
+    font-weight: 700;
+    display: flex;
+    justify-content: right;
 }
-.info a i {
-  margin-left: 10px;
+.info a i{
+    margin-left: 10px;
 }
 #slogan_input {
   width: 100%;

@@ -31,6 +31,7 @@ $().ready(() => {
     //hidden attr
     $(".icon").attr("hidden", true);
     $(".text").attr("hidden", true);
+    $("#icon_img").attr('hidden', false)
   }
   $(`#custom_btn`).click(() => {
     $(defaultBtn).click();
@@ -53,6 +54,7 @@ $().ready(() => {
           })
           //reader image
           $(img).attr('src', event.target.result)
+          $("#icon_img").attr('hidden', false)
           //add hover effect to icon
           $(wrapper).addClass("active");
         }
@@ -65,10 +67,11 @@ $().ready(() => {
     $(img).attr('src', "")
     $(".icon").attr("hidden", false);
     $(".text").attr("hidden", false);
+    $("#icon_img").attr('hidden', true)
     $(wrapper).removeClass("active");
     //send delete req to server
     $.ajax({
-      url: '/detting',
+      url: '/setting',
       method: 'DELETE',
       success: function (result) {
         console.log(`${result} already deleted!`)
@@ -89,6 +92,7 @@ $().ready(() => {
     $(`#edit_birthday`).attr(`hidden`, true)
     $(`#edit_country`).attr(`hidden`, true)
     $(`#album_list`).attr(`hidden`, true)
+    $(`#create_group`).attr(`hidden`, true)
     //show
     $(`#subscriber_list`).attr(`hidden`, false)
   })
@@ -106,6 +110,7 @@ $().ready(() => {
     $(`#edit_birthday`).attr(`hidden`, true)
     $(`#edit_country`).attr(`hidden`, true)
     $(`#album_list`).attr(`hidden`, true)
+    $(`#create_group`).attr(`hidden`, true)
     //show
     $(`#follower_list`).attr(`hidden`, false)
   })
@@ -121,6 +126,7 @@ $().ready(() => {
     $(`#edit_birthday`).attr(`hidden`, true)
     $(`#edit_country`).attr(`hidden`, true)
     $(`#album_list`).attr(`hidden`, true)
+    $(`#create_group`).attr(`hidden`, true)
     //show
     $(`#edit_password_verify`).attr(`hidden`, false)
     $(`#edit_username`).attr(`hidden`, false)
@@ -138,6 +144,7 @@ $().ready(() => {
     $(`#edit_birthday`).attr(`hidden`, true)
     $(`#edit_country`).attr(`hidden`, true)
     $(`#album_list`).attr(`hidden`, true)
+    $(`#create_group`).attr(`hidden`, true)
     //show
     $(`#edit_password_verify`).attr(`hidden`, false)
     $(`#edit_password`).attr(`hidden`, false)
@@ -155,6 +162,7 @@ $().ready(() => {
     $(`#edit_birthday`).attr(`hidden`, true)
     $(`#edit_country`).attr(`hidden`, true)
     $(`#album_list`).attr(`hidden`, true)
+    $(`#create_group`).attr(`hidden`, true)
     //show
     $(`#edit_password_verify`).attr(`hidden`, false)
     $(`#edit_gender`).attr(`hidden`, false)
@@ -172,6 +180,7 @@ $().ready(() => {
     $(`#edit_gender`).attr(`hidden`, true)
     $(`#edit_country`).attr(`hidden`, true)
     $(`#album_list`).attr(`hidden`, true)
+    $(`#create_group`).attr(`hidden`, true)
     //show
     $(`#edit_password_verify`).attr(`hidden`, false)
     $(`#edit_birthday`).attr(`hidden`, false)
@@ -189,6 +198,7 @@ $().ready(() => {
     $(`#edit_gender`).attr(`hidden`, true)
     $(`#edit_birthday`).attr(`hidden`, true)
     $(`#album_list`).attr(`hidden`, true)
+    $(`#create_group`).attr(`hidden`, true)
     //show
     $(`#edit_password_verify`).attr(`hidden`, false)
     $(`#edit_country`).attr(`hidden`, false)
@@ -264,12 +274,27 @@ $().ready(() => {
     $(`#edit_password_verify`).attr(`hidden`, true)
     $(`#edit_country`).attr(`hidden`, true)
     $(`#edit_submit`).attr(`hidden`, true)
+    $(`#create_group`).attr(`hidden`, true)
     //show
     $(`#album_list`).attr(`hidden`, false)
   })
-
-  //logout button handling
-  $(`#logout_btn`).attr("href", `http://localhost:3000/`)
+  //event handle
+  $(`#group_btn`).click(() => {
+    $(`#edit_title h2`).html(`Create Group`)
+    //hidden
+    $(`#subscriber_list`).attr(`hidden`, true)
+    $(`#follower_list`).attr(`hidden`, true)
+    $(`#edit_username`).attr(`hidden`, true)
+    $(`#edit_password`).attr(`hidden`, true)
+    $(`#edit_gender`).attr(`hidden`, true)
+    $(`#edit_birthday`).attr(`hidden`, true)
+    $(`#edit_password_verify`).attr(`hidden`, true)
+    $(`#edit_country`).attr(`hidden`, true)
+    $(`#edit_submit`).attr(`hidden`, true)
+    $(`#album_list`).attr(`hidden`, true)
+    //show
+    $(`#create_group`).attr(`hidden`, false)
+  })
 
   //slogan input handling
   $(`#slogan_input`).change(() => {
@@ -294,11 +319,51 @@ $().ready(() => {
   $(`#remove_btn`).click(() => {
     alert("remove")
   })
-  //info edit sumbit button
-  $("#edit_submit").click(() => {
-    let userVerify = $(`#password_verify`).val()
-    let newUsername = $(`#new_username`).val()
-    console.log(`${userVerify}`, `${newUsername}`)
 
+  //Submit handling
+  let input = ["#password_verify", "#new_username", "#new_password", "#confirm_new_password", "#new_gender", "#new_birthday", "#new_country"]
+  //info edit submit button
+  $("#edit_submit_btn").click(() => {
+    // create new data from to server
+    let formData = new FormData;
+    // append data to data form (key:value) object to json
+    let files = JSON.stringify({
+      password_verify: $(`${input[0]}`).val(),
+      new_username: $(`${input[1]}`).val(),
+      new_password: $(`${input[2]}`).val(),
+      confirm_new_password: $(`${input[3]}`).val(),
+      new_gender: $(`${input[4]}`).val(),
+      new_birthday: $(`${input[5]}`).val(),
+      new_country: $(`${input[6]}`).val()
+    })
+    formData.append("input", files);
+    $.ajax({
+      url: "/setting",
+      method: "put",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (data) => {
+        //verify password
+        if (data.verify === "fail") {
+          alert("Incorret password! Please try again!")
+        } else {
+          alert("Editing success!")
+          //clear all the input value
+          for (let i = 0; i < input.length; i++) {
+            $(`${input[i]}`).val("")
+          }
+        }
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+  })
+  //info edit cancel button
+  $("#edit_cancel_btn").click(() => {
+    for (let i = 0; i < input.length; i++) {
+      $(`${input[i]}`).val("")
+    }
   })
 })

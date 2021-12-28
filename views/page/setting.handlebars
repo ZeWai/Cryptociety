@@ -4,7 +4,7 @@
             <div class="col-12" id="icon_btn">
                 <div class="wrapper">
                     <div class="image">
-                        <img src="{{icon}}" id="icon_img">
+                        <img src="{{icon}}" id="icon_img" hidden>
                     </div>
                     <div class="content">
                         <div class="icon"><i class="fas fa-cloud-upload-alt"></i></div>
@@ -16,9 +16,9 @@
                 <input type="file" id="default_btn" hidden>
                 <button class="btn" id="custom_btn">Upload icon</button>
             </div>
-            <div class="col-12 message" id="userId">
-                <p>Id : 48466d229fa0df5d4c18ef91</p>
-                <p>email : miofong@live.hk</p>
+            <div class="col-12 message" id="userIdNumber">
+                <p id="userId">Id : {{userId}}</p>
+                <p id="email">email : {{email}}</p>
             </div>
             <div class="row">
                 <div class="col-6 subscriber" id="subscriber">
@@ -42,7 +42,7 @@
             <div class="col-12 info" id="userName">
                 <div class="row">
                     <div class="col-6">
-                        <p>Mio Fong</p>
+                        <p id="currentUsername">{{username}}</p>
                     </div>
                     <div class="col-6">
                         <a class="btn edit" href="#" id="edit_username_btn">Edit<i class="fas fa-edit"></i></a>
@@ -52,7 +52,7 @@
             <div class="col-12 info" id="password">
                 <div class="row">
                     <div class="col-6">
-                        <p>********</p>
+                        <p id="currentPassword" type="password">{{password}}</p>
                     </div>
                     <div class="col-6">
                         <a class="btn edit" href="#" id="edit_passoword_btn">Edit<i class="fas fa-edit"></i></a>
@@ -62,7 +62,7 @@
             <div class="col-12 info" id="gender">
                 <div class="row">
                     <div class="col-6">
-                        <p>male</p>
+                        <p id="currentGender">{{gender}}</p>
                     </div>
                     <div class="col-6">
                         <a class="btn edit" href="#" id="edit_gender_btn">Edit<i class="fas fa-edit"></i></a>
@@ -72,7 +72,7 @@
             <div class="col-12 info" id="birthday">
                 <div class="row">
                     <div class="col-6">
-                        <p>15/09/1990</p>
+                        <p id="currentBrithday">{{birthday}}</p>
                     </div>
                     <div class="col-6">
                         <a class="btn edit" href="#" id="edit_birthday_btn">Edit<i class="fas fa-edit"></i></a>
@@ -82,7 +82,7 @@
             <div class="col-12 info" id="country">
                 <div class="row">
                     <div class="col-6">
-                        <p>Hong Kong</p>
+                        <p id="currentContry">{{country}}</p>
                     </div>
                     <div class="col-6">
                         <a class="btn edit" href="#" id="edit_country_btn">Edit<i class="fas fa-edit"></i></a>
@@ -95,17 +95,17 @@
                         <a class="btn album" href="#" id="album_btn">Album<i class="fas fa-images"></i></a>
                     </div>
                     <div class="col-6">
-                        <a class="btn logout" href="#" id="logout_btn">Logout<i class="fas fa-sign-out-alt"></i></a>
+                        <a class="btn group" href="#" id="group_btn">Group<i class="fas fa-users"></i></a>
                     </div>
                 </div>
             </div>
             <div class="col-12 message" id="joinDate">
-                <p>Join : 14/12/2021</p>
+                <p id="joinDay">Join : {{joinDate}}</p>
             </div>
             <div class="col-12">
                 <form>
                     <input class="form-control" type="text" placeholder="Write down something..." id="slogan_input"
-                        value="">
+                        value="{{slogan}}">
                 </form>
             </div>
         </div>
@@ -184,7 +184,7 @@
             <section id="edit_gender" hidden>
                 <form>
                     <input class="form-control edit_input" list="gender-list" type="text" placeholder="Select gender"
-                        id="new_gender" value="Male">
+                        id="new_gender">
                     <datalist id="gender-list">
                         <option value="Male">
                         <option value="Female">
@@ -194,14 +194,13 @@
             </section>
             <section id="edit_birthday" hidden>
                 <form>
-                    <input class="form-control edit_input" type="date" id="new_birthday" name="trip-start"
-                        value="1990-09-15">
+                    <input class="form-control edit_input" type="date" id="new_birthday" name="trip-start">
                 </form>
             </section>
             <section id="edit_country" hidden>
                 <form>
                     <input class="form-control edit_input" list="country-list" type="text" placeholder="Select country"
-                        id="new_country" value="Hong Kong">
+                        id="new_country">
                     <datalist id="country-list"></datalist>
                 </form>
             </section>
