@@ -16,3 +16,6 @@ $(`#index_btn`).attr("href", `${ip}index`)
 
 //setting button handling 
 $(`#setting_btn`).attr("href", `${ip}setting`)
+
+//logout button handling 
+$(`#logout_btn`).attr("href", `${ip}`)

@@ -161,18 +161,9 @@ app.delete("/setting", (req, res) => {
         }
     });
 });
-//logout
-app.get("/index", (req, res) => {
-    res.render("page/index", {
-        title: "Cryptociety",
-        page: "index",
-        layout: "other"
-    });
-});
-
 
 //logged out
-//login page
+//login & logout page
 app.get("/", (req, res) => {
     res.render("page/login", {
         title: "Login",
