@@ -1,51 +1,66 @@
-.sectionright{
-    width: 15%;
-    margin-bottom: 20px;
-    float: left;
-    height:84vh;
-    overflow:auto;
+.sectionleft {
+  width: 15%;
+  margin-bottom: 20px;
+  float: left;
+  height: 84vh;
+  overflow: auto;
 }
 
-.sectionleft{
-    width: 84%;
-    margin-bottom: 20px;
-    float:right;
-    border-left:1px rgba(128, 128, 128, 0.3) solid;
-    height:84vh;
-    overflow:auto;
+.sectionright {
+  width: 84%;
+  margin-bottom: 20px;
+  float: right;
+  border-left: 1px rgba(128, 128, 128, 0.3) solid;
+  height: 84vh;
+  overflow: auto;
 }
-section{
-    clear: both;
+section {
+  clear: both;
 }
-.image{
-    margin: 30px auto;
-    border-radius: 100%;
-    width: 200px;
-    height: 200px;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    display: flex;
-    border: solid 2px gray;
+.image {
+  margin: 30px auto;
+  border-radius: 100%;
+  width: 200px;
+  height: 200px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  border: solid 2px gray;
 }
-.image img{
-    border-radius: 100%;
-    width: 200px;
-    height: 200px;
+.image img {
+  border-radius: 100%;
+  width: 200px;
+  height: 200px;
+}
+.username {
+  text-align: center;
+  border-bottom: 30px;
+}
+.slogan {
+  text-align: center;
+  font-size: 10px;
+}
+.sectionleft button {
+  width: 200px;
+  text-align: center;
+  margin: 20px auto 0 auto;
+  display: block;
+  border-radius: 50px;
+  background-color: rgba(57, 209, 179, 0.4);
+  cursor: pointer;
+  transition: 0.3s;
+}
+.sectionleft button:hover {
+  background-color: rgba(45, 188, 159, 0.8);
+}
 
-}
-.username{
-    text-align: center;
-    border-bottom: 30px;
+/* Create an active/current tablink class */
+.sectionleft button.active {
+  background-color: rgba(45, 188, 159, 0.8);
 }
 
-.button{
-    width: 230px;
-    text-align: center;
-    margin: 20px auto 0 auto;
-    display: block;
-    border-radius: 50px;
-    background-color: rgba(57, 209, 179,0.4);
+/* Style the tab content */
+.tabcontent {
+  display: none;
 }
-.button:hover{
-    background-color:rgba(45, 188, 159,0.8)}

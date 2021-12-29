@@ -11,6 +11,15 @@ const app = express();
 const port = 3000;
 const ip = "localhost";
 
+// https setup
+const https = require('https');
+const options = {
+    cert: fs.readFileSync('./localhost.crt'),
+    key: fs.readFileSync('./localhost.key')
+}
+require('https').globalAgent.options.rejectUnauthorized = false;
+
+
 //public css
 app.use(express.static(__dirname + "/public"));
 app.use(fileUpload());
@@ -36,7 +45,19 @@ app.get("/index", (req, res) => {
     res.render("page/index", {
         title: "Index",
         page: "index",
-        layout: "other"
+        layout: "other",
+        username: "Miofong",
+        slogan: "Happy Boy",
+        icon: () => {
+            //check icon Exists
+            const iconExists = fs.existsSync(__dirname + "/public/image/uploaded/userIcon.png")
+            if (iconExists) {
+                let img = "/image/uploaded/userIcon.png"
+                return img;
+            } else {
+                return "";
+            }
+        }
     });
 });
 
@@ -242,15 +263,51 @@ app.get("/signup", (req, res) => {
         page: "signup"
     });
 });
-//404 page
-app.use((req, res) => {
-    res.status(404).render("page/404", {
-        title: "404",
-        page: "404",
-    });
-});
+
+
+
+// app.post("/signup", passport.authenticate("local-signup", {
+//     successRedirect: "profile",
+//     failureRedirect: "page/404"
+// }))
 
 //server port listen
-app.listen(port, ip, () => {
-    console.log(`Server is running and listening to port ${port} !`)
-})
+// app.listen(port, ip, () => {
+//     console.log(`Server is running and listening to port ${port} !`)
+// })
+
+
+// passport functions app.js
+require('dotenv').config();
+const passportFunctions = require("./passport");
+const cookieParser = require("cookie-parser");
+const expressSession = require("express-session");
+
+const AuthRouter = require("./Routers/authRouter");
+const authRouter = new AuthRouter();
+const ViewRouter = require("./Routers/viewRouter");
+const viewRouter = new ViewRouter();
+
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true}));
+app.use(express.json());
+app.use(expressSession({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true,
+}));
+
+app.use(passportFunctions.initialize());
+
+app.use(passportFunctions.session());
+
+app.use("/", authRouter.router());
+app.use("/", viewRouter.router());
+
+
+
+
+// listen to https server
+https.createServer(options, app).listen(3000, () => {
+    console.log("application listening to port 3000");
+});
