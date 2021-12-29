@@ -26,21 +26,22 @@
             <p>Follower List</p>
         </div>
         <div id="Chatroom" class="tabcontent">
-            <div id="chatty">
-                <button id="join">Join a room</button>
-            
-                <div id="chat-window">
-                    <div id="output"></div>
-                </div>
-            
-                <div id="echo">
-                    <p>&nbsp</p>
-                </div>
-                <input type="text" id="message" placeholder="Message" />
-                <button id="send">Send</button>
-            </div>
+            <ul class="pages">
+                <li class="chat page">
+                    <div class="chatArea">
+                        <ul class="messages"></ul>
+                    </div>
+                    <input class="inputMessage"
+                        placeholder="Type here..." />
+                </li>
+                
+            </ul>
         </div>
 
     </div>
 </div>
 <script src="../js/index.js"></script>
+<script
+    src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<script src="https://cdn.socket.io/4.4.0/socket.io.js"></script>
+    <script src="../js/chatroom.js"></script>
