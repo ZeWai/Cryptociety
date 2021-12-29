@@ -44,7 +44,19 @@ app.get("/index", (req, res) => {
     res.render("page/index", {
         title: "Index",
         page: "index",
-        layout: "other"
+        layout: "other",
+        username: "Miofong",
+        slogan: "Happy Boy",
+        icon: () => {
+            //check icon Exists
+            const iconExists = fs.existsSync(__dirname + "/public/image/uploaded/userIcon.png")
+            if (iconExists) {
+                let img = "/image/uploaded/userIcon.png"
+                return img;
+            } else {
+                return "";
+            }
+        }
     });
 });
 

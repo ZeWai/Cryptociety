@@ -100,18 +100,11 @@ button:hover {
 canvas {
   display: none;
 }
-.inputarea {
-  grid-column-start: 3;
-  grid-column-end: 6;
-  grid-row-start: 2;
-  grid-row-end: 6;
-  font-size: 15px;
-}
 
-button {
-  background-color: rgba(57, 209, 179, 0.4);
-}
-
-button:hover {
-  background-color: rgba(45, 188, 159, 0.8);
+#bg {
+  background-color: rgb(245, 245, 245);
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
 }

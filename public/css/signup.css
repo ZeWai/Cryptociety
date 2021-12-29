@@ -170,3 +170,11 @@ body {
   z-index: -1;
   position: absolute;
 }
+
+#bg {
+  background-color: rgb(245, 245, 245);
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  z-index: -2;
+}
