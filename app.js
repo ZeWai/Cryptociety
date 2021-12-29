@@ -9,6 +9,13 @@ const app = express();
 const port = 3000;
 const ip = "localhost";
 
+// https setup
+const https = require('https');
+const options = {
+    cert: fs.readFileSync('./localhost.crt'),
+    key: fs.readFileSync('./localhost.key')
+}
+
 //public css
 app.use(express.static(__dirname + "/public"));
 app.use(fileUpload());
@@ -81,7 +88,50 @@ app.use((req, res) => {
     });
 });
 
+
+
+// app.post("/signup", passport.authenticate("local-signup", {
+//     successRedirect: "profile",
+//     failureRedirect: "page/404"
+// }))
+
 //server port listen
-app.listen(port, ip, () => {
-    console.log(`Server is running and listening to port ${port} !`)
-})
+// app.listen(port, ip, () => {
+//     console.log(`Server is running and listening to port ${port} !`)
+// })
+
+
+// passport functions app.js
+require('dotenv').config();
+const passportFunctions = require("./passport");
+const cookieParser = require("cookie-parser");
+const expressSession = require("express-session");
+
+const AuthRouter = require("./Routers/authRouter");
+const authRouter = new AuthRouter();
+const ViewRouter = require("./Routers/viewRouter");
+const viewRouter = new ViewRouter();
+
+app.use(cookieParser());
+app.use(express.urlencoded({ extended: true}));
+app.use(express.json());
+app.use(expressSession({
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true,
+}));
+
+app.use(passportFunctions.initialize());
+
+app.use(passportFunctions.session());
+
+app.use("/", authRouter.router());
+app.use("/", viewRouter.router());
+
+
+
+
+// listen to https server
+https.createServer(options, app).listen(3000, () => {
+    console.log("application listening to port 3000");
+});
