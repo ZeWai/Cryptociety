@@ -170,7 +170,7 @@ function getByGmailId(gmailId) {
 }
 
 function getByFacebookId(facebookId) {
-  return knex(TABLE_NAME).select().where("facebook_id", facebookId);
+  return knex(TABLE_NAME).select("*").where("facebook_id", facebookId);
 }
 module.exports = {
   //   postUser: postUser,
