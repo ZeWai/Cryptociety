@@ -100,21 +100,18 @@ button:hover {
 canvas {
   display: none;
 }
-<<<<<<< HEAD
-.inputarea{
-    grid-column-start: 3;
-    grid-column-end: 6;
-    grid-row-start: 2;
-    grid-row-end: 6;
-    font-size: 15px;
+.inputarea {
+  grid-column-start: 3;
+  grid-column-end: 6;
+  grid-row-start: 2;
+  grid-row-end: 6;
+  font-size: 15px;
 }
 
-button{
-  background-color: rgba(57, 209, 179,0.4);
+button {
+  background-color: rgba(57, 209, 179, 0.4);
 }
 
 button:hover {
-  background-color: rgba(45, 188, 159,0.8);
+  background-color: rgba(45, 188, 159, 0.8);
 }
-=======
->>>>>>> 3de7f967e6a266e133260b724c5d3762305fcf24
