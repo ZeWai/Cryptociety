@@ -19,3 +19,4 @@ function SelectFunction(evt, SelectFunction) {
   evt.currentTarget.className += " active";
 } 
 
+document.getElementById("defaultOpen").click();
