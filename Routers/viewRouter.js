@@ -15,7 +15,7 @@ class ViewRouter {
   }
 
   getHome(req, res) {
-    res.render("home");
+    res.render("/");
   }
 
   getLogin(req, res) {
@@ -25,7 +25,7 @@ class ViewRouter {
     res.render("signup");
   }
   getProfile(req, res) {
-    res.render("profile");
+    res.render("index");
   }
   getAdmin(req, res) {
     res.send("ADMIN SECRET DATA");

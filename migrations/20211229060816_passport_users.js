@@ -6,6 +6,7 @@ exports.up = function(knex) {
         table.string("gmail_id");
         table.string("facebook_id");
         table.string("hash");
+        table.string("access_token");
       });
 };
 
