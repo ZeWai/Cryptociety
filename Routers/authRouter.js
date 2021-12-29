@@ -8,8 +8,8 @@ class AuthRouter {
     router.post(
       "/signup",
       passportFunctions.authenticate("local-signup", {
-        successRedirect: "/login",
-        failureRedirect: "/error",
+        successRedirect: "/signup"
+        
       })
     );
 
@@ -17,7 +17,7 @@ class AuthRouter {
       "/login",
       passportFunctions.authenticate("local-login", {
         successRedirect: "/page/profile",
-        failureRedirect: "/404",
+        failureRedirect: "/",
       })
     );
 
@@ -31,7 +31,7 @@ class AuthRouter {
     router.get(
       "/auth/gmail/callback",
       passportFunctions.authenticate("google", {
-        successRedirect: "/page/profile",
+        successRedirect: "/index",
         failureRedirect: "/404",
       })
     );
@@ -45,10 +45,12 @@ class AuthRouter {
 
     router.get(
       "/auth/facebook/callback",
-      passportFunctions.authenticate("facebook", {
-        successRedirect: "/page/profile",
+      passportFunctions.authenticate("facebook"
+      , {
+        successRedirect: "/index",
         failureRedirect: "/404",
-      })
+      }
+      )
     );
 
     router.get("/logout", (req, res) => {

@@ -184,13 +184,7 @@ app.get("/signup", (req, res) => {
         page: "signup"
     });
 });
-//404 page
-app.use((req, res) => {
-    res.status(404).render("page/404", {
-        title: "404",
-        page: "404",
-    });
-});
+
 
 
 

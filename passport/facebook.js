@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const userQueries = require("../database/userQueries");
 const FacebookStrategy = require("passport-facebook").Strategy;
 const facebookConfig = {
@@ -22,6 +24,7 @@ function facebookCallback(accessToken, refreshToken, profile, done) {
         return userQueries
           .postFacebook(profile.displayName, profile.id)
           .then((newIds) => {
+              console.log("NEW ID", newIds);
             user.id = newIds[0];
             console.log("user facebook");
             return done(null, user);
