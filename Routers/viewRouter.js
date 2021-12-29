@@ -11,6 +11,7 @@ class ViewRouter {
     router.get("/profile", isLoggedIn, this.getProfile.bind(this));
     router.get("/admin", isLoggedInAdmin, this.getAdmin.bind(this));
     router.get("/404", this.get404.bind(this));
+    router.get("/setting", this.getSetting.bind(this));
     return router;
   }
 
@@ -21,18 +22,27 @@ class ViewRouter {
   getLogin(req, res) {
     res.render("login");
   }
+
   getSignup(req, res) {
     res.render("signup");
   }
+
   getProfile(req, res) {
     res.render("index");
   }
+
   getAdmin(req, res) {
     res.send("ADMIN SECRET DATA");
   }
+
   get404(req, res) {
     res.render("404");
   }
+
+  getSetting(req, res) {
+    res.render("setting");
+  }
+
 }
 
 module.exports = ViewRouter;

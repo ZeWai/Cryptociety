@@ -19,7 +19,6 @@ const options = {
 }
 require('https').globalAgent.options.rejectUnauthorized = false;
 
-
 //public css
 app.use(express.static(__dirname + "/public"));
 app.use(fileUpload());
@@ -184,18 +183,6 @@ app.put("/setting", (req, res) => {
             "verify": "success"
         })
     }
-    //let input = ["new_username", "new_password", "confirm_new_password", "new_gender", "new_birthday", "new_country"]
-    //check empty
-    //for (let i = 0; i < input.length; i++) {
-    //    if (data[input[i]] !== "") {
-    //        console.log(`${data[input[i]]}`)
-    //    }
-    //}
-    //if (data.new_username.length > 0) {
-    //    process.env.DB_USERNAME = `${data.new_username}`
-    //process.env['DB_USERNAME'] = `${data.new_username}`
-    //fs.writeFileSync('.env', process.env.DB_USERNAME = `${data.new_username}`, 'utf8')
-    //}
 });
 
 app.get(`/download/album/:name`, (req, res) => {
@@ -264,21 +251,7 @@ app.get("/signup", (req, res) => {
     });
 });
 
-
-
-// app.post("/signup", passport.authenticate("local-signup", {
-//     successRedirect: "profile",
-//     failureRedirect: "page/404"
-// }))
-
-//server port listen
-// app.listen(port, ip, () => {
-//     console.log(`Server is running and listening to port ${port} !`)
-// })
-
-
 // passport functions app.js
-require('dotenv').config();
 const passportFunctions = require("./passport");
 const cookieParser = require("cookie-parser");
 const expressSession = require("express-session");
@@ -289,7 +262,7 @@ const ViewRouter = require("./Routers/viewRouter");
 const viewRouter = new ViewRouter();
 
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(expressSession({
     secret: "secret",
@@ -304,10 +277,7 @@ app.use(passportFunctions.session());
 app.use("/", authRouter.router());
 app.use("/", viewRouter.router());
 
-
-
-
 // listen to https server
-https.createServer(options, app).listen(3000, () => {
-    console.log("application listening to port 3000");
+https.createServer(options, app).listen(port, () => {
+    console.log(`Server is running and listening to port ${port} !`)
 });

@@ -232,7 +232,7 @@ $().ready(() => {
         //handle download button
         $(`#album_ul .download`).click((event) => {
           let image = $(event.currentTarget).attr("id").slice(19);
-          $(event.currentTarget).attr("href", `http://localhost:3000/download/album/${image}`);
+          $(event.currentTarget).attr("href", `https://localhost:3000/download/album/${image}`);
         });
         //handle delete button
         $(`#album_ul .remove`).click((event) => {

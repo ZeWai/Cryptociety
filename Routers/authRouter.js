@@ -9,7 +9,7 @@ class AuthRouter {
       "/signup",
       passportFunctions.authenticate("local-signup", {
         successRedirect: "/signup"
-        
+
       })
     );
 
@@ -46,11 +46,10 @@ class AuthRouter {
     router.get(
       "/auth/facebook/callback",
       passportFunctions.authenticate("facebook"
-      , {
-        successRedirect: "/index",
-        failureRedirect: "/404",
-      }
-      )
+        , {
+          successRedirect: "/index",
+          failureRedirect: "/404",
+        })
     );
 
     router.get("/logout", (req, res) => {
