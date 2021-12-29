@@ -37,7 +37,10 @@ section {
   text-align: center;
   border-bottom: 30px;
 }
-
+.slogan {
+  text-align: center;
+  font-size: 10px;
+}
 .sectionleft button {
   width: 200px;
   text-align: center;

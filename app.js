@@ -34,6 +34,8 @@ app.get("/index", (req, res) => {
         title: "Index",
         page: "index",
         layout: "other",
+        username: "Miofong",
+        slogan: "Happy Boy",
         icon: () => {
             //check icon Exists
             const iconExists = fs.existsSync(__dirname + "/public/image/uploaded/userIcon.png")
