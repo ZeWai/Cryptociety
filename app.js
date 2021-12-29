@@ -189,7 +189,6 @@ app.get("/signup", (req, res) => {
 
 
 
-
 // app.post("/signup", passport.authenticate("local-signup", {
 //     successRedirect: "profile",
 //     failureRedirect: "page/404"
