@@ -15,11 +15,11 @@ function facebookCallback(accessToken, refreshToken, profile, done) {
     
     console.log("access token", accessToken);
     console.log("refresh token", refreshToken);
+    const user = { username: profile.displayName, facebook_id: profile.id };
     userQueries
     .getByFacebookId(profile.id)
     .then((queryRow) => {
         if (queryRow.length === 0) {
-            const user = { username: profile.displayName, facebook_id: profile.id };
             console.log("Creating new user");
             return userQueries
           .postFacebook(profile.displayName, profile.id)

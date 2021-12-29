@@ -17,6 +17,8 @@ const options = {
     cert: fs.readFileSync('./localhost.crt'),
     key: fs.readFileSync('./localhost.key')
 }
+require('https').globalAgent.options.rejectUnauthorized = false;
+
 
 //public css
 app.use(express.static(__dirname + "/public"));
