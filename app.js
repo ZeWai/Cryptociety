@@ -185,12 +185,12 @@ app.get("/signup", (req, res) => {
     });
 });
 //404 page
-app.use((req, res) => {
-    res.status(404).render("page/404", {
-        title: "404",
-        page: "404",
-    });
-});
+// app.use((req, res) => {
+//     res.status(404).render("page/404", {
+//         title: "404",
+//         page: "404",
+//     });
+// });
 
 
 
