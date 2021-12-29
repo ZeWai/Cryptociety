@@ -19,6 +19,7 @@ app.use(fileUpload());
 app.engine("handlebars", engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+
 //response page
 //logged in
 //Market page
@@ -45,15 +46,15 @@ app.get("/setting", (req, res) => {
         title: "Setting",
         page: "setting",
         layout: "other",
-        userId: "dhgf6ewf76qew7123r32",
-        email: "miofong@live.hk",
-        username: "Miofong",
+        userId: process.env.DB_ID,
+        email: process.env.DB_EMAIL,
+        username: process.env.DB_USERNAME,
         password: "********",
-        gender: "Boy",
-        birthday: "1990-09-15",
-        country: "Hong Kong",
-        joinDate: "2021-12-28",
-        slogan: "Happy Boy",
+        gender: process.env.DB_GENDER,
+        birthday: process.env.DB_BIRTHDAY,
+        country: process.env.DB_COUNTRY,
+        joinDate: process.env.DB_JOINDATE,
+        slogan: process.env.DB_SLOGAN,
         icon: () => {
             //check icon Exists
             const iconExists = fs.existsSync(__dirname + "/public/image/uploaded/userIcon.png")
@@ -97,19 +98,83 @@ app.post("/setting", (req, res) => {
     });
 });
 app.put("/setting", (req, res) => {
+    knex('user_profile')
+        .select({
+            id: 'id',
+            name: 'email_address'
+        })
+        .then(rows => {
+            console.log(rows);
+        })
+        .catch(err => {
+            console.console(err);
+        })
+
+
     let data = req.body.input
     //json to object
     data = JSON.parse(data)
     //verify password
     if (data.password_verify !== process.env.DB_PASSWORD) {
         res.json({
-            "verify": "fail"
+            "verify": "fail",
+            "err": "Incorret password! Please try again!"
         })
+        data.password_verify = "";
+    }
+    //check less 6 characters username  
+    else if (data.new_username) {
+        if (data.new_username.length < 6) {
+            res.json({
+                "verify": "fail",
+                "err": "Username can not less than 6 characters!"
+            })
+            data.new_username = "";
+        } else {
+            res.json({
+                "verify": "success"
+            })
+        }
+    }
+    //check less 8 characters password  
+    else if (data.new_password) {
+        if (data.new_password.length < 8 || data.confirm_new_password.length < 8) {
+            res.json({
+                "verify": "fail",
+                "err": "Password can not less than 8 characters!"
+            })
+            data.new_password = "";
+            data.confirm_new_password = "";
+            //confirm password  
+        } else if (data.new_password != data.confirm_new_password) {
+            res.json({
+                "verify": "fail",
+                "err": "Confirm password is incorrect!"
+            })
+            data.new_password = "";
+            data.confirm_new_password = "";
+        } else {
+            res.json({
+                "verify": "success"
+            })
+        }
     } else {
         res.json({
             "verify": "success"
         })
     }
+    //let input = ["new_username", "new_password", "confirm_new_password", "new_gender", "new_birthday", "new_country"]
+    //check empty
+    //for (let i = 0; i < input.length; i++) {
+    //    if (data[input[i]] !== "") {
+    //        console.log(`${data[input[i]]}`)
+    //    }
+    //}
+    //if (data.new_username.length > 0) {
+    //    process.env.DB_USERNAME = `${data.new_username}`
+    //process.env['DB_USERNAME'] = `${data.new_username}`
+    //fs.writeFileSync('.env', process.env.DB_USERNAME = `${data.new_username}`, 'utf8')
+    //}
 });
 
 app.get(`/download/album/:name`, (req, res) => {

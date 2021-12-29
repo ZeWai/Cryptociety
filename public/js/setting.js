@@ -350,6 +350,12 @@ $().ready(() => {
           $(".alert").addClass("show")
           $(".alert_success").removeClass("show")
           $(".alert_success").addClass("hidden")
+          $(".alert_msg").html(`${data.err}`)
+          //auto close 3s
+          setTimeout(() => {
+            $(".alert").removeClass("show")
+            $(".alert").addClass("hidden")
+          }, 3000);
         } else {
           $(".alert_success").removeClass("hidden")
           $(".alert_success").addClass("show")
@@ -359,6 +365,11 @@ $().ready(() => {
           for (let i = 0; i < input.length; i++) {
             $(`${input[i]}`).val("")
           }
+          //auto close 3s
+          setTimeout(() => {
+            $(".alert_success").removeClass("show")
+            $(".alert_success").addClass("hidden")
+          }, 3000);
         }
       },
       error: (err) => {
