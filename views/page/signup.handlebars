@@ -1,28 +1,54 @@
-<div class="container my-5 py-5 z-depth-1">
-    <section class="px-md-5 mx-md-5 text-center text-lg-left dark-grey-text">
-        <div class="row d-flex justify-content-center">
-            {{!-- Form --}}
-            <form class="text-center" action="/signup" method="post">
-
-                <p class="h4 mb-4">Sign up</p>
-                {{!-- Username --}}
-                <input type="text" name="username" class="form-control mb-4" placeholder="Username">
-
-                <!-- Password -->
-                <input type="password" name="password" class="form-control" placeholder="Password" 
-/>
-<br/>
-<button type="submit" class="btn btn-outline-dark waves-effect">Signup
-                </button>
-            </form>
-            <!-- Default form register -->
-
-        </div>
-        <!--Grid row-->
-
-
-    </section>
-    <!--Section: Content-->
-
+<div id="output">
 
 </div>
+<div class="container">
+    <div class="center">
+        <p>Create Account</p>
+        <div class="form">
+            <div class="email">
+                <a>Email &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:&emsp;</a><input size="25">
+            </div>
+            <div class="SecurityQ1">
+                <a>Security Question 1 :&emsp;</a><input size="30">
+            </div>
+            <div class="password">
+                <a>Password &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:&emsp;</a><input type="password" size="25">
+            </div>
+            <div class="SecurityAns1">
+                <a>Security Answer 1 &emsp;&emsp;:&emsp;</a><input size="30">
+            </div>
+            <div class="password2">
+                <a>Password confirm :&emsp;</a><input type="password" size="25">
+            </div>
+            <div class="SecurityQ2">
+                <a>Security Question 2 :&emsp;</a><input size="30">
+            </div>
+            <div class="displayname">
+                <a>Display name &emsp;&emsp;&emsp;&emsp;:&emsp;</a><input size="25">
+            </div>
+            <div class="SecurityAns2">
+                <a>Security Answer 2 &emsp;&emsp;:&emsp;</a><input size="30">
+            </div>
+            <div class="SecurityQ3">
+                <a>Security Question 3 :&emsp;</a><input type="password" size="30">
+            </div>
+            <div class="gender">
+                <label>Male
+                    <input type="radio" checked="checked" name="radio">
+                    <span class="checkmark"></span>
+                </label>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+                <label>Female
+                    <input type="radio" name="radio">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
+            <div class="SecurityAns3">
+                <a>Security Answer 3 &emsp;&emsp;:&emsp;</a><input size="30">
+            </div>
+        </div>
+        <button>Submit</button>
+        <button style="margin-left: 100px">Cancel</button>
+    </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
+<script src="../js/loginbackground.js"></script>
