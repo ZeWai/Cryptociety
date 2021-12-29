@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../css/chatroom.css">
 <div>
     <div class="sectionleft">
         <div class="image">
@@ -25,8 +26,19 @@
             <p>Follower List</p>
         </div>
         <div id="Chatroom" class="tabcontent">
-            <h3>Chatroom</h3>
-            <p>Chatroom List</p>
+            <div id="chatty">
+                <button id="join">Join a room</button>
+            
+                <div id="chat-window">
+                    <div id="output"></div>
+                </div>
+            
+                <div id="echo">
+                    <p>&nbsp</p>
+                </div>
+                <input type="text" id="message" placeholder="Message" />
+                <button id="send">Send</button>
+            </div>
         </div>
 
     </div>

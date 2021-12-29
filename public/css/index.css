@@ -51,7 +51,7 @@ section {
   cursor: pointer;
   transition: 0.3s;
 }
-button:hover {
+.sectionleft button:hover {
   background-color: rgba(45, 188, 159, 0.8);
 }
 
