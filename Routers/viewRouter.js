@@ -62,23 +62,31 @@ class ViewRouter {
   }
 
   getLogin(req, res) {
-    res.render("page/index", {
-      title: "Index",
-      page: "index",
-      layout: "other",
-      username: "Miofong",
-      slogan: "Happy Boy",
-      icon: () => {
-        //check icon Exists
-        const iconExists = fs.existsSync("./public/image/uploaded/userIcon.png")
-        if (iconExists) {
-          let img = "/image/uploaded/userIcon.png"
-          return img;
-        } else {
-          return "";
-        }
-      }
-    });
+    //Get db data
+    this.knex
+      .select("*")
+      .from("user_profile")
+      .then((rows) => {
+        let userId = 1
+        let db = rows[userId - 1]
+        res.render("page/index", {
+          title: "Index",
+          page: "index",
+          layout: "other",
+          username: db.username,
+          slogan: db.solgan,
+          icon: () => {
+            //check icon Exists
+            const iconExists = fs.existsSync("./public/image/uploaded/userIcon.png")
+            if (iconExists) {
+              let img = "/image/uploaded/userIcon.png"
+              return img;
+            } else {
+              return "";
+            }
+          }
+        });
+      })
   }
 
   getSignup(req, res) {
@@ -89,22 +97,31 @@ class ViewRouter {
   }
 
   getProfile(req, res) {
-    res.render("page/index", {
-      title: "Index",
-      page: "index",
-      layout: "other",
-      username: "Miofong",
-      slogan: "Happy Boy",
-      icon: () => {
-        const iconExists = fs.existsSync("./public/image/uploaded/userIcon.png")
-        if (iconExists) {
-          let img = "/image/uploaded/userIcon.png"
-          return img;
-        } else {
-          return "";
-        }
-      }
-    });
+    //Get db data
+    this.knex
+      .select("*")
+      .from("user_profile")
+      .then((rows) => {
+        let userId = 1
+        let db = rows[userId - 1]
+        res.render("page/index", {
+          title: "Index",
+          page: "index",
+          layout: "other",
+          username: db.username,
+          slogan: db.solgan,
+          icon: () => {
+            //check icon Exists
+            const iconExists = fs.existsSync("./public/image/uploaded/userIcon.png")
+            if (iconExists) {
+              let img = "/image/uploaded/userIcon.png"
+              return img;
+            } else {
+              return "";
+            }
+          }
+        });
+      })
   }
 
   getAdmin(req, res) {
