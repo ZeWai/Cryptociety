@@ -8,7 +8,7 @@ class AuthRouter {
     router.post(
       "/signup",
       passportFunctions.authenticate("local-signup", {
-        successRedirect: "/signup"
+        successRedirect: "/index"
 
       })
     );
@@ -16,7 +16,7 @@ class AuthRouter {
     router.post(
       "/login",
       passportFunctions.authenticate("local-login", {
-        successRedirect: "/page/profile",
+        successRedirect: "/page/index",
         failureRedirect: "/",
       })
     );
@@ -53,7 +53,7 @@ class AuthRouter {
     );
 
     router.get("/logout", (req, res) => {
-      req.logout();
+      req.logOut();
       res.render("login");
     });
 

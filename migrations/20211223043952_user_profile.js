@@ -1,6 +1,6 @@
 exports.up = function (knex) {
   return knex.schema.createTable("user_profile", function (table) {
-    table.increments('id').primary();
+    table.increments("id").primary();
     table.string("email_address", 255);
     table.string("password", 255);
     table.string("country", 255);
@@ -13,9 +13,10 @@ exports.up = function (knex) {
     table.string("hash");
     table.string("access_token");
     table.timestamps(false, true);
+
   });
 };
 
 exports.down = function (knex) {
-  return knex.schema.dropTable('user_profile');
+  return knex.schema.dropTable("user_profile");
 };

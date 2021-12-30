@@ -1,13 +1,13 @@
 const development = require("../knexfile").development;
 const knex = require("knex")(development);
 const hashFunction = require("../passport/hashFunction");
-const TABLE_NAME = "passport_users";
+const TABLE_NAME = "user_profile";
 
 function postFacebook(username, facebookId) {
   return knex(TABLE_NAME)
     .insert({
       username: username,
-      facebook_id: facebookId,
+      email_address: facebookId,
     })
     .returning("id");
 }
