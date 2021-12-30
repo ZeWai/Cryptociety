@@ -7,11 +7,13 @@ exports.up = function (knex) {
     table.date("date_of_birth");
     table.string("username", 255).notNullable();
     table.string("gender");
+    table.string("admin");
+    table.string("login");
     table.integer("profile_picture");
-    table.timestamps(false,true);
+    table.timestamps(false, true);
   });
 };
 
 exports.down = function (knex) {
-    return knex.schema.dropTable('user_profile');
+  return knex.schema.dropTable('user_profile');
 };
