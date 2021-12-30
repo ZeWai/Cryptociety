@@ -8,14 +8,14 @@ exports.up = function (knex) {
     table.string("username", 255);
     table.string("gender");
     table.string("admin");
-    table.string("login");
+    table.string("solgan");
     table.integer("profile_picture");
     table.string("hash");
     table.string("access_token");
     table.string("facebook_id").unique;
     table.string("gmail_id").unique;
     table.timestamps(false, true);
-    
+
   });
 };
 

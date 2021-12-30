@@ -297,8 +297,31 @@ $().ready(() => {
   })
 
   //slogan input handling
-  $(`#slogan_input`).change(() => {
-    alert("slogan")
+  $(`#solgan_input`).change(() => {
+    // create new data from to server
+    let formData = new FormData;
+    // append data to data form (key:value) object to json
+    let files = JSON.stringify({
+      solgan: $(`#solgan_input`).val(),
+    })
+    formData.append("input", files);
+    $.ajax({
+      url: "/solgan/setting",
+      method: "put",
+      data: formData,
+      processData: false,
+      contentType: false,
+      success: (data) => {
+        if (data.solgon.length < 1) {
+          $(`#solgan_input`).attr(`placeholder`, "Please say something...")
+        } else {
+          $(`#solgan_input`).attr(`placeholder`, data.solgon)
+        }
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   })
 
   //redirect subscriber profile handling
@@ -370,6 +393,11 @@ $().ready(() => {
             $(".alert_success").removeClass("show")
             $(".alert_success").addClass("hidden")
           }, 3000);
+          //reader new info
+          $(`#currentUsername`).html(`${data.username}`)
+          $(`#currentGender`).html(`${data.gender}`)
+          $(`#currentBrithday`).html(`${data.birthday}`)
+          $(`#currentContry`).html(`${data.country}`)
         }
       },
       error: (err) => {

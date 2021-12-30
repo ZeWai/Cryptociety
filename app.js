@@ -25,6 +25,10 @@ app.use(fileUpload());
 app.engine("handlebars", engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+//knex setting
+const development = require("./knexfile").development;
+const knex = require("knex")(development);
+
 //passport functions app.js
 const passportFunctions = require("./passport");
 const cookieParser = require("cookie-parser");
@@ -32,7 +36,7 @@ const expressSession = require("express-session");
 const AuthRouter = require("./Routers/authRouter");
 const authRouter = new AuthRouter();
 const ViewRouter = require("./Routers/viewRouter");
-const viewRouter = new ViewRouter();
+const viewRouter = new ViewRouter(knex);
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
