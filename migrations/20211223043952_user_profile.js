@@ -8,7 +8,7 @@ exports.up = function (knex) {
     table.string("username", 255).notNullable();
     table.string("gender");
     table.string("admin");
-    table.string("login");
+    table.string("solgan");
     table.integer("profile_picture");
     table.timestamps(false, true);
   });

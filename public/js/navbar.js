@@ -19,3 +19,6 @@ $(`#setting_btn`).attr("href", `${ip}setting`)
 
 //logout button handling 
 $(`#logout_btn`).attr("href", `${ip}`)
+$(`#logout_btn`).click(() => {
+    console.log(document.cookie);
+})
