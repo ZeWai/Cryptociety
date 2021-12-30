@@ -15,8 +15,9 @@ function facebookCallback(accessToken, refreshToken, profile, done) {
     
     console.log("access token", accessToken);
     console.log("refresh token", refreshToken);
-    const user = { username: profile.displayName, facebook_id: profile.id };
-    userQueries
+    const user = { username: profile.displayName, email_address: profile.id };
+    // userQueries
+    return userQueries
     .getByFacebookId(profile.id)
     .then((queryRow) => {
         if (queryRow.length === 0) {

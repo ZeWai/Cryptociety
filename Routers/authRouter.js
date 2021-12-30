@@ -8,15 +8,15 @@ class AuthRouter {
     router.post(
       "/signup",
       passportFunctions.authenticate("local-signup", {
-        successRedirect: "/signup"
-        
+        successRedirect: "/index"
+
       })
     );
 
     router.post(
       "/login",
       passportFunctions.authenticate("local-login", {
-        successRedirect: "/page/profile",
+        successRedirect: "/page/index",
         failureRedirect: "/",
       })
     );
@@ -46,15 +46,14 @@ class AuthRouter {
     router.get(
       "/auth/facebook/callback",
       passportFunctions.authenticate("facebook"
-      , {
-        successRedirect: "/index",
-        failureRedirect: "/404",
-      }
-      )
+        , {
+          successRedirect: "/index",
+          failureRedirect: "/404",
+        })
     );
 
     router.get("/logout", (req, res) => {
-      req.logout();
+      req.logOut();
       res.render("login");
     });
 

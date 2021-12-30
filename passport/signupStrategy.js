@@ -1,7 +1,7 @@
 const development = require("../knexfile").development;
 const hashFunction = require("./hashFunction");
 const knex = require("knex")(development);
-const TABLE_NAME = "passport_users";
+const TABLE_NAME = "user_profile";
 const LocalStrategy = require("passport-local").Strategy;
 module.exports = new LocalStrategy(async (username, password, done) => {
   console.log("signing up");

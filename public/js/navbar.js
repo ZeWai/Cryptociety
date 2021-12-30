@@ -1,4 +1,4 @@
-const ip = "http://localhost:3000/";
+const ip = "https://localhost:3000/";
 
 //logo button handling 
 $(`#logo_btn`).attr("href", `#`)

@@ -3,35 +3,35 @@
 
 </div>
 <div class="container">
-    <div class="center">
+    <form action="/signup" method="post" class="center">
         <p>Create Account</p>
         <div class="form">
             <div class="email">
-                <a>Email &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:&emsp;</a><input size="25">
+                <label for="username">Email &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:&emsp;</label><input id="username" name="username" type="text" autocomplete="username" size="25" required />
             </div>
-            <div class="SecurityQ1">
-                <a>Security Question 1 :&emsp;</a><input size="30">
-            </div>
+            {{!-- <div class="SecurityQ1">
+                <label for ="SecurityQ1">Security Question 1 :&emsp;</label><input id="SecurityQ1" name="SecurityQ1" type="text" size="30" required />
+            </div> --}}
             <div class="password">
-                <a>Password &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:&emsp;</a><input type="password" size="25">
+                <label for="password">Password &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:&emsp;</label><input size="25" id="password" name="password" type="password" autocomplete="password" required />
             </div>
-            <div class="SecurityAns1">
-                <a>Security Answer 1 &emsp;&emsp;:&emsp;</a><input size="30">
+            {{!-- <div class="SecurityAns1">
+                <label for="SecurityAns1">Security Answer 1 &emsp;&emsp;:&emsp;</label><input  id="SecurityAns1" name="SecurityAns1" type="text" size="30" required />
             </div>
-            <div class="password2">
-                <a>Password confirm :&emsp;</a><input type="password" size="25">
+             <div class="password2">
+                <label for="password2">Password confirm :&emsp;</label><input input size="25" id="password" name="password" type="password" autocomplete="password" required />
             </div>
             <div class="SecurityQ2">
-                <a>Security Question 2 :&emsp;</a><input size="30">
+                <label for ="SecurityQ2">Security Question 2 :&emsp;</label><input id="SecurityQ2" name="SecurityQ2" type="text" size="30" required />
             </div>
             <div class="displayname">
-                <a>Display name &emsp;&emsp;&emsp;&emsp;:&emsp;</a><input size="25">
+                <label for="displayname">Display name &emsp;&emsp;&emsp;&emsp;:&emsp;</label><input size="25">
             </div>
             <div class="SecurityAns2">
-                <a>Security Answer 2 &emsp;&emsp;:&emsp;</a><input size="30">
+                <label for="SecurityAns2">Security Answer 2 &emsp;&emsp;:&emsp;</label><input  id="SecurityAns2" name="SecurityAns2" type="text" size="30" required />
             </div>
             <div class="SecurityQ3">
-                <a>Security Question 3 :&emsp;</a><input type="password" size="30">
+                <label for ="SecurityQ3">Security Question 3 :&emsp;</label><input id="SecurityQ3" name="SecurityQ3" type="text" size="30" required />
             </div>
             <div class="gender">
                 <label>Male
@@ -44,12 +44,12 @@
                 </label>
             </div>
             <div class="SecurityAns3">
-                <a>Security Answer 3 &emsp;&emsp;:&emsp;</a><input size="30">
-            </div>
-        </div>
+                <label for="SecurityAns3">Security Answer 3 &emsp;&emsp;:&emsp;</label><input  id="SecurityAns3" name="SecurityAns3" type="text" size="30" required />
+            </div>--}}
+        </div> 
         <button>Submit</button>
         <button style="margin-left: 100px">Cancel</button>
-    </div>
+    </form>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
 <script src="../js/loginbackground.js"></script>
