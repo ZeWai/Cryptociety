@@ -52,7 +52,7 @@ class AuthRouter {
         })
     );
 
-    router.get("/logout", (req, res) => {
+    router.post("/logout", (req, res) => {
       req.logOut();
       res.render("login");
     });

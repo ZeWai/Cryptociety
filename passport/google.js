@@ -33,7 +33,7 @@ function googleCallback(accessToken, refreshToken, profile, done) {
       }
     })
     .catch((error) => {
-      return done(eror, false, {
+      return done(error, false, {
         message: "Couldn't access database",
       });
     });

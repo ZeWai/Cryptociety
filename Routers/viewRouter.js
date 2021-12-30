@@ -6,25 +6,30 @@ const fs = require("fs");
 class ViewRouter {
   router() {
     let router = express.Router();
-    router.get("/", this.getHome.bind(this));
-    router.get("/index", this.getIndex.bind(this));
-    router.get("/login", this.getLogin.bind(this));
+    router.get("/login",this.getLogin.bind(this));
     router.get("/signup", this.getSignup.bind(this));
+    router.get("/",isLoggedIn,this.getIndex.bind(this));
+    router.get("/index",isLoggedIn, this.getIndex.bind(this));
     router.get("/profile", isLoggedIn, this.getProfile.bind(this));
     router.get("/admin", isLoggedInAdmin, this.getAdmin.bind(this));
+    router.get("/setting",isLoggedIn, this.getSetting.bind(this));
+    router.post("/setting",isLoggedIn, this.postSetting.bind(this));
+    router.put("/setting",isLoggedIn, this.putSetting.bind(this));
+    router.delete("/setting",isLoggedIn, this.deleteSetting.bind(this));
+    router.get("/api/setting",isLoggedIn, this.getApiSetting.bind(this));
+    router.get("/download/album/:name",isLoggedIn, this.getDownloadAlbum.bind(this));
+    router.delete("/delete/album/",isLoggedIn, this.deleteAlbum.bind(this));
+    router.get("/market",isLoggedIn, this.getMarket.bind(this));
     router.get("/404", this.get404.bind(this));
-    router.get("/setting", this.getSetting.bind(this));
-    router.post("/setting", this.postSetting.bind(this));
-    router.put("/setting", this.putSetting.bind(this));
-    router.delete("/setting", this.deleteSetting.bind(this));
-    router.get("/api/setting", this.getApiSetting.bind(this));
-    router.get("/download/album/:name", this.getDownloadAlbum.bind(this));
-    router.delete("/delete/album/", this.deleteAlbum.bind(this));
-    router.get("/market", this.getMarket.bind(this));
+    router.get("/logout",isLoggedIn, this.getLogout.bind(this))
     return router;
   }
-
-  getHome(req, res) {
+  getLogout(req,res){
+  req.logout();
+  res.redirect('/');
+};
+  
+  getLogin(req, res) {
     res.render("page/login", {
       title: "Login",
       page: "login"
@@ -50,7 +55,7 @@ class ViewRouter {
     });
   }
 
-  getLogin(req, res) {
+  getIndex(req, res) {
     res.render("page/index", {
       title: "Index",
       page: "index",
