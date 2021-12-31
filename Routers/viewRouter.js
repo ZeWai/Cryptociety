@@ -9,25 +9,31 @@ class ViewRouter {
   }
   router() {
     let router = express.Router();
-    router.get("/", this.getHome.bind(this));
-    router.get("/index", this.getIndex.bind(this));
     router.get("/login", this.getLogin.bind(this));
     router.get("/signup", this.getSignup.bind(this));
+    router.get("/", isLoggedIn, this.getHome.bind(this));
+    router.get("/index", isLoggedIn, this.getIndex.bind(this));
     router.get("/profile", isLoggedIn, this.getProfile.bind(this));
     router.get("/admin", isLoggedInAdmin, this.getAdmin.bind(this));
+    router.get("/setting", isLoggedIn, this.getSetting.bind(this));
+    router.post("/setting", isLoggedIn, this.postSetting.bind(this));
+    router.put("/setting", isLoggedIn, this.putSetting.bind(this));
+    router.delete("/setting", isLoggedIn, this.deleteSetting.bind(this));
+    router.get("/api/setting", isLoggedIn, this.getApiSetting.bind(this))
+    router.get("/group/setting", isLoggedIn, this.getGroupSetting.bind(this))
+    router.put("/solgan/setting", isLoggedIn, this.putSolgan.bind(this));;
+    router.get("/download/album/:name", isLoggedIn, this.getDownloadAlbum.bind(this));
+    router.delete("/delete/album/", isLoggedIn, this.deleteAlbum.bind(this));
+    router.get("/market", isLoggedIn, this.getMarket.bind(this));
     router.get("/404", this.get404.bind(this));
-    router.get("/setting", this.getSetting.bind(this));
-    router.post("/setting", this.postSetting.bind(this));
-    router.put("/setting", this.putSetting.bind(this));
-    router.delete("/setting", this.deleteSetting.bind(this));
-    router.get("/api/setting", this.getApiSetting.bind(this))
-    router.put("/solgan/setting", this.putSolgan.bind(this));;
-    router.get("/download/album/:name", this.getDownloadAlbum.bind(this));
-    router.delete("/delete/album/", this.deleteAlbum.bind(this));
-    router.get("/market", this.getMarket.bind(this));
+    router.get("/logout", isLoggedIn, this.getLogout.bind(this))
     return router;
   }
-  getHome(req, res) {
+  getLogout(req, res) {
+    req.logout();
+    res.redirect('/');
+  };
+  getLogin(req, res) {
     res.render("page/login", {
       title: "Login",
       page: "login"
@@ -39,8 +45,7 @@ class ViewRouter {
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let userId = 1
-        let db = rows[userId - 1]
+        let db = rows[req.user.id - 1]
         res.render("page/index", {
           title: "Index",
           page: "index",
@@ -48,11 +53,8 @@ class ViewRouter {
           username: db.username,
           solgan: db.solgan,
           icon: () => {
-            //check icon Exists
-            const iconExists = fs.existsSync("./public/image/uploaded/userIcon.png")
-            if (iconExists) {
-              let img = "/image/uploaded/userIcon.png"
-              return img;
+            if (db.profile_picture) {
+              return db.profile_picture;
             } else {
               return "";
             }
@@ -61,26 +63,22 @@ class ViewRouter {
       })
   }
 
-  getLogin(req, res) {
+  getHome(req, res) {
     //Get db data
     this.knex
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let userId = 1
-        let db = rows[userId - 1]
+        let db = rows[req.user.id - 1]
         res.render("page/index", {
           title: "Index",
           page: "index",
           layout: "other",
           username: db.username,
-          slogan: db.solgan,
+          solgan: db.solgan,
           icon: () => {
-            //check icon Exists
-            const iconExists = fs.existsSync("./public/image/uploaded/userIcon.png")
-            if (iconExists) {
-              let img = "/image/uploaded/userIcon.png"
-              return img;
+            if (db.profile_picture) {
+              return db.profile_picture;
             } else {
               return "";
             }
@@ -102,20 +100,16 @@ class ViewRouter {
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let userId = 1
-        let db = rows[userId - 1]
+        let db = rows[req.user.id - 1]
         res.render("page/index", {
           title: "Index",
           page: "index",
           layout: "other",
           username: db.username,
-          slogan: db.solgan,
+          solgan: db.solgan,
           icon: () => {
-            //check icon Exists
-            const iconExists = fs.existsSync("./public/image/uploaded/userIcon.png")
-            if (iconExists) {
-              let img = "/image/uploaded/userIcon.png"
-              return img;
+            if (db.profile_picture) {
+              return db.profile_picture;
             } else {
               return "";
             }
@@ -141,8 +135,7 @@ class ViewRouter {
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let userId = 1
-        let db = rows[userId - 1]
+        let db = rows[req.user.id - 1]
         res.render("page/setting", {
           title: "Setting",
           page: "setting",
@@ -157,41 +150,43 @@ class ViewRouter {
           joinDate: `${db.created_at.getFullYear()}-${db.created_at.getMonth() + 1}-${db.created_at.getDate()}`,
           solgan: db.solgan,
           icon: () => {
-            //check icon Exists
-            const iconExists = fs.existsSync("./public/image/uploaded/userIcon.png")
-            if (iconExists) {
-              let img = "/image/uploaded/userIcon.png"
-              return img;
+            if (db.profile_picture) {
+              return db.profile_picture;
             } else {
               return "";
             }
-          },
-          photo: () => {
-            //check photo Exists
-            let files = fs.readdirSync("./public/image/photo");
-            return files[0];
           }
         });
       })
   }
   postSetting(req, res) {
-    //create new icon
-    let data = req.files.files
-    fs.writeFile("./public/image/uploaded/userIcon.png", data.data, (err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-    res.render("page/setting", {
-      icon: () => {
-        const iconExists = fs.existsSync("./public/image/uploaded/userIcon.png")
-        if (iconExists) {
-          return "../../../../image/uploaded/userIcon.png";
-        } else {
-          return "";
-        }
-      }
-    });
+    console.log(req.files.files)
+    //Get db data
+    this.knex
+      .select("*")
+      .from("user_profile")
+      .then((rows) => {
+        let db = rows[req.user.id - 1]
+        //create new icon
+        let data = req.files.files
+        //updata server
+        this.knex("user_profile")
+          .where("id", req.user.id)
+          .update({
+            profile_picture: data
+          })
+          .then(() => {
+            res.render("page/setting", {
+              icon: db.profile_picture
+            });
+          })
+        //fs.writeFile("./public/image/uploaded/userIcon.png", data.data, (err) => {
+        //  if (err) {
+        //    console.log(err);
+        //  }
+        //});
+
+      })
   }
   putSetting(req, res) {
     //get db data
@@ -199,8 +194,7 @@ class ViewRouter {
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let userId = 1
-        let db = rows[userId - 1]
+        let db = rows[req.user.id - 1]
         let data = req.body.input
         //json to object
         data = JSON.parse(data)
@@ -224,7 +218,7 @@ class ViewRouter {
             if (data.new_username.length > 0) {
               //updata server
               this.knex("user_profile")
-                .where("id", userId)
+                .where("id", req.user.id)
                 .update({
                   username: data.new_username
                 })
@@ -266,7 +260,7 @@ class ViewRouter {
             if (data.new_password.length > 0) {
               //updata server
               this.knex("user_profile")
-                .where("id", userId)
+                .where("id", req.user.id)
                 .update({
                   password: data.new_password
                 })
@@ -286,7 +280,7 @@ class ViewRouter {
           if (data.new_username.length > 0) {
             //updata server
             this.knex("user_profile")
-              .where("id", userId)
+              .where("id", req.user.id)
               .update({
                 username: data.new_username
               })
@@ -304,7 +298,7 @@ class ViewRouter {
           if (data.new_password.length > 0) {
             //updata server
             this.knex("user_profile")
-              .where("id", userId)
+              .where("id", req.user.id)
               .update({
                 password: data.new_password
               })
@@ -322,7 +316,7 @@ class ViewRouter {
           if (data.new_gender.length > 0) {
             //updata server
             this.knex("user_profile")
-              .where("id", userId)
+              .where("id", req.user.id)
               .update({
                 gender: data.new_gender
               })
@@ -340,7 +334,7 @@ class ViewRouter {
           if (data.new_birthday.length > 0) {
             //updata server
             this.knex("user_profile")
-              .where("id", userId)
+              .where("id", req.user.id)
               .update({
                 date_of_birth: data.new_birthday
               })
@@ -358,7 +352,7 @@ class ViewRouter {
           if (data.new_country.length > 0) {
             //updata server
             this.knex("user_profile")
-              .where("id", userId)
+              .where("id", req.user.id)
               .update({
                 country: data.new_country
               })
@@ -376,25 +370,24 @@ class ViewRouter {
       })
   }
   deleteSetting(req, res) {
-    fs.unlink("./public/image/uploaded/userIcon.png", (err) => {
-      if (err) {
-        console.log(err);
-      }
-    });
-    res.render("page/setting", {
-      icon: () => {
-        const iconExists = fs.existsSync("./public/image/uploaded/userIcon.png")
-        if (iconExists) {
-          return "../../../../image/uploaded/userIcon.png";
-        } else {
-          return "";
-        }
-      }
-    });
+    //Get db data
+    this.knex
+      .select("*")
+      .from("user_profile")
+      .then((rows) => {
+        let db = rows[req.user.id - 1]
+        fs.unlink("./public/image/uploaded/userIcon.png", (err) => {
+          if (err) {
+            console.log(err);
+          }
+        });
+        res.render("page/setting", {
+          icon: ""
+        });
+      })
   }
 
   putSolgan(req, res) {
-    let userId = 1
     let data = req.body.input
     //json to object
     data = JSON.parse(data)
@@ -403,7 +396,7 @@ class ViewRouter {
     }
     //updata server
     this.knex("user_profile")
-      .where("id", userId)
+      .where("id", req.user.id)
       .update({
         solgan: data.solgan
       })
@@ -418,6 +411,30 @@ class ViewRouter {
     res.json({
       "photo": files
     })
+  }
+  getGroupSetting(req, res) {
+    //Get db data
+    this.knex
+      .select("*")
+      .from("user_profile")
+      .then((rows) => {
+        let db = rows[req.user.id - 1]
+        if (db.group !== null) {
+          res.json({
+            "group": "false",
+            "err": "One account create a group only!"
+          })
+        } else if (db.gender === "group") {
+          res.json({
+            "group": "false",
+            "err": "Create group by user right only!"
+          })
+        } else {
+          res.json({
+            "group": "true"
+          })
+        }
+      })
   }
   getDownloadAlbum(req, res) {
     let caches = {};
@@ -460,7 +477,7 @@ class ViewRouter {
       layout: "other"
     });
   }
-
 }
+
 
 module.exports = ViewRouter;

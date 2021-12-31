@@ -202,7 +202,7 @@
                     <datalist id="gender-list">
                         <option value="Male">
                         <option value="Female">
-                        <option value="Disable">
+                        <option value="Group">
                     </datalist>
                 </form>
             </section>
@@ -224,6 +224,30 @@
             <section id="edit_submit" hidden>
                 <a class="btn submit" href="#" id="edit_submit_btn">Submit<i class="fas fa-paper-plane"></i></a>
                 <a class="btn cancel" href="#" id="edit_cancel_btn">Cancel<i class="fas fa-trash-alt"></i></a>
+            </section>
+            <section id="create_group" hidden>
+                <form class="row text-center">
+                    <div id="group_input">
+                        <div class="colum">
+                            <input class="form-control edit_input col-12" type="text" placeholder="Enter group email"
+                                id="group_email">
+                            <input class="form-control edit_input col-12" type="password"
+                                placeholder="Enter not less than 6 characters group name" id="group_name">
+                            <input class="form-control edit_input col-12" type="text"
+                                placeholder="Enter not less than 8 characters password" id="group_password">
+                            <input class="form-control edit_input col-12" list="country-list" type="text"
+                                placeholder="Select country" id="group_location">
+                            <datalist id="country-list"></datalist>
+                            <input class="form-control col-12" type="text" placeholder="Entry group introduction..."
+                                id="group_solgan">
+                        </div>
+                    </div>
+                    <div>
+                        <a class="btn submit col-12" href="#" id="group_submit_btn">Submit<i
+                                class="fas fa-paper-plane"></i></a>
+                        <a class="btn cancel" href="#" id="group_cancel_btn">Cancel<i class="fas fa-trash-alt"></i></a>
+                    </div>
+                </form>
             </section>
         </div>
     </div>

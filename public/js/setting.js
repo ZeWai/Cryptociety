@@ -280,23 +280,47 @@ $().ready(() => {
   })
   //event handle
   $(`#group_btn`).click(() => {
-    $(`#edit_title h2`).html(`Create Group`)
-    //hidden
-    $(`#subscriber_list`).attr(`hidden`, true)
-    $(`#follower_list`).attr(`hidden`, true)
-    $(`#edit_username`).attr(`hidden`, true)
-    $(`#edit_password`).attr(`hidden`, true)
-    $(`#edit_gender`).attr(`hidden`, true)
-    $(`#edit_birthday`).attr(`hidden`, true)
-    $(`#edit_password_verify`).attr(`hidden`, true)
-    $(`#edit_country`).attr(`hidden`, true)
-    $(`#edit_submit`).attr(`hidden`, true)
-    $(`#album_list`).attr(`hidden`, true)
-    //show
-    $(`#create_group`).attr(`hidden`, false)
+    //check group
+    $.ajax({
+      url: "/group/setting",
+      method: "get",
+      success: (data) => {
+        if (data.group === "false") {
+          $(".alert").removeClass("hidden")
+          $(".alert").addClass("show")
+          $(".alert_success").removeClass("show")
+          $(".alert_success").addClass("hidden")
+          $(".alert_msg").html(`${data.err}`)
+          //auto close 3s
+          setTimeout(() => {
+            $(".alert").removeClass("show")
+            $(".alert").addClass("hidden")
+          }, 3000);
+        } else {
+          $(`#edit_title h2`).html(`Create Group`)
+          //hidden
+          $(`#subscriber_list`).attr(`hidden`, true)
+          $(`#follower_list`).attr(`hidden`, true)
+          $(`#edit_username`).attr(`hidden`, true)
+          $(`#edit_password`).attr(`hidden`, true)
+          $(`#edit_gender`).attr(`hidden`, true)
+          $(`#edit_birthday`).attr(`hidden`, true)
+          $(`#edit_password_verify`).attr(`hidden`, true)
+          $(`#edit_country`).attr(`hidden`, true)
+          $(`#edit_submit`).attr(`hidden`, true)
+          $(`#album_list`).attr(`hidden`, true)
+          //show
+          $(`#create_group`).attr(`hidden`, false)
+        }
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
+
   })
 
-  //slogan input handling
+  //solgan input handling
   $(`#solgan_input`).change(() => {
     // create new data from to server
     let formData = new FormData;

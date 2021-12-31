@@ -509,3 +509,22 @@ ul {
   width: 100%;
   height: 200px;
 }
+
+#group_input{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#group_input input{
+  margin-bottom: 10px;
+}
+
+#group_solgan {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background-color: white;
+  resize: none;
+}
