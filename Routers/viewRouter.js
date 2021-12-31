@@ -11,7 +11,7 @@ class ViewRouter {
     let router = express.Router();
     router.get("/login", this.getLogin.bind(this));
     router.get("/signup", this.getSignup.bind(this));
-    router.get("/", isLoggedIn, this.getHome.bind(this));
+    router.get("/", isLoggedIn, this.getIndex.bind(this));
     router.get("/index", isLoggedIn, this.getIndex.bind(this));
     router.get("/profile", isLoggedIn, this.getProfile.bind(this));
     router.get("/admin", isLoggedInAdmin, this.getAdmin.bind(this));
@@ -19,9 +19,7 @@ class ViewRouter {
     router.post("/setting", isLoggedIn, this.postSetting.bind(this));
     router.put("/setting", isLoggedIn, this.putSetting.bind(this));
     router.delete("/setting", isLoggedIn, this.deleteSetting.bind(this));
-    router.get("/api/setting", isLoggedIn, this.getApiSetting.bind(this))
-    router.get("/group/setting", isLoggedIn, this.getGroupSetting.bind(this))
-    router.put("/solgan/setting", isLoggedIn, this.putSolgan.bind(this));;
+    router.get("/api/setting", isLoggedIn, this.getApiSetting.bind(this));
     router.get("/download/album/:name", isLoggedIn, this.getDownloadAlbum.bind(this));
     router.delete("/delete/album/", isLoggedIn, this.deleteAlbum.bind(this));
     router.get("/market", isLoggedIn, this.getMarket.bind(this));
@@ -33,6 +31,7 @@ class ViewRouter {
     req.logout();
     res.redirect('/');
   };
+
   getLogin(req, res) {
     res.render("page/login", {
       title: "Login",
