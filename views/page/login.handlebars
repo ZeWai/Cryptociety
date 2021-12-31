@@ -1,43 +1,71 @@
-{{!-- <canvas id="canvas"></canvas>
-<canvas id="canvas2"></canvas> --}}
+{{! <canvas id="canvas"></canvas>
+<canvas id="canvas2"></canvas> }}
 <div id="bg"></div>
 <div id="output">
 </div>
 <div class="container">
-    <div class="center">
+  <div class="center">
 
-        <div class="logo"><img src="../image/btn/logo_btn.png"></div>
-        <div class="description"><a>Society of cryptocurrency</a></div>
+    <div class="logo"><img src="../image/btn/logo_btn.png" /></div>
+    <div class="description"><a>Society of cryptocurrency</a></div>
 
-        <div class="login">
-            <p>Login</p>
-        </div>
-        <div class="inputarea">
-            <a>Email&emsp;&emsp;&emsp;:</a><input name="email">
-            <br>
-            <a>Password:</a><input name="password" type="password">
-            <br><br>
-            <a href="/login">
-                <button>
-                    Login
-                </button></a>
-            <button>Forget password</button>
-            <br><br><br>
-            <a href="/auth/gmail">
-                <button>Login with google</button>
-            </a>
-            {{!-- <button>Login with facebook</button> --}}
-            {{!-- Facebook Button --}}
-            <a href="/auth/facebook">
-                <button>
-                    Login with facebook
-                </button></a>
-            {{!-- Signup Button --}}
-            <a href="/signup">
-                <button>Signup</button>
-            </a>
-        </div>
+    <form action="/login" method="post">
+      <div>
+        <label for="username">Username</label>
+        <input
+          id="username"
+          name="username"
+          type="text"
+          autocomplete="username"
+          required
+        />
+      </div>
+      <div>
+        <label for="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          autocomplete="password"
+          required
+        />
+      </div>
+      <div>
+        <button type="submit">login</button>
+      </div>
+    </form>
+
+    <div class="login">
+      <p>Login</p>
     </div>
+    <div class="inputarea">
+      <a>Email&emsp;&emsp;&emsp;:</a><input name="email" />
+      <br />
+      <a>Password:</a><input name="password" type="password" />
+      <br /><br />
+      <a href="/login">
+        <button>
+          Login
+        </button></a>
+      <button>Forget password</button>
+      <br /><br /><br />
+      <a href="/auth/gmail">
+        <button>Login with google</button>
+      </a>
+      {{! <button>Login with facebook</button> }}
+      {{! Facebook Button }}
+      <a href="/auth/facebook">
+        <button>
+          Login with facebook
+        </button></a>
+      {{! Signup Button }}
+      <a href="/signup">
+        <button>Signup</button>
+      </a>
+    </div>
+  </div>
 </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"
+></script>
 <script src="../js/loginbackground.js"></script>
