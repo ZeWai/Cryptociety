@@ -9,7 +9,6 @@ exports.up = function (knex) {
     table.string("gender");
     table.string("admin");
     table.string("solgan");
-    table.string("profile_picture");
     table.string("group");
     table.string("hash");
     table.string("access_token");

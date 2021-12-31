@@ -311,13 +311,81 @@ $().ready(() => {
           $(`#album_list`).attr(`hidden`, true)
           //show
           $(`#create_group`).attr(`hidden`, false)
+          //sumit create group
+          $(`#group_submit_btn`).click(() => {
+            let formData = new FormData;
+            let files = JSON.stringify({
+              email_address: $(`#group_email`).val(),
+              username: $(`#group_name`).val(),
+              password: $(`#group_password`).val(),
+              country: $(`#group_location`).val(),
+              solgan: $(`#group_solgan`).val(),
+              admin: "group",
+              gender: "group",
+              date_of_birth: new Date
+            });
+            //send post req to server
+            formData.append("files", files);
+            $.ajax({
+              url: "/group/create",
+              method: "post",
+              data: formData,
+              cache: false,
+              processData: false,
+              contentType: false,
+              success: (data) => {
+                if (data.create == "false") {
+                  $(".alert").removeClass("hidden")
+                  $(".alert").addClass("show")
+                  $(".alert_success").removeClass("show")
+                  $(".alert_success").addClass("hidden")
+                  $(".alert_msg").html(`${data.err}`)
+                  //auto close 3s
+                  setTimeout(() => {
+                    $(".alert").removeClass("show")
+                    $(".alert").addClass("hidden")
+                  }, 3000);
+                } else {
+                  $(".alert_success").removeClass("hidden")
+                  $(".alert_success").addClass("show")
+                  $(".alert").removeClass("show")
+                  $(".alert").addClass("hidden")
+                  //auto close 3s
+                  setTimeout(() => {
+                    $(".alert_success").removeClass("show")
+                    $(".alert_success").addClass("hidden")
+                  }, 3000);
+                  //render
+                  $(`#create_group`).attr(`hidden`, true)
+                  $(`#edit_title h2`).html(`Album`)
+                  $(`#album_list`).attr(`hidden`, false)
+                  //clear input
+                  $(`#group_email`).val("")
+                  $(`#group_name`).val("")
+                  $(`#group_password`).val("")
+                  $(`#group_location`).val("")
+                  $(`#group_solgan`).val("")
+                }
+              },
+              error: (err) => {
+                console.log(err)
+              }
+            })
+          })
         }
       },
       error: (err) => {
         console.log(err)
       }
     })
-
+    //group create cancel
+    $("#group_cancel_btn").click(() => {
+      $(`#group_email`).val("")
+      $(`#group_name`).val("")
+      $(`#group_password`).val("")
+      $(`#group_location`).val("")
+      $(`#group_solgan`).val("")
+    })
   })
 
   //solgan input handling

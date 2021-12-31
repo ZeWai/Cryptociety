@@ -19,6 +19,8 @@ class ViewRouter {
     router.post("/setting", isLoggedIn, this.postSetting.bind(this));
     router.put("/setting", isLoggedIn, this.putSetting.bind(this));
     router.delete("/setting", isLoggedIn, this.deleteSetting.bind(this));
+    router.get("/group/setting", isLoggedIn, this.getGroupSetting.bind(this));
+    router.post("/group/create", isLoggedIn, this.postGroupCreate.bind(this));
     router.get("/api/setting", isLoggedIn, this.getApiSetting.bind(this));
     router.get("/download/album/:name", isLoggedIn, this.getDownloadAlbum.bind(this));
     router.delete("/delete/album/", isLoggedIn, this.deleteAlbum.bind(this));
@@ -52,10 +54,14 @@ class ViewRouter {
           username: db.username,
           solgan: db.solgan,
           icon: () => {
-            if (db.profile_picture) {
-              return db.profile_picture;
+            //check icon Exists
+            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+            console.log(iconExists)
+            if (iconExists) {
+              let img = `/image/uploaded/userIcon_${req.user.id}.png`
+              return img;
             } else {
-              return "";
+              return `/image/uploaded/userIcon.png`;
             }
           }
         });
@@ -76,10 +82,13 @@ class ViewRouter {
           username: db.username,
           solgan: db.solgan,
           icon: () => {
-            if (db.profile_picture) {
-              return db.profile_picture;
+            //check icon Exists
+            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+            if (iconExists) {
+              let img = `/image/uploaded/userIcon_${req.user.id}.png`
+              return img;
             } else {
-              return "";
+              return `/image/uploaded/userIcon.png`;
             }
           }
         });
@@ -107,10 +116,13 @@ class ViewRouter {
           username: db.username,
           solgan: db.solgan,
           icon: () => {
-            if (db.profile_picture) {
-              return db.profile_picture;
+            //check icon Exists
+            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+            if (iconExists) {
+              let img = `/image/uploaded/userIcon_${req.user.id}.png`
+              return img;
             } else {
-              return "";
+              return `/image/uploaded/userIcon.png`;
             }
           }
         });
@@ -149,43 +161,38 @@ class ViewRouter {
           joinDate: `${db.created_at.getFullYear()}-${db.created_at.getMonth() + 1}-${db.created_at.getDate()}`,
           solgan: db.solgan,
           icon: () => {
-            if (db.profile_picture) {
-              return db.profile_picture;
+            //check icon Exists
+            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+            if (iconExists) {
+              let img = `/image/uploaded/userIcon_${req.user.id}.png`
+              return img;
             } else {
-              return "";
+              return `/image/uploaded/userIcon.png`;
             }
           }
         });
       })
   }
   postSetting(req, res) {
-    console.log(req.files.files)
-    //Get db data
-    this.knex
-      .select("*")
-      .from("user_profile")
-      .then((rows) => {
-        let db = rows[req.user.id - 1]
-        //create new icon
-        let data = req.files.files
-        //updata server
-        this.knex("user_profile")
-          .where("id", req.user.id)
-          .update({
-            profile_picture: data
-          })
-          .then(() => {
-            res.render("page/setting", {
-              icon: db.profile_picture
-            });
-          })
-        //fs.writeFile("./public/image/uploaded/userIcon.png", data.data, (err) => {
-        //  if (err) {
-        //    console.log(err);
-        //  }
-        //});
-
-      })
+    let data = req.files.files
+    fs.writeFile(`./public/image/uploaded/userIcon_${req.user.id}.png`, data.data, (err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.render("page/setting", {
+          icon: () => {
+            //check icon Exists
+            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+            if (iconExists) {
+              let img = `/image/uploaded/userIcon_${req.user.id}.png`
+              return img;
+            } else {
+              return `/image/uploaded/userIcon.png`;
+            }
+          }
+        })
+      }
+    })
   }
   putSetting(req, res) {
     //get db data
@@ -204,84 +211,42 @@ class ViewRouter {
             "err": "Incorret password! Please try again!"
           })
           data.password_verify = "";
-        }
-        //check less 6 characters username  
-        else if (data.new_username) {
-          if (data.new_username.length < 6) {
-            res.json({
-              "verify": "fail",
-              "err": "Username can not less than 6 characters!"
-            })
-            data.new_username = "";
-          } else {
-            if (data.new_username.length > 0) {
-              //updata server
-              this.knex("user_profile")
-                .where("id", req.user.id)
-                .update({
-                  username: data.new_username
-                })
-                .then(() => {
-                  res.json({
-                    "verify": "success",
-                    "username": `${data.new_username}`
-                  })
-                })
-            }
-          }
-        }
-        //check less 8 characters password  
-        else if (data.new_password) {
-          if (data.new_password.length < 8 || data.confirm_new_password.length < 8 || data.new_password.length == 0 || data.confirm_new_password.length == 0) {
-            res.json({
-              "verify": "fail",
-              "err": "Password can not less than 8 characters!",
-              "username": `${db.username}`,
-              "gender": `${db.gender}`,
-              "birthday": `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
-              "country": `${db.country}`
-            })
-            data.new_password = "";
-            data.confirm_new_password = "";
-            //confirm password  
-          } else if (data.new_password != data.confirm_new_password) {
-            res.json({
-              "verify": "fail",
-              "err": "Confirm password is incorrect!",
-              "username": `${db.username}`,
-              "gender": `${db.gender}`,
-              "birthday": `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
-              "country": `${db.country}`
-            })
-            data.new_password = "";
-            data.confirm_new_password = "";
-          } else {
-            if (data.new_password.length > 0) {
-              //updata server
-              this.knex("user_profile")
-                .where("id", req.user.id)
-                .update({
-                  password: data.new_password
-                })
-                .then(() => {
-                  res.json({
-                    "verify": "success",
-                    "username": `${db.username}`,
-                    "gender": `${db.gender}`,
-                    "birthday": `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
-                    "country": `${db.country}`
-                  })
-                })
-            }
-          }
         } else {
-          //username edit
+          //check less 6 characters username  
+          if (data.new_username) {
+            if (data.new_username.length < 6) {
+              res.json({
+                "verify": "fail",
+                "err": "Username can not less than 6 characters!"
+              })
+              data.new_username = "";
+            }
+          }
+          //check password
+          if (data.new_password) {
+            if (data.new_password.length < 8 || data.confirm_new_password.length < 8 || data.new_password.length == 0 || data.confirm_new_password.length == 0) {
+              res.json({
+                "verify": "fail",
+                "err": "Password can not less than 8 characters!",
+              })
+              data.new_password = "";
+              data.confirm_new_password = "";
+            } else if (data.new_password !== data.confirm_new_password) {
+              res.json({
+                "verify": "fail",
+                "err": "Confirm password is incorrect!",
+              })
+              data.new_password = "";
+              data.confirm_new_password = "";
+            }
+          }
+          //update username
           if (data.new_username.length > 0) {
             //updata server
             this.knex("user_profile")
               .where("id", req.user.id)
               .update({
-                username: data.new_username
+                username: data.new_username,
               })
               .then(() => {
                 res.json({
@@ -293,7 +258,7 @@ class ViewRouter {
                 })
               })
           }
-          //password edit
+          //update password
           if (data.new_password.length > 0) {
             //updata server
             this.knex("user_profile")
@@ -311,7 +276,7 @@ class ViewRouter {
                 })
               })
           }
-          //gender edit
+          //update gender
           if (data.new_gender.length > 0) {
             //updata server
             this.knex("user_profile")
@@ -322,14 +287,14 @@ class ViewRouter {
               .then(() => {
                 res.json({
                   "verify": "success",
-                  "username": `${db.username}`,
+                  "username": `${db.new_username}`,
                   "gender": `${data.new_gender}`,
                   "birthday": `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
                   "country": `${db.country}`
                 })
               })
           }
-          //birthday edit
+          //update birthday
           if (data.new_birthday.length > 0) {
             //updata server
             this.knex("user_profile")
@@ -347,7 +312,7 @@ class ViewRouter {
                 })
               })
           }
-          //Contry edit
+          //update country
           if (data.new_country.length > 0) {
             //updata server
             this.knex("user_profile")
@@ -369,21 +334,23 @@ class ViewRouter {
       })
   }
   deleteSetting(req, res) {
-    //Get db data
-    this.knex
-      .select("*")
-      .from("user_profile")
-      .then((rows) => {
-        let db = rows[req.user.id - 1]
-        fs.unlink("./public/image/uploaded/userIcon.png", (err) => {
-          if (err) {
-            console.log(err);
-          }
-        });
-        res.render("page/setting", {
-          icon: ""
-        });
-      })
+    fs.unlink(`./public/image/uploaded/userIcon_${req.user.id}.png`, (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+    res.render("page/setting", {
+      icon: () => {
+        //check icon Exists
+        const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+        if (iconExists) {
+          let img = `/image/uploaded/userIcon_${req.user.id}.png`
+          return img;
+        } else {
+          return `/image/uploaded/userIcon.png`;
+        }
+      }
+    });
   }
 
   putSolgan(req, res) {
@@ -423,7 +390,7 @@ class ViewRouter {
             "group": "false",
             "err": "One account create a group only!"
           })
-        } else if (db.gender === "group") {
+        } else if (db.admin === "group") {
           res.json({
             "group": "false",
             "err": "Create group by user right only!"
@@ -435,6 +402,63 @@ class ViewRouter {
         }
       })
   }
+  async postGroupCreate(req, res) {
+    let data = req.body.files
+    //json to object
+    data = JSON.parse(data)
+    //check email
+    if (data.email_address.length < 8 || data.email_address.length == 0) {
+      res.json({
+        "create": "false",
+        "err": "Incorret email!"
+      })
+      //check username
+    } else if (data.username.length < 6 || data.username.length == 0) {
+      res.json({
+        "create": "false",
+        "err": "Group name can not less than 6 characters!"
+      })
+      //check password
+    } else if (data.password.length < 8 || data.password.length == 0) {
+      res.json({
+        "create": "false",
+        "err": "Password can not less than 8 characters!"
+      })
+      //check country
+    }
+    else if (data.country.length < 1) {
+      res.json({
+        "create": "false",
+        "err": "Please select the location!"
+      })
+    } else {
+      //updata server
+      await this.knex("user_profile")
+        .where("id", req.user.id)
+        .update({
+          group: data.username,
+        })
+        .then(() => {
+          res.json({
+            "create": "true",
+            "err": "Group create success!"
+          })
+        })
+      //create group to server
+      await this.knex("user_profile")
+        .insert({
+          email_address: data.email_address,
+          username: data.username,
+          password: data.password,
+          country: data.country,
+          solgan: data.solgan,
+          admin: data.admin,
+          gender: data.gender,
+          date_of_birth: data.date_of_birth
+        })
+    }
+  }
+
   getDownloadAlbum(req, res) {
     let caches = {};
     function readFile(file) {
