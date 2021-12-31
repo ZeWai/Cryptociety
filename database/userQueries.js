@@ -39,7 +39,7 @@ function createUser(username, password) {
     .then(() => hashFunction.hashPassword(password))
     .then((hash) => {
       return knex(TABLE_NAME).insert({
-        username: username,
+        email_address: username,
         password: password,
         hash: hash,
       });
@@ -161,7 +161,7 @@ function getById(id) {
 }
 function getByUsername(username) {
   return knex(TABLE_NAME)
-    .select("id", "username", "twitter_id", "facebook_id", "hash", "password")
+    .select("id", "username", "hash", "password")
     .where("username", username);
 }
 

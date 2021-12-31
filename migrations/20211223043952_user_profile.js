@@ -4,7 +4,7 @@ exports.up = function (knex) {
     table.string("email_address", 255).unique;
     table.string("password", 255);
     table.string("country", 255);
-    table.date("date_of_birth");
+    table.date("date_of_birth").defaultTo("1900-01-01");
     table.string("username", 255);
     table.string("gender");
     table.string("admin");

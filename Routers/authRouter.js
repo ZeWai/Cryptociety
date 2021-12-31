@@ -16,7 +16,7 @@ class AuthRouter {
     router.post(
       "/login",
       passportFunctions.authenticate("local-login", {
-        successRedirect: "/page/index",
+        successRedirect: "/index",
         failureRedirect: "/",
       })
     );
