@@ -24,7 +24,11 @@ class ViewRouter {
     router.get("/api/setting", isLoggedIn, this.getApiSetting.bind(this));
     router.get("/download/album/:name", isLoggedIn, this.getDownloadAlbum.bind(this));
     router.delete("/delete/album/", isLoggedIn, this.deleteAlbum.bind(this));
+    router.get("/subscribers", isLoggedIn, this.getSubscribers.bind(this));
+    router.get("/followers", isLoggedIn, this.getFollowers.bind(this));
     router.get("/market", isLoggedIn, this.getMarket.bind(this));
+    router.get("/profile/:id", isLoggedIn, this.getProfile.bind(this));
+    router.put("/profile/:id", isLoggedIn, this.putProfile.bind(this));
     router.get("/404", this.get404.bind(this));
     router.get("/logout", isLoggedIn, this.getLogout.bind(this))
     return router;
@@ -52,7 +56,7 @@ class ViewRouter {
           page: "index",
           layout: "other",
           username: db.username,
-          solgan: db.solgan,
+          slogan: db.slogan,
           icon: () => {
             //check icon Exists
             const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
@@ -80,7 +84,7 @@ class ViewRouter {
           page: "index",
           layout: "other",
           username: db.username,
-          solgan: db.solgan,
+          slogan: db.slogan,
           icon: () => {
             //check icon Exists
             const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
@@ -114,7 +118,7 @@ class ViewRouter {
           page: "index",
           layout: "other",
           username: db.username,
-          solgan: db.solgan,
+          slogan: db.slogan,
           icon: () => {
             //check icon Exists
             const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
@@ -127,6 +131,48 @@ class ViewRouter {
           }
         });
       })
+  }
+
+  async putProfile(req, res) {
+    const data = JSON.parse(req.body.action)
+    const targetId = data.target
+    const action = data.action
+    //check exist
+    await this.knex("friendships")
+      .where({
+        request_id: targetId
+      })
+      .select()
+      .then((rows) => {
+        const firend = rows[0]
+        if (firend) {
+          //change relation
+          this.knex("friendships")
+            .update({
+              relation: action
+            })
+            .then(() => {
+              res.json({
+                "action": `${action}`,
+                "err": "update success!"
+              })
+            })
+        } else {
+          //insert relation
+          this.knex("friendships")
+            .insert({
+              request_id: targetId,
+              relation: action
+            })
+            .then(() => {
+              res.json({
+                "action": `${action}`,
+                "err": "Insert success!"
+              })
+            })
+        }
+      })
+
   }
 
   getAdmin(req, res) {
@@ -159,7 +205,7 @@ class ViewRouter {
           birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
           country: db.country,
           joinDate: `${db.created_at.getFullYear()}-${db.created_at.getMonth() + 1}-${db.created_at.getDate()}`,
-          solgan: db.solgan,
+          slogan: db.slogan,
           icon: () => {
             //check icon Exists
             const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
@@ -353,22 +399,22 @@ class ViewRouter {
     });
   }
 
-  putSolgan(req, res) {
+  putSlogan(req, res) {
     let data = req.body.input
     //json to object
     data = JSON.parse(data)
-    if (data.solgan.length < 1) {
-      data.solgan = ""
+    if (data.slogan.length < 1) {
+      data.slogan = ""
     }
     //updata server
     this.knex("user_profile")
       .where("id", req.user.id)
       .update({
-        solgan: data.solgan
+        slogan: data.slogan
       })
       .then(() => {
         res.json({
-          "solgon": `${data.solgan}`
+          "solgon": `${data.slogan}`
         })
       })
   }
@@ -451,7 +497,7 @@ class ViewRouter {
           username: data.username,
           password: data.password,
           country: data.country,
-          solgan: data.solgan,
+          slogan: data.slogan,
           admin: data.admin,
           gender: data.gender,
           date_of_birth: data.date_of_birth
@@ -481,18 +527,83 @@ class ViewRouter {
       })
       .catch((e) => res.status(500).send(e.message));
   }
+  async getProfile(req, res) {
+    //get user info form db
+    await this.knex("user_profile")
+      .where({
+        id: req.params.id
+      })
+      .select()
+      .then((rows) => {
+        let db = rows[0]
+        //check relation
+        this.knex("friendships").where({ request_id: req.params.id }).select().then((data) => {
+          res.render(`page/profile`, {
+            title: "Profile",
+            page: "profile",
+            layout: "other",
+            id: db.id,
+            username: db.username,
+            gender: db.gender,
+            birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
+            country: db.country,
+            slogan: db.solgan,
+            relation: () => {
+              if (data.length > 0) {
+                if (data[0].relation === "subscriber") {
+                  return "Unfollow"
+                } else if (data[0].relation === "follow") {
+                  return "Remove"
+                } else if (data[0].relation === "block") {
+                  return "Follow"
+                } else {
+                  return "Follow"
+                }
+              }
+              else {
+                return "Follow"
+              }
+            }
+          });
+        })
+      })
+  }
+
 
   deleteAlbum(req, res) {
     //get data form fontend
     let data = req.body.image
     //remove image
-    fs.unlink(`./public/image/photo/${data}`, (err) => {
+    fs.unlink(`./ public / image / photo / ${data}`, (err) => {
       if (err) {
         console.log(err);
       }
     });
   }
-
+  async getSubscribers(req, res) {
+    //get subscribers list form db
+    await this.knex("friendships")
+      .join("user_profile", "user_profile.id", "friendships.request_id")
+      .where({
+        relation: "subscriber"
+      })
+      .select("user_profile.id", "user_profile.username")
+      .then((data) => {
+        res.json(data)
+      })
+  }
+  async getFollowers(req, res) {
+    //get followers list form db
+    await this.knex("friendships")
+      .join("user_profile", "user_profile.id", "friendships.request_id")
+      .where({
+        relation: "follower"
+      })
+      .select("user_profile.id", "user_profile.username")
+      .then((data) => {
+        res.json(data)
+      })
+  }
   getMarket(req, res) {
     res.render("page/market", {
       title: "Market",

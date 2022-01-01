@@ -5,11 +5,11 @@
             <img src="{{icon}}" id="icon_img">
         </div>
         <h4 class="username">{{username}}</h4>
-        <p class="solgan">{{solgan}}</p>
+        <p class="slogan">{{slogan}}</p>
         <button class="tablinks" onclick="SelectFunction(event, 'welcome')" id="defaultOpen">Post</button>
         <button class="tablinks" onclick="SelectFunction(event, 'Group')">Group</button>
         <button class="tablinks" onclick="SelectFunction(event, 'Follower')">Follower</button>
-        <button class="tablinks" onclick="SelectFunction(event, 'Chatroom')">Chatroom</button>
+        <button class="tablinks" onclick="SelectFunction(event, 'Chatroom')" id="chatroom">Chatroom</button>
         <a href="setting" style="text-decoration:none"><button>Setting</button></a>
     </div>
     <div class="sectionright">
@@ -33,13 +33,12 @@
                     </div>
                     <input class="inputMessage" placeholder="Type here..." />
                 </li>
-
             </ul>
         </div>
 
     </div>
 </div>
-<script src="../js/index.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 <script src="https://cdn.socket.io/4.4.0/socket.io.js"></script>
+<script src="../js/index.js"></script>
 <script src="../js/chatroom.js"></script>

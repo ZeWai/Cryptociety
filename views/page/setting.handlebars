@@ -22,11 +22,10 @@
             </div>
             <div class="row">
                 <div class="col-6 subscriber" id="subscriber">
-                    <a class="btn" type="file" href="#" id="subscriber_list_btn"><span>0</span>Subscriber</a>
+                    <a class="btn" type="file" href="#" id="subscriber_list_btn">Subscribers</a>
                 </div>
                 <div class="col-6 subscriber" id="follower">
-
-                    <a class="btn" href="#" id="follower_list_btn"><span>0</span>Follower</a>
+                    <a class="btn" href="#" id="follower_list_btn">Followers</a>
                 </div>
             </div>
             <div class="col-12" id="darkMode" hidden>
@@ -104,8 +103,8 @@
             </div>
             <div class="col-12">
                 <form>
-                    <input class="form-control" type="text" placeholder="{{solgan}}" id="solgan_input"
-                        value="{{solgan}}">
+                    <input class="form-control" type="text" placeholder="{{slogan}}" id="slogan_input"
+                        value="{{slogan}}">
                 </form>
             </div>
         </div>
@@ -128,50 +127,10 @@
                 </div>
             </section>
             <section id="subscriber_list" hidden>
-                <div class="row">
-                    <div class="col-8">
-                        <a class="btn" href="#" id="subscriber_btn">
-                            <div class="row">
-                                <div class="col-6">
-                                    <img src="../../../image/btn/logo_btn.png" alt="subscriber_icon"
-                                        id="subscriber_icon">
-                                </div>
-                                <div class="col-6">
-                                    <p id="subscriber_name">ZeWai</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-4" id="unfollow_btn">
-                        <a class="btn cancel" href="#">Unfollow</a>
-                    </div>
-                </div>
+                <ul class="row"></ul>
             </section>
             <section id="follower_list" hidden>
-                <div class="row">
-                    <div class="col-8">
-                        <a class="btn" href="#" id="follower_btn">
-                            <div class="row">
-                                <div class="col-6">
-                                    <img src="../../../image/btn/logo_btn.png" alt="follower_icon" id="follower_icon">
-                                </div>
-                                <div class="col-6">
-                                    <p id="follower_name">Ivan</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col-4" id="remove_follow_btn">
-                        <div class="row">
-                            <div class="col-6" id="follow_btn">
-                                <a class="btn follow" href="#">Follow</a>
-                            </div>
-                            <div class="col-6" id="remove_btn">
-                                <a class="btn cancel" href="#">Remove</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <ul class="row"></ul>
             </section>
             <section id="edit_password_verify" hidden>
                 <form>
