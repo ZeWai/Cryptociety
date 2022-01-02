@@ -24,7 +24,8 @@ class ViewRouter {
     router.delete("/delete/album/", isLoggedIn, this.deleteAlbum.bind(this));
     router.get("/market", isLoggedIn, this.getMarket.bind(this));
     router.get("/404", this.get404.bind(this));
-    router.get("/logout", isLoggedIn, this.getLogout.bind(this))
+    router.get("/logout", isLoggedIn, this.getLogout.bind(this));
+    router.get("/search", isLoggedIn, this.getSearch.bind(this));
     return router;
   }
   getLogout(req, res) {
@@ -144,11 +145,16 @@ class ViewRouter {
           username: db.username,
           password: "********",
           gender: db.gender,
-          birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
+          // birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
           country: db.country,
           joinDate: `${db.created_at.getFullYear()}-${db.created_at.getMonth() + 1}-${db.created_at.getDate()}`,
           solgan: db.solgan,
           icon: () => {
+
+
+
+
+
             if (db.profile_picture) {
               return db.profile_picture;
             } else {
@@ -477,6 +483,16 @@ class ViewRouter {
     });
   }
 }
+  // getSearch(req, res) {
+    
+  // }
+
+
+ 
+
+ 
+
+
 
 
 module.exports = ViewRouter;
