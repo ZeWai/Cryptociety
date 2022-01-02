@@ -1,0 +1,23 @@
+frontend ajax request get data method "put"
+res.json(data)
+index.js --> $(`#chatroom`).click()=>{
+    $.ajax({
+        url:"/api/index:,
+        method:"get",
+        success:(data)=>{
+            console.log(data.username)
+        },
+        error:(err)=>{
+            console.log(err)
+        }
+    })
+}
+
+viewRouter --> get("/api/index)
+
+async getApiIndex(req,res){
+    res.json({
+        username: req.user.username
+    })
+}
+

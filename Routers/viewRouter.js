@@ -11,8 +11,12 @@ class ViewRouter {
     let router = express.Router();
     router.get("/login", this.getLogin.bind(this));
     router.get("/signup", this.getSignup.bind(this));
-    router.get("/", isLoggedIn, this.getIndex.bind(this));
+    router.get("/", isLoggedIn, this.gethomepage.bind(this));
     router.get("/index", isLoggedIn, this.getIndex.bind(this));
+    router.get("/index/group", isLoggedIn, this.getgroup.bind(this));
+    router.get("/index/follower", isLoggedIn, this.getfollower.bind(this));
+    router.get("/index/chatroom", isLoggedIn, this.getchatroom.bind(this));
+    router.get("/api/index", isLoggedIn, this.getApiIndex.bind(this));
     router.get("/profile", isLoggedIn, this.getProfile.bind(this));
     router.get("/admin", isLoggedInAdmin, this.getAdmin.bind(this));
     router.get("/setting", isLoggedIn, this.getSetting.bind(this));
@@ -26,14 +30,16 @@ class ViewRouter {
     router.delete("/delete/album/", isLoggedIn, this.deleteAlbum.bind(this));
     router.get("/market", isLoggedIn, this.getMarket.bind(this));
     router.get("/404", this.get404.bind(this));
-    router.get("/logout", isLoggedIn, this.getLogout.bind(this))
+    router.get("/logout", isLoggedIn, this.getLogout.bind(this));
     return router;
   }
   getLogout(req, res) {
     req.logout();
     res.redirect('/');
   };
-
+gethomepage(req, res) {
+    res.redirect('/index');
+  };
   getLogin(req, res) {
     res.render("page/login", {
       title: "Login",
@@ -53,6 +59,98 @@ class ViewRouter {
           layout: "other",
           username: db.username,
           solgan: db.solgan,
+          function: "index",
+          icon: () => {
+            //check icon Exists
+            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+            console.log(iconExists)
+            if (iconExists) {
+              let img = `/image/uploaded/userIcon_${req.user.id}.png`
+              return img;
+            } else {
+              return `/image/uploaded/userIcon.png`;
+            }
+          }
+        });
+      })
+  }
+  
+  getApiIndex(req, res) {
+        res.json({
+        "username": req.user.username
+    })
+  }
+ getgroup(req, res) {
+    //Get db data
+    this.knex
+      .select("*")
+      .from("user_profile")
+      .then((rows) => {
+        let db = rows[req.user.id - 1]
+        res.render("page/group", {
+          title: "Index",
+          page: "index",
+          layout: "other",
+          username: db.username,
+          solgan: db.solgan,
+          function: "group",
+          icon: () => {
+            //check icon Exists
+            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+            console.log(iconExists)
+            if (iconExists) {
+              let img = `/image/uploaded/userIcon_${req.user.id}.png`
+              return img;
+            } else {
+              return `/image/uploaded/userIcon.png`;
+            }
+          }
+        });
+      })
+  }
+  getfollower(req, res) {
+    //Get db data
+    this.knex
+      .select("*")
+      .from("user_profile")
+      .then((rows) => {
+        let db = rows[req.user.id - 1]
+        res.render("page/follower", {
+          title: "Index",
+          page: "index",
+          layout: "other",
+          username: db.username,
+          solgan: db.solgan,
+          function: "follower",
+          icon: () => {
+            //check icon Exists
+            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+            console.log(iconExists)
+            if (iconExists) {
+              let img = `/image/uploaded/userIcon_${req.user.id}.png`
+              return img;
+            } else {
+              return `/image/uploaded/userIcon.png`;
+            }
+          }
+        });
+      })
+  }
+ getchatroom(req, res) {
+    //Get db data
+    this.knex
+      .select("*")
+      .from("user_profile")
+      .then((rows) => {
+        let db = rows[req.user.id - 1]
+        res.render("page/chatroom", {
+          title: "Index",
+          page: "index",
+          layout: "other",
+          function:"chatroom",
+          username: db.username,
+          solgan: db.solgan,
+          function:"chatroom",
           icon: () => {
             //check icon Exists
             const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)

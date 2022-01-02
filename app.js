@@ -4,6 +4,8 @@ const { engine } = require("express-handlebars");
 const fs = require("fs");
 const fileUpload = require('express-fileupload');
 require('dotenv').config();
+const socketio = require('socket.io');
+const io = socketio();
 
 //express setting
 const app = express();

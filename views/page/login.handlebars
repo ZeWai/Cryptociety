@@ -8,20 +8,20 @@
 
     <div class="logo"><img src="../image/btn/logo_btn.png" /></div>
     <div class="description"><a>Society of cryptocurrency</a></div>
-
-    <div class="inputarea" action="/login" method="post">
+    <div class="inputarea" >
+    <form action="/login" method="post">
       <label for="username">Username :</label><input id="username" name="username" type="text" autocomplete="username" required />
       <br />
       <label for="password">Password :</label><input id="password" name="password" type="password" autocomplete="password" required />
       <br /><br />
       <a href="/login">
         <button type="submit">login</button></a>
-      <button>Forget password</button>
+        </form>
+      {{!<button>Forget password</button>}}
       <br /><br /><br />
       <a href="/auth/gmail">
         <button>Login with google</button>
       </a>
-      {{! <button>Login with facebook</button> }}
       {{! Facebook Button }}
       <a href="/auth/facebook">
         <button>

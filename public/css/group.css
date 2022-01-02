@@ -54,9 +54,12 @@ section {
 .sectionleft button:hover {
   background-color: rgba(45, 188, 159, 0.8);
 }
+.sectionleft #post {
+  background-color: rgba(57, 209, 179, 0.4);
+}
 
 /* Create an active/current tablink class */
-.sectionleft #post {
+.sectionleft #group {
   background-color: rgba(45, 188, 159, 0.8);
 }
 

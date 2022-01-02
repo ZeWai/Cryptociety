@@ -1,4 +1,4 @@
-    $.ajax({
+$.ajax({
         url:"/api/index",
         method:"get",
         success:(data)=>{
