@@ -1,7 +1,7 @@
-/* const path = require('path');
+const path = require('path');
 const http = require('http');
 const express = require('express');
-const socketio = require('socket.io');
+
 const formatMessage = require('./utils/messages');
 const {
   userJoin,
@@ -12,9 +12,8 @@ const {
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server); */
-
-socketio.on('connection', socket => {
+ 
+io.on('connection', socket => {
   socket.on('joinRoom', ({ username, room }) => {
     const user = userJoin(socket.id, username, room);
 
@@ -42,7 +41,7 @@ socketio.on('connection', socket => {
   socket.on('chatMessage', msg => {
     const user = getCurrentUser(socket.id);
 
-    socketio.to(user.room).emit('message', formatMessage(user.username, msg));
+    io.to(user.room).emit('message', formatMessage(user.username, msg));
   });
 
   // Runs when client disconnects
@@ -56,10 +55,11 @@ socketio.on('connection', socket => {
       );
 
       // Send users and room info
-      socketio.to(user.room).emit('roomUsers', {
+      io.to(user.room).emit('roomUsers', {
         room: user.room,
         users: getRoomUsers(user.room)
       });
     }
   });
 });
+ 
