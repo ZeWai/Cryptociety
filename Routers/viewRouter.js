@@ -137,6 +137,7 @@ class ViewRouter {
     const data = JSON.parse(req.body.action)
     const targetId = data.target
     const action = data.action
+    console.log(targetId)
     //check exist
     await this.knex("friendships")
       .where({
@@ -146,30 +147,62 @@ class ViewRouter {
       .then((rows) => {
         const firend = rows[0]
         if (firend) {
-          //change relation
-          this.knex("friendships")
-            .update({
-              relation: action
-            })
-            .then(() => {
-              res.json({
-                "action": `${action}`,
-                "err": "update success!"
+          if (action !== "remove") {
+            //change relation
+            this.knex("friendships")
+              .where("request_id", targetId)
+              .update({
+                relation: action
               })
-            })
+              .then(() => {
+                res.json({
+                  "action": `${action}`,
+                  "err": "update success!"
+                })
+              })
+          } else {
+            //change relation
+            this.knex("friendships")
+              .where("request_id", targetId)
+              .update({
+                relation: ""
+              })
+              .then(() => {
+                res.json({
+                  "action": `${action}`,
+                  "err": "update success!"
+                })
+              })
+          }
+
         } else {
-          //insert relation
-          this.knex("friendships")
-            .insert({
-              request_id: targetId,
-              relation: action
-            })
-            .then(() => {
-              res.json({
-                "action": `${action}`,
-                "err": "Insert success!"
+          if (action !== "remove") {
+            //insert relation
+            this.knex("friendships")
+              .insert({
+                request_id: targetId,
+                relation: action
               })
-            })
+              .then(() => {
+                res.json({
+                  "action": `${action}`,
+                  "err": "Insert success!"
+                })
+              })
+          } else {
+            //insert relation
+            this.knex("friendships")
+              .insert({
+                request_id: targetId,
+                relation: ""
+              })
+              .then(() => {
+                res.json({
+                  "action": `${action}`,
+                  "err": "Insert success!"
+                })
+              })
+          }
         }
       })
 
@@ -182,7 +215,7 @@ class ViewRouter {
   get404(req, res) {
     res.status(404).render("page/404", {
       title: "404",
-      page: "404",
+      page: "404"
     });
   }
 
@@ -528,48 +561,67 @@ class ViewRouter {
       .catch((e) => res.status(500).send(e.message));
   }
   async getProfile(req, res) {
-    //get user info form db
     await this.knex("user_profile")
+      .join(
+        "friendships",
+        "friendships.request_id",
+        "user_profile.id"
+      )
       .where({
         id: req.params.id
       })
-      .select()
-      .then((rows) => {
-        let db = rows[0]
-        //check relation
-        this.knex("friendships").where({ request_id: req.params.id }).select().then((data) => {
-          res.render(`page/profile`, {
-            title: "Profile",
-            page: "profile",
-            layout: "other",
-            id: db.id,
-            username: db.username,
-            gender: db.gender,
-            birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
-            country: db.country,
-            slogan: db.solgan,
-            relation: () => {
-              if (data.length > 0) {
+      .select(
+        "user_profile.username",
+        "user_profile.id",
+        "user_profile.gender",
+        "user_profile.date_of_birth",
+        "user_profile.country",
+        "user_profile.slogan",
+        "friendships.relation"
+      )
+      .then((data) => {
+        if (data[0]) {
+          res.render(`page/profile`,
+            {
+              title: "Profile",
+              page: "profile",
+              layout: "other",
+              id: data[0].id,
+              username: data[0].username,
+              gender: data[0].gender,
+              birthday: `${data[0].date_of_birth.getFullYear()}-${data[0].date_of_birth.getMonth() + 1}-${data[0].date_of_birth.getDate()}`,
+              country: data[0].country,
+              slogan: data[0].solgan,
+              follow: () => {
                 if (data[0].relation === "subscriber") {
-                  return "Unfollow"
-                } else if (data[0].relation === "follow") {
-                  return "Remove"
-                } else if (data[0].relation === "block") {
-                  return "Follow"
-                } else {
-                  return "Follow"
+                  return "hidden"
+                }
+              },
+              unfollow: () => {
+                if (data[0].relation !== "subscriber") {
+                  return "hidden"
+                }
+              },
+              remove: () => {
+                if (data[0].relation !== "follower") {
+                  return "hidden"
+                }
+              },
+              block: () => {
+                if (data[0].relation === "block") {
+                  return "hidden"
                 }
               }
-              else {
-                return "Follow"
-              }
-            }
-          });
-        })
+            })
+        } else {
+          res.render(`page/404`,
+            {
+              title: "404",
+              page: "404"
+            })
+        }
       })
   }
-
-
   deleteAlbum(req, res) {
     //get data form fontend
     let data = req.body.image

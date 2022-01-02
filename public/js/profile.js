@@ -1,10 +1,10 @@
-$(`#profile_Follow_btn`).click(() => {
-    let url = document.location.href
+let url = document.location.href
+$(`#profile_follow_btn`).click(() => {
     // create new data from to server
     let formData = new FormData;
     // append data to data form (key:value) object to json
     let msg = JSON.stringify({
-        action: "follow",
+        action: "subscriber",
         target: url.slice(31)
     })
     formData.append("action", msg);
@@ -15,28 +15,22 @@ $(`#profile_Follow_btn`).click(() => {
         processData: false,
         contentType: false,
         success: (data) => {
-            $(".alert_success").removeClass("hidden")
-            $(".alert_success").addClass("show")
-            $(".alert").removeClass("show")
-            $(".alert").addClass("hidden")
-            //auto close 3s
-            setTimeout(() => {
-                $(".alert_success").removeClass("show")
-                $(".alert_success").addClass("hidden")
-            }, 3000);
+            $(`#profile_follow_btn`).attr("hidden", true)
+            $(`#profile_remove_btn`).attr("hidden", true)
+            $(`#profile_unfollow_btn`).attr("hidden", false)
+            $(`#profile_block_btn`).attr("hidden", false)
         },
         error: (err) => {
             console.log(err)
         }
     })
 })
-$(`#profile_Unfollow_btn`).click(() => {
-    let url = document.location.href
+$(`#profile_unfollow_btn`).click(() => {
     // create new data from to server
     let formData = new FormData;
     // append data to data form (key:value) object to json
     let msg = JSON.stringify({
-        action: "unfollow",
+        action: "follower",
         target: url.slice(31)
     })
     formData.append("action", msg);
@@ -47,23 +41,17 @@ $(`#profile_Unfollow_btn`).click(() => {
         processData: false,
         contentType: false,
         success: (data) => {
-            $(".alert_success").removeClass("hidden")
-            $(".alert_success").addClass("show")
-            $(".alert").removeClass("show")
-            $(".alert").addClass("hidden")
-            //auto close 3s
-            setTimeout(() => {
-                $(".alert_success").removeClass("show")
-                $(".alert_success").addClass("hidden")
-            }, 3000);
+            $(`#profile_unfollow_btn`).attr("hidden", true)
+            $(`#profile_remove_btn`).attr("hidden", true)
+            $(`#profile_follow_btn`).attr("hidden", false)
+            $(`#profile_block_btn`).attr("hidden", false)
         },
         error: (err) => {
             console.log(err)
         }
     })
 })
-$(`#profile_Remove_btn`).click(() => {
-    let url = document.location.href
+$(`#profile_remove_btn`).click(() => {
     // create new data from to server
     let formData = new FormData;
     // append data to data form (key:value) object to json
@@ -79,23 +67,14 @@ $(`#profile_Remove_btn`).click(() => {
         processData: false,
         contentType: false,
         success: (data) => {
-            $(".alert_success").removeClass("hidden")
-            $(".alert_success").addClass("show")
-            $(".alert").removeClass("show")
-            $(".alert").addClass("hidden")
-            //auto close 3s
-            setTimeout(() => {
-                $(".alert_success").removeClass("show")
-                $(".alert_success").addClass("hidden")
-            }, 3000);
+            $(`#profile_remove_btn`).attr("hidden", true)
         },
         error: (err) => {
             console.log(err)
         }
     })
 })
-$(`#profile_Block_btn`).click(() => {
-    let url = document.location.href
+$(`#profile_block_btn`).click(() => {
     // create new data from to server
     let formData = new FormData;
     // append data to data form (key:value) object to json
@@ -111,15 +90,10 @@ $(`#profile_Block_btn`).click(() => {
         processData: false,
         contentType: false,
         success: (data) => {
-            $(".alert_success").removeClass("hidden")
-            $(".alert_success").addClass("show")
-            $(".alert").removeClass("show")
-            $(".alert").addClass("hidden")
-            //auto close 3s
-            setTimeout(() => {
-                $(".alert_success").removeClass("show")
-                $(".alert_success").addClass("hidden")
-            }, 3000);
+            $(`#profile_block_btn`).attr("hidden", true)
+            $(`#profile_unfollow_btn`).attr("hidden", true)
+            $(`#profile_remove_btn`).attr("hidden", true)
+            $(`#profile_follow_btn`).attr("hidden", false)
         },
         error: (err) => {
             console.log(err)

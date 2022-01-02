@@ -3,43 +3,43 @@ body{
     padding-top: 7vh;
     padding-bottom:9vh;
 }
-.Follow{
+.follow{
     margin: 10px 10px 10px;
     width: 120px;
     color:white;
     background-color: rgba(13, 110, 253,0.4);
   }
-.Follow:hover{
+.follow:hover{
     color:white;
     background-color: rgba(13, 110, 253,0.8);
   }
-.Unfollow{
+.unfollow{
     margin: 10px 10px 10px;
     width: 120px;
     color:white;
     background-color: #39d1b366;
   }
-.Unfollow:hover{
+.unfollow:hover{
     color:white;
     background-color: #2dbc9fcc;
   }
-.Remove{
+.remove{
     margin: 10px 10px 10px;
     width: 120px;
     color:white;
     background-color: rgba(210, 18, 235,0.4);
   }
-.Remove:hover{
+.remove:hover{
     color:white;
     background-color: rgba(210, 18, 235, 0.8);
   }
-.Block{
+.block{
     margin: 10px 10px 10px;
     width: 120px;
     color:white;
     background-color: rgba(240, 95, 64,0.4);
 }
-.Block:hover{
+.block:hover{
     color:white;
     background-color: rgba(235, 56, 18,0.8);
 }
