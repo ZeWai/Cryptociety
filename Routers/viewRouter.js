@@ -227,6 +227,7 @@ class ViewRouter {
   getSetting(req, res) {
     //Get db data
     this.knex
+      .where("id", req.user.id)
       .select("*")
       .from("user_profile")
       .then((rows) => {
@@ -240,7 +241,7 @@ class ViewRouter {
           username: db.username,
           password: "********",
           gender: db.gender,
-          // birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
+          birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
           country: db.country,
           joinDate: `${db.created_at.getFullYear()}-${db.created_at.getMonth() + 1}-${db.created_at.getDate()}`,
           slogan: db.slogan,
@@ -370,9 +371,10 @@ class ViewRouter {
                 gender: data.new_gender
               })
               .then(() => {
+                console.log(db.new_username)
                 res.json({
                   "verify": "success",
-                  "username": `${db.new_username}`,
+                  "username": `${db.username}`,
                   "gender": `${data.new_gender}`,
                   "birthday": `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
                   "country": `${db.country}`
@@ -466,10 +468,11 @@ class ViewRouter {
   getGroupSetting(req, res) {
     //Get db data
     this.knex
+      .where("id", req.user.id)
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let db = rows[req.user.id - 1]
+        let db = rows[0]
         if (db.group !== null) {
           res.json({
             "group": "false",

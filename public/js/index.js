@@ -62,9 +62,7 @@ $(`#article_submit_btn`).click(() => {
     success: (data) => {
       if (data.post === "true") {
         $(`#article`).val("")
-        $(`#create_post_section`).attr("hidden", true)
-        $(`#content_list`).attr("hidden", false)
-        $(`#article_submit_btn`).attr("href", `https://localhost:3000/index`)
+        location.reload()
       }
     },
     error: (err) => {
