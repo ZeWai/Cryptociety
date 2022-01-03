@@ -42,17 +42,17 @@ const UserPosts = require("./Services/UserPosts");
 
 const userPosts = new UserPosts(knex);
 
-app.get("/", async (req, res) => {
-    let data = await userPosts.list(req.auth.user);
+// app.get("/", async (req, res) => {
+//     let data = await userPosts.list(req.auth.user);
 
-    let array = data.map((x) => x.content);
-    console.log(array);
+//     let array = data.map((x) => x.content);
+//     console.log(array);
 
-    res.render("index", {
-        username: req.auth.user,
-        written_text: Array,
-    })
-})
+//     res.render("index", {
+//         username: req.auth.user,
+//         written_text: Array,
+//     })
+// })
 
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));

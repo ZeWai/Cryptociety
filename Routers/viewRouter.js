@@ -31,6 +31,7 @@ class ViewRouter {
     router.put("/profile/:id", isLoggedIn, this.putProfile.bind(this));
     router.get("/404", this.get404.bind(this));
     router.get("/logout", isLoggedIn, this.getLogout.bind(this));
+    router.get("/content", isLoggedIn, this.getContent.bind(this));
     return router;
   }
   getLogout(req, res) {
@@ -670,7 +671,34 @@ class ViewRouter {
       layout: "other"
     });
   }
+
+  async getContent(req, res) {
+    console.log("working as intended");
+      let query = this.knex
+        .select("written_text", "profile_id", "user_post.id")
+        .from("user_post")
+        .innerJoin("user_profile", "user_post.profile_id", "user_profile.id")
+        .orderBy("user_post", "desc");
+
+      return query.then((rows) => {
+        console.log(rows);
+        return rows.map((row) => ({
+          id: row.id,
+          written_text: row.content
+        }))
+      })
+        
+    // res.render("page/index", {
+    //   msg: "content",
+    //   user: 
+    // })
+    
+
+
+  }
 }
+
+  
 
 
 

@@ -19,4 +19,17 @@ function SelectFunction(evt, SelectFunction) {
   evt.currentTarget.className += " active";
 }
 
-document.getElementById("defaultOpen").click();
+
+$().ready(() => {
+  $.ajax({
+    url: `/content`,
+    method: `get`,
+    success: (data) => {
+      console.log(data)
+    },
+    error: (error) => {
+      console.log(error)
+    }
+    
+  })
+})
