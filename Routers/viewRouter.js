@@ -36,6 +36,7 @@ class ViewRouter {
     router.get("/404", this.get404.bind(this));
     router.get("/logout", isLoggedIn, this.getLogout.bind(this));
     router.get("/content", isLoggedIn, this.getContent.bind(this));
+    router.get("/videos", isLoggedIn, this.getVideos.bind(this));
     return router;
   }
   getLogout(req, res) {
@@ -713,6 +714,21 @@ class ViewRouter {
         content: data,
       });
     });
+  }
+
+  async getVideos(req, res) {
+    console.log("getting videos");
+    const videoData = JSON.parse(req.body.videoLinks.videos);
+    console.log(videoData);
+    for(let i = 0; i < videoData.length; i++) {
+      await this.knex("videos")
+      .insert({
+        video_name: videoData[i].snippet.title,
+        video_url: `https://www.youtube.com/watch?v=${videoData[i].id.videoId}`
+      })
+    }
+    res.JSON("success");
+    
   }
 }
 

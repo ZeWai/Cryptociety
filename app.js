@@ -48,7 +48,8 @@ const userPosts = new UserPosts(knex);
 
 
 
-
+const youtubeVideos = require("./main");
+youtubeVideos.main()
 
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
