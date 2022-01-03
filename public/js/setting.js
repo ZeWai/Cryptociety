@@ -95,6 +95,45 @@ $().ready(() => {
     $(`#create_group`).attr(`hidden`, true)
     //show
     $(`#subscriber_list`).attr(`hidden`, false)
+    //make get subscriber list req
+    $.ajax({
+      url: "subscribers",
+      method: "get",
+      success: (data) => {
+        console.log(data)
+        if (data) {
+          let subscriber = "";
+          $.each(data, (index) => {
+            //remove old li
+            $(`#subscriberList_${data[index].id}_li`).remove()
+            //add new data
+            subscriber +=
+              `
+                <li class="col-12" id="subscriberList_${data[index].id}_li">
+                  <div class="row">
+                    <div class="col-12" >
+                      <a class="btn" href="https://localhost:3000/profile/${data[index].id}" id="subscriber_btn">
+                        <div class="row">
+                          <div class="col-6">
+                            <img src="./image/uploaded/userIcon_${data[index].id}.png" alt="subscriber_${data[index].id}_icon" id="subscriber_icon">
+                          </div>
+                          <div class="col-6">
+                            <p id="subscriber_name">${data[index].username}</p>
+                          </div>
+                        </div>
+                      </a>
+                    </div >
+                  </div>
+                </li>
+              `
+          })
+          $("#subscriber_list .row").append(subscriber);
+        }
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   })
 
   //follower list button handling
@@ -113,6 +152,44 @@ $().ready(() => {
     $(`#create_group`).attr(`hidden`, true)
     //show
     $(`#follower_list`).attr(`hidden`, false)
+    //make get follower list req
+    $.ajax({
+      url: "followers",
+      method: "get",
+      success: (data) => {
+        if (data) {
+          let follower = "";
+          $.each(data, (index) => {
+            //remove old li
+            $(`#followerList_${data[index].id}_li`).remove()
+            //add new data
+            follower +=
+              `
+            <li class="col-12" id="followerList_${data[index].id}_li">
+              <div class="row">
+                <div class="col-12" >
+                  <a class="btn" href="https://localhost:3000/profile/${data[index].id}" id="follower_btn">
+                    <div class="row">
+                      <div class="col-6">
+                        <img src="./image/uploaded/userIcon_${data[index].id}.png" alt="follower_${data[index].id}_icon" id="follower_icon">
+                      </div>
+                      <div class="col-6">
+                        <p id="follower_name">${data[index].username}</p>
+                      </div>
+                    </div>
+                  </a>
+                </div >
+              </div>
+            </li>
+          `
+          })
+          $("#follower_list .row").append(follower);
+        }
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   })
 
   //username edit button handling
@@ -311,35 +388,103 @@ $().ready(() => {
           $(`#album_list`).attr(`hidden`, true)
           //show
           $(`#create_group`).attr(`hidden`, false)
+          //sumit create group
+          $(`#group_submit_btn`).click(() => {
+            let formData = new FormData;
+            let files = JSON.stringify({
+              email_address: $(`#group_email`).val(),
+              username: $(`#group_name`).val(),
+              password: $(`#group_password`).val(),
+              country: $(`#group_location`).val(),
+              slogan: $(`#group_slogan`).val(),
+              admin: "group",
+              gender: "group",
+              date_of_birth: new Date
+            });
+            //send post req to server
+            formData.append("files", files);
+            $.ajax({
+              url: "/group/create",
+              method: "post",
+              data: formData,
+              cache: false,
+              processData: false,
+              contentType: false,
+              success: (data) => {
+                if (data.create == "false") {
+                  $(".alert").removeClass("hidden")
+                  $(".alert").addClass("show")
+                  $(".alert_success").removeClass("show")
+                  $(".alert_success").addClass("hidden")
+                  $(".alert_msg").html(`${data.err}`)
+                  //auto close 3s
+                  setTimeout(() => {
+                    $(".alert").removeClass("show")
+                    $(".alert").addClass("hidden")
+                  }, 3000);
+                } else {
+                  $(".alert_success").removeClass("hidden")
+                  $(".alert_success").addClass("show")
+                  $(".alert").removeClass("show")
+                  $(".alert").addClass("hidden")
+                  //auto close 3s
+                  setTimeout(() => {
+                    $(".alert_success").removeClass("show")
+                    $(".alert_success").addClass("hidden")
+                  }, 3000);
+                  //render
+                  $(`#create_group`).attr(`hidden`, true)
+                  $(`#edit_title h2`).html(`Album`)
+                  $(`#album_list`).attr(`hidden`, false)
+                  //clear input
+                  $(`#group_email`).val("")
+                  $(`#group_name`).val("")
+                  $(`#group_password`).val("")
+                  $(`#group_location`).val("")
+                  $(`#group_slogan`).val("")
+                }
+              },
+              error: (err) => {
+                console.log(err)
+              }
+            })
+          })
         }
       },
       error: (err) => {
         console.log(err)
       }
     })
-
+    //group create cancel
+    $("#group_cancel_btn").click(() => {
+      $(`#group_email`).val("")
+      $(`#group_name`).val("")
+      $(`#group_password`).val("")
+      $(`#group_location`).val("")
+      $(`#group_slogan`).val("")
+    })
   })
 
-  //solgan input handling
-  $(`#solgan_input`).change(() => {
+  //slogan input handling
+  $(`#slogan_input`).change(() => {
     // create new data from to server
     let formData = new FormData;
     // append data to data form (key:value) object to json
     let files = JSON.stringify({
-      solgan: $(`#solgan_input`).val(),
+      slogan: $(`#slogan_input`).val(),
     })
     formData.append("input", files);
     $.ajax({
-      url: "/solgan/setting",
+      url: "/slogan/setting",
       method: "put",
       data: formData,
       processData: false,
       contentType: false,
       success: (data) => {
         if (data.solgon.length < 1) {
-          $(`#solgan_input`).attr(`placeholder`, "Please say something...")
+          $(`#slogan_input`).attr(`placeholder`, "Please say something...")
         } else {
-          $(`#solgan_input`).attr(`placeholder`, data.solgon)
+          $(`#slogan_input`).attr(`placeholder`, data.solgon)
         }
       },
       error: (err) => {

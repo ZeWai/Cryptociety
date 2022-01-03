@@ -1,0 +1,65 @@
+body{
+    background-color: rgba(248, 248, 248, 0.4);
+    padding-top: 7vh;
+    padding-bottom:9vh;
+}
+.follow{
+    margin: 10px 10px 10px;
+    width: 120px;
+    color:white;
+    background-color: rgba(13, 110, 253,0.4);
+  }
+.follow:hover{
+    color:white;
+    background-color: rgba(13, 110, 253,0.8);
+  }
+.unfollow{
+    margin: 10px 10px 10px;
+    width: 120px;
+    color:white;
+    background-color: #39d1b366;
+  }
+.unfollow:hover{
+    color:white;
+    background-color: #2dbc9fcc;
+  }
+.remove{
+    margin: 10px 10px 10px;
+    width: 120px;
+    color:white;
+    background-color: rgba(210, 18, 235,0.4);
+  }
+.remove:hover{
+    color:white;
+    background-color: rgba(210, 18, 235, 0.8);
+  }
+.block{
+    margin: 10px 10px 10px;
+    width: 120px;
+    color:white;
+    background-color: rgba(240, 95, 64,0.4);
+}
+.block:hover{
+    color:white;
+    background-color: rgba(235, 56, 18,0.8);
+}
+#user_icon img{
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8);
+    border-radius: 100%;
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+#user_icon{
+    margin-top: 10vh;
+    margin-bottom: 40px;
+}
+#user_info{
+    margin-bottom: 20px;
+}
+#user_info p{
+    font-weight: 700;
+}
+#relation_btn{
+    margin-bottom: 10vh;
+}

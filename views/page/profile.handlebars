@@ -1,0 +1,24 @@
+<div class="container-fluid">
+    <div class="row text-center">
+        <div class="col-12" id="user_icon">
+            <img src="../../../image/uploaded/userIcon_{{id}}.png" alt="user_{{id}}_icon">
+        </div>
+        <div class="col-12" id="user_info">
+            <p>Username : {{username}}</p>
+            <p>Gender : {{gender}}</p>
+            <p>Birthday : {{birthday}}</p>
+            <p>Location : {{country}}</p>
+            <p>Slogan : {{slogan}}</p>
+        </div>
+        <div class="col-12" id="relation_btn">
+            <div class="row">
+                <div id="warpper">
+                    <a class="col-6 btn follow" id="profile_follow_btn" {{follow}}>Follow</a>
+                    <a class="col-6 btn unfollow" id="profile_unfollow_btn" {{unfollow}}>Unfollow</a>
+                    <a class="col-6 btn remove" id="profile_remove_btn" {{remove}}>Remove</a>
+                    <a class="col-6 btn block" id="profile_block_btn" {{block}}>Block</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
