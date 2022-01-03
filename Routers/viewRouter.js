@@ -137,11 +137,12 @@ class ViewRouter {
     const data = JSON.parse(req.body.action)
     const targetId = data.target
     const action = data.action
-    console.log(targetId)
+    const id = req.user.id
     //check exist
     await this.knex("friendships")
       .where({
-        request_id: targetId
+        request_id: targetId,
+        user_profile_id: id
       })
       .select()
       .then((rows) => {
@@ -181,7 +182,8 @@ class ViewRouter {
             this.knex("friendships")
               .insert({
                 request_id: targetId,
-                relation: action
+                relation: action,
+                user_profile_id: id
               })
               .then(() => {
                 res.json({
@@ -194,7 +196,8 @@ class ViewRouter {
             this.knex("friendships")
               .insert({
                 request_id: targetId,
-                relation: ""
+                relation: "",
+                user_profile_id: id
               })
               .then(() => {
                 res.json({
@@ -633,11 +636,13 @@ class ViewRouter {
     });
   }
   async getSubscribers(req, res) {
+    const id = req.user.id
     //get subscribers list form db
     await this.knex("friendships")
       .join("user_profile", "user_profile.id", "friendships.request_id")
       .where({
-        relation: "subscriber"
+        relation: "subscriber",
+        user_profile_id: id
       })
       .select("user_profile.id", "user_profile.username")
       .then((data) => {
@@ -645,11 +650,13 @@ class ViewRouter {
       })
   }
   async getFollowers(req, res) {
+    const id = req.user.id
     //get followers list form db
     await this.knex("friendships")
       .join("user_profile", "user_profile.id", "friendships.request_id")
       .where({
-        relation: "follower"
+        relation: "follower",
+        user_profile_id: id
       })
       .select("user_profile.id", "user_profile.username")
       .then((data) => {
