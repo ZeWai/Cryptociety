@@ -395,14 +395,12 @@ class ViewRouter {
         console.log(db.hash)
         console.log(data.password_verify)
         //json to object
-        let compare;
           bcrypt.compare(data.password_verify, db.hash, function (err, result) {
             if (err) { console.log(err) }
             else {
-              return result;
+              console.log(result,"compare");
             }
           });
-                console.log(bcrypt.compare)
         //verify password
         if (data.password_verify !== db.password) {
           res.json({
