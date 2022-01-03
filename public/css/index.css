@@ -61,7 +61,7 @@ section {
 }
 
 /* Create an active/current tablink class */
-.sectionleft button.active {
+.sectionleft #post {
   background-color: rgba(45, 188, 159, 0.8);
 }
 

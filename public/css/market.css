@@ -1,3 +1,8 @@
+body{
+  padding-top: 7vh;
+  padding-bottom:7vh;
+}
+
 .sectionleft {
   width: 15%;
   margin-bottom: 20px;
@@ -14,9 +19,9 @@
   height: 84vh;
   overflow: auto;
 }
-section {
+ section {
   clear: both;
-}
+} 
 .image {
   margin: 30px auto;
   border-radius: 100%;

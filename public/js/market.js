@@ -16,7 +16,7 @@ window.onload = function () {
                         }
                     },
                     axisY: {
-                        title: "Pageviews Per Second"
+                        title: "Price Per Second"
                     },
                     toolTip: {
                         shared: true
