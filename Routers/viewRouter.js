@@ -25,7 +25,6 @@ class ViewRouter {
     router.get("/market", isLoggedIn, this.getMarket.bind(this));
     router.get("/404", this.get404.bind(this));
     router.get("/logout", isLoggedIn, this.getLogout.bind(this));
-    router.get("/search", isLoggedIn, this.getSearch.bind(this));
     return router;
   }
   getLogout(req, res) {
@@ -483,9 +482,10 @@ class ViewRouter {
     });
   }
 }
-  // getSearch(req, res) {
-    
-  // }
+
+
+
+
 
 
  
