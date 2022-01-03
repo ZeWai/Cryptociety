@@ -68,3 +68,23 @@ section {
 .tabcontent {
   display: none;
 }
+
+#content_list{
+  padding: 20px 0 10px 0;
+  color: rgba(128, 128, 128, 0.6);
+}
+#content_ul li{
+  margin: 10px;
+}
+#content_list li{
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
+  color: black;
+}
+#content_list img{
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+}
+#content_owner{
+  font-weight: 700;
+}

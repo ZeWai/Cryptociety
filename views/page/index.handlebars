@@ -6,16 +6,31 @@
         </div>
         <h4 class="username">{{username}}</h4>
         <p class="slogan">{{slogan}}</p>
-        <button class="tablinks" onclick="SelectFunction(event, 'welcome')" id="defaultOpen">Post</button>
+        <button class="tablinks" onclick="SelectFunction(event, 'content_list')" id="defaultOpen">Post</button>
         <button class="tablinks" onclick="SelectFunction(event, 'Group')">Group</button>
         <button class="tablinks" onclick="SelectFunction(event, 'Follower')">Follower</button>
         <button class="tablinks" onclick="SelectFunction(event, 'Chatroom')" id="chatroom">Chatroom</button>
         <a href="setting" style="text-decoration:none"><button>Setting</button></a>
     </div>
     <div class="sectionright">
-        <div id="welcome" class="tabcontent">
-            <h3>Welcome</h3>
-            <p>Welcome page</p>
+        <div id="content_list" class="tabcontent text-center">
+            <div class="row">
+                <h3>Content</h3>
+                <ul id="content_ul">
+                    <li>
+                        <div id="content_owner_info">
+                            <img src="../../../image/uploaded/userIcon_1.png" alt="content_owner_icon">
+                            <p id="content_owner">Miofong</p>
+                        </div>
+                        <div id="content_owner_info">
+                            <p id="content_post_date">Miofong</p>
+                            <p id="content_post_text">
+                                dsfdsojfoidsjofjdspojfopidsijfopdsjopfijdsopfjopdsjfopsdjpfojdspofjipo
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div id="Group" class="tabcontent">
             <h3>Group</h3>
