@@ -1,3 +1,4 @@
+
 const express = require("express");
 const isLoggedIn = require("../authFuncs/auth.js").isLoggedIn;
 const isLoggedInAdmin = require("../authFuncs/auth.js").isLoggedInAdmin;
@@ -25,6 +26,7 @@ class ViewRouter {
     router.delete("/setting", isLoggedIn, this.deleteSetting.bind(this));
     router.get("/group/setting", isLoggedIn, this.getGroupSetting.bind(this));
     router.post("/group/create", isLoggedIn, this.postGroupCreate.bind(this));
+    router.put("/slogan/setting", isLoggedIn, this.putSlogan.bind(this));;
     router.get("/api/setting", isLoggedIn, this.getApiSetting.bind(this));
     router.get("/download/album/:name", isLoggedIn, this.getDownloadAlbum.bind(this));
     router.delete("/delete/album/", isLoggedIn, this.deleteAlbum.bind(this));
@@ -36,13 +38,14 @@ class ViewRouter {
     router.get("/404", this.get404.bind(this));
     router.get("/logout", isLoggedIn, this.getLogout.bind(this));
     router.get("/content", isLoggedIn, this.getContent.bind(this));
+    router.post("/create/article", isLoggedIn, this.postArticle.bind(this));
     return router;
   }
   getLogout(req, res) {
     req.logout();
     res.redirect('/');
   };
-gethomepage(req, res) {
+  gethomepage(req, res) {
     res.redirect('/index');
   };
   getLogin(req, res) {
@@ -82,11 +85,11 @@ gethomepage(req, res) {
   }
   
   getApiIndex(req, res) {
-        res.json({
-        "username": req.user.username
+    res.json({
+      "username": req.user.username
     })
   }
- getgroup(req, res) {
+  getgroup(req, res) {
     //Get db data
     this.knex
       .select("*")
@@ -142,7 +145,7 @@ gethomepage(req, res) {
         });
       })
   }
- getchatroom(req, res) {
+  getchatroom(req, res) {
     //Get db data
     this.knex
       .select("*")
@@ -153,10 +156,10 @@ gethomepage(req, res) {
           title: "Index",
           page: "index",
           layout: "other",
-          function:"chatroom",
+          function: "chatroom",
           username: db.username,
           solgan: db.solgan,
-          function:"chatroom",
+          function: "chatroom",
           icon: () => {
             //check icon Exists
             const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
@@ -327,6 +330,7 @@ gethomepage(req, res) {
     //Get db data
     this.knex
       .select("*")
+      .where("id", req.user.id)
       .from("user_profile")
       .then((rows) => {
         let db = rows[req.user.id - 1]
@@ -337,9 +341,8 @@ gethomepage(req, res) {
           userId: db.id,
           email: db.email_address,
           username: db.username,
-          password: "********",
           gender: db.gender,
-          // birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
+          birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
           country: db.country,
           joinDate: `${db.created_at.getFullYear()}-${db.created_at.getMonth() + 1}-${db.created_at.getDate()}`,
           slogan: db.slogan,
@@ -380,10 +383,11 @@ gethomepage(req, res) {
   putSetting(req, res) {
     //get db data
     this.knex
+      .where("id", req.user.id)
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let db = rows[req.user.id - 1]
+        let db = rows[0]
         let data = req.body.input
         //json to object
         data = JSON.parse(data)
@@ -434,7 +438,7 @@ gethomepage(req, res) {
               .then(() => {
                 res.json({
                   "verify": "success",
-                  "username": `${data.new_username}`,
+                  "username": `${data.username}`,
                   "gender": `${db.gender}`,
                   "birthday": `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
                   "country": `${db.country}`
@@ -564,10 +568,11 @@ gethomepage(req, res) {
   getGroupSetting(req, res) {
     //Get db data
     this.knex
+      .where("id", req.user.id)
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let db = rows[req.user.id - 1]
+        let db = rows[0]
         if (db.group !== null) {
           res.json({
             "group": "false",
@@ -773,43 +778,55 @@ gethomepage(req, res) {
   }
 
   async getContent(req, res) {
-    console.log("working as intended");
-      let query = this.knex
-        .select("written_text", "profile_id", "user_post.id")
-        .from("user_post")
-        .innerJoin("user_profile", "user_post.profile_id", "user_profile.id")
-        .orderBy("user_post", "desc");
-
-      return query.then((rows) => {
-        console.log(rows);
-        return rows.map((row) => ({
-          id: row.id,
-          written_text: row.content
-        }))
-      })
-        
-    // res.render("page/index", {
-    //   msg: "content",
-    //   user: 
-    // })
     
-
-
+    await this.knex("user_post")
+      .join("user_profile", "user_profile.id", "user_post.profile_id")
+      .select()
+      .then((rows) => {
+        res.json(rows)
+      })
+  }
+  async postArticle(req, res) {
+    const article = JSON.parse(req.body.msg)
+    const user = req.user.id
+    if (article.article.length < 1) {
+      res.json({
+        "post": "false",
+        "err": "Please enter something!"
+      })
+    } else {
+      //create article to db
+      await this.knex("user_post")
+        .insert({
+          profile_id: user,
+          written_text: article.article
+        }).then(() => {
+          res.json({
+            "post": "true",
+            "err": "Insert success!"
+          })
+        })
+    }
+  }
+  async putSlogan(req, res) {
+    let data = req.body.input
+    //json to object
+    data = JSON.parse(data)
+    if (data.slogan.length < 1) {
+      data.slogan = ""
+    }
+    //updata server
+    await this.knex("user_profile")
+      .where("id", req.user.id)
+      .update({
+        slogan: data.slogan
+      })
+      .then(() => {
+        res.json({
+          "slogan": `${data.slogan}`
+        })
+      })
   }
 }
-
-  
-
-
-
-
-
-
- 
-
- 
-
-
-
-
+    
 module.exports = ViewRouter;

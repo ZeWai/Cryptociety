@@ -14,8 +14,25 @@
     </div>
     <div class="sectionright">
         <div id="Post" class="tabcontent">
-            <h3>Post Note</h3>
-            <p>Post Note</p>
+<section class="title" id="content_list" hidden>
+    <div class="row text-center">
+        <h3>Content</h3>
+        <ul id="content_ul"></ul>
+    </div>
+</section>
+<div id="create_post_btn" class="tabcontent"></div>
+<section class="title" id="create_post_section" hidden>
+    <div class="row text-center">
+        <h3>Create Post</h3>
+        <div id="content_wrapper">
+            <input class="form-control" type="text" placeholder="Entry something..." id="article">
+        </div>
+        <div>
+            <a class="btn submit col-12" id="article_submit_btn">Submit<i class="fas fa-paper-plane"></i></a>
+            <a class="btn cancel" id="article_cancel_btn">Cancel<i class="fas fa-trash-alt"></i></a>
+        </div>
+    </div>
+</section>
         </div>
     </div>
 </div>

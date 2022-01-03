@@ -100,7 +100,6 @@ $().ready(() => {
       url: "subscribers",
       method: "get",
       success: (data) => {
-        console.log(data)
         if (data) {
           let subscriber = "";
           $.each(data, (index) => {
@@ -484,32 +483,13 @@ $().ready(() => {
         if (data.solgon.length < 1) {
           $(`#slogan_input`).attr(`placeholder`, "Please say something...")
         } else {
-          $(`#slogan_input`).attr(`placeholder`, data.solgon)
+          $(`#slogan_input`).attr(`placeholder`, data.slogan)
         }
       },
       error: (err) => {
         console.log(err)
       }
     })
-  })
-
-  //redirect subscriber profile handling
-  $(`#subscriber_btn`).attr("href", `https://www.google.com/`)
-
-  //redirect follower profile handling
-  $(`#follower_btn`).attr("href", `https://www.google.com/`)
-
-  //unfollow button handling
-  $(`#unfollow_btn`).click(() => {
-    alert("unfollow")
-  })
-  //follow button handling
-  $(`#follow_btn`).click(() => {
-    alert("follow")
-  })
-  //remove button handling
-  $(`#remove_btn`).click(() => {
-    alert("remove")
   })
 
   //Submit handling

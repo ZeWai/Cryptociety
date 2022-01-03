@@ -51,7 +51,7 @@ $(`#profile_unfollow_btn`).click(() => {
         }
     })
 })
-$(`#profile_remove_btn`).click(() => {
+/* $(`#profile_remove_btn`).click(() => {
     // create new data from to server
     let formData = new FormData;
     // append data to data form (key:value) object to json
@@ -73,7 +73,7 @@ $(`#profile_remove_btn`).click(() => {
             console.log(err)
         }
     })
-})
+}) */
 $(`#profile_block_btn`).click(() => {
     // create new data from to server
     let formData = new FormData;
