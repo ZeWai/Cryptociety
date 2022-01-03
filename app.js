@@ -52,8 +52,6 @@ const authRouter = new AuthRouter();
 const ViewRouter = require("./Routers/viewRouter");
 const viewRouter = new ViewRouter(knex);
 const UserPosts = require("./Services/UserPosts");
-
-
 const userPosts = new UserPosts(knex);
 
 // app.get("/", async (req, res) => {
