@@ -28,9 +28,14 @@ class ViewRouter {
     router.get("/api/setting", isLoggedIn, this.getApiSetting.bind(this));
     router.get("/download/album/:name", isLoggedIn, this.getDownloadAlbum.bind(this));
     router.delete("/delete/album/", isLoggedIn, this.deleteAlbum.bind(this));
+    router.get("/subscribers", isLoggedIn, this.getSubscribers.bind(this));
+    router.get("/followers", isLoggedIn, this.getFollowers.bind(this));
     router.get("/market", isLoggedIn, this.getMarket.bind(this));
+    router.get("/profile/:id", isLoggedIn, this.getProfile.bind(this));
+    router.put("/profile/:id", isLoggedIn, this.putProfile.bind(this));
     router.get("/404", this.get404.bind(this));
     router.get("/logout", isLoggedIn, this.getLogout.bind(this));
+    router.get("/content", isLoggedIn, this.getContent.bind(this));
     return router;
   }
   getLogout(req, res) {
@@ -179,7 +184,7 @@ gethomepage(req, res) {
           page: "index",
           layout: "other",
           username: db.username,
-          solgan: db.solgan,
+          slogan: db.slogan,
           icon: () => {
             //check icon Exists
             const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
@@ -214,7 +219,7 @@ gethomepage(req, res) {
           page: "index",
           layout: "other",
           username: db.username,
-          solgan: db.solgan,
+          slogan: db.slogan,
           icon: () => {
             //check icon Exists
             const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
@@ -229,6 +234,84 @@ gethomepage(req, res) {
       })
   }
 
+  async putProfile(req, res) {
+    const data = JSON.parse(req.body.action)
+    const targetId = data.target
+    const action = data.action
+    const id = req.user.id
+    //check exist
+    await this.knex("friendships")
+      .where({
+        request_id: targetId,
+        user_profile_id: id
+      })
+      .select()
+      .then((rows) => {
+        const firend = rows[0]
+        if (firend) {
+          if (action !== "remove") {
+            //change relation
+            this.knex("friendships")
+              .where("request_id", targetId)
+              .update({
+                relation: action
+              })
+              .then(() => {
+                res.json({
+                  "action": `${action}`,
+                  "err": "update success!"
+                })
+              })
+          } else {
+            //change relation
+            this.knex("friendships")
+              .where("request_id", targetId)
+              .update({
+                relation: ""
+              })
+              .then(() => {
+                res.json({
+                  "action": `${action}`,
+                  "err": "update success!"
+                })
+              })
+          }
+
+        } else {
+          if (action !== "remove") {
+            //insert relation
+            this.knex("friendships")
+              .insert({
+                request_id: targetId,
+                relation: action,
+                user_profile_id: id
+              })
+              .then(() => {
+                res.json({
+                  "action": `${action}`,
+                  "err": "Insert success!"
+                })
+              })
+          } else {
+            //insert relation
+            this.knex("friendships")
+              .insert({
+                request_id: targetId,
+                relation: "",
+                user_profile_id: id
+              })
+              .then(() => {
+                res.json({
+                  "action": `${action}`,
+                  "err": "Insert success!"
+                })
+              })
+          }
+        }
+      })
+
+  }
+
   getAdmin(req, res) {
     res.send("ADMIN SECRET DATA");
   }
@@ -236,7 +319,7 @@ gethomepage(req, res) {
   get404(req, res) {
     res.status(404).render("page/404", {
       title: "404",
-      page: "404",
+      page: "404"
     });
   }
 
@@ -256,10 +339,10 @@ gethomepage(req, res) {
           username: db.username,
           password: "********",
           gender: db.gender,
-          birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
+          // birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
           country: db.country,
           joinDate: `${db.created_at.getFullYear()}-${db.created_at.getMonth() + 1}-${db.created_at.getDate()}`,
-          solgan: db.solgan,
+          slogan: db.slogan,
           icon: () => {
             //check icon Exists
             const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
@@ -453,22 +536,22 @@ gethomepage(req, res) {
     });
   }
 
-  putSolgan(req, res) {
+  putSlogan(req, res) {
     let data = req.body.input
     //json to object
     data = JSON.parse(data)
-    if (data.solgan.length < 1) {
-      data.solgan = ""
+    if (data.slogan.length < 1) {
+      data.slogan = ""
     }
     //updata server
     this.knex("user_profile")
       .where("id", req.user.id)
       .update({
-        solgan: data.solgan
+        slogan: data.slogan
       })
       .then(() => {
         res.json({
-          "solgon": `${data.solgan}`
+          "solgon": `${data.slogan}`
         })
       })
   }
@@ -551,7 +634,7 @@ gethomepage(req, res) {
           username: data.username,
           password: data.password,
           country: data.country,
-          solgan: data.solgan,
+          slogan: data.slogan,
           admin: data.admin,
           gender: data.gender,
           date_of_birth: data.date_of_birth
@@ -581,18 +664,106 @@ gethomepage(req, res) {
       })
       .catch((e) => res.status(500).send(e.message));
   }
-
+  async getProfile(req, res) {
+    await this.knex("user_profile")
+      .join(
+        "friendships",
+        "friendships.request_id",
+        "user_profile.id"
+      )
+      .where({
+        id: req.params.id
+      })
+      .select(
+        "user_profile.username",
+        "user_profile.id",
+        "user_profile.gender",
+        "user_profile.date_of_birth",
+        "user_profile.country",
+        "user_profile.slogan",
+        "friendships.relation"
+      )
+      .then((data) => {
+        if (data[0]) {
+          res.render(`page/profile`,
+            {
+              title: "Profile",
+              page: "profile",
+              layout: "other",
+              id: data[0].id,
+              username: data[0].username,
+              gender: data[0].gender,
+              birthday: `${data[0].date_of_birth.getFullYear()}-${data[0].date_of_birth.getMonth() + 1}-${data[0].date_of_birth.getDate()}`,
+              country: data[0].country,
+              slogan: data[0].solgan,
+              follow: () => {
+                if (data[0].relation === "subscriber") {
+                  return "hidden"
+                }
+              },
+              unfollow: () => {
+                if (data[0].relation !== "subscriber") {
+                  return "hidden"
+                }
+              },
+              remove: () => {
+                if (data[0].relation !== "follower") {
+                  return "hidden"
+                }
+              },
+              block: () => {
+                if (data[0].relation === "block") {
+                  return "hidden"
+                }
+              }
+            })
+        } else {
+          res.render(`page/404`,
+            {
+              title: "404",
+              page: "404"
+            })
+        }
+      })
+  }
   deleteAlbum(req, res) {
     //get data form fontend
     let data = req.body.image
     //remove image
-    fs.unlink(`./public/image/photo/${data}`, (err) => {
+    fs.unlink(`./ public / image / photo / ${data}`, (err) => {
       if (err) {
         console.log(err);
       }
     });
   }
-
+  async getSubscribers(req, res) {
+    const id = req.user.id
+    //get subscribers list form db
+    await this.knex("friendships")
+      .join("user_profile", "user_profile.id", "friendships.request_id")
+      .where({
+        relation: "subscriber",
+        user_profile_id: id
+      })
+      .select("user_profile.id", "user_profile.username")
+      .then((data) => {
+        res.json(data)
+      })
+  }
+  async getFollowers(req, res) {
+    const id = req.user.id
+    //get followers list form db
+    await this.knex("friendships")
+      .join("user_profile", "user_profile.id", "friendships.request_id")
+      .where({
+        relation: "follower",
+        user_profile_id: id
+      })
+      .select("user_profile.id", "user_profile.username")
+      .then((data) => {
+        res.json(data)
+      })
+  }
   getMarket(req, res) {
     res.render("page/market", {
       title: "Market",
@@ -600,7 +771,45 @@ gethomepage(req, res) {
       layout: "other"
     });
   }
+
+  async getContent(req, res) {
+    console.log("working as intended");
+      let query = this.knex
+        .select("written_text", "profile_id", "user_post.id")
+        .from("user_post")
+        .innerJoin("user_profile", "user_post.profile_id", "user_profile.id")
+        .orderBy("user_post", "desc");
+
+      return query.then((rows) => {
+        console.log(rows);
+        return rows.map((row) => ({
+          id: row.id,
+          written_text: row.content
+        }))
+      })
+        
+    // res.render("page/index", {
+    //   msg: "content",
+    //   user: 
+    // })
+    
+
+
+  }
 }
+
+  
+
+
+
+
+
+
+ 
+
+ 
+
+
 
 
 module.exports = ViewRouter;

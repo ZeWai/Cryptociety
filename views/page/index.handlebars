@@ -5,17 +5,17 @@
             <img src="{{icon}}" id="icon_img">
         </div>
         <h4 class="username">{{username}}</h4>
-        <p class="solgan">{{solgan}}</p>
-        <form action="/index"><button id="post">Post</button></form>
-        <form action="/index/group"><button id="group">Group</button></form>
-        <form action="/index/follower"><button id="follower">Follower</button></form>
-        <form action="/index/chatroom"><button id="chatroom">Chatroom</button></form>
-        <form action="/setting"><button>Setting</button></form>
+        <p class="slogan">{{slogan}}</p>
+        <button class="tablinks" onclick="SelectFunction(event, 'Post')" id="post">Post</button>
+        <button class="tablinks" onclick="SelectFunction(event, 'Group')"id="group">Group</button>
+        <button class="tablinks" onclick="SelectFunction(event, 'Follower')"id="follower">Follower</button>
+        <button class="tablinks" onclick="SelectFunction(event, 'Chatroom')" id="chatroom">Chatroom</button>
+        <a href="setting" style="text-decoration:none"><button>Setting</button></a>
     </div>
     <div class="sectionright">
-        <div id="welcome" class="tabcontent">
-            <h3>Welcome</h3>
-            <p>Welcome page</p>
+        <div id="Post" class="tabcontent">
+            <h3>Post Note</h3>
+            <p>Post Note</p>
         </div>
     </div>
 </div>

@@ -1,3 +1,7 @@
+body{
+  padding-top: 7vh;
+  padding-bottom:7vh;
+}
 .sectionleft {
   width: 15%;
   margin-bottom: 20px;
@@ -37,7 +41,7 @@ section {
   text-align: center;
   border-bottom: 30px;
 }
-.solgan {
+.slogan {
   text-align: center;
   font-size: 10px;
 }

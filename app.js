@@ -51,6 +51,23 @@ const AuthRouter = require("./Routers/authRouter");
 const authRouter = new AuthRouter();
 const ViewRouter = require("./Routers/viewRouter");
 const viewRouter = new ViewRouter(knex);
+const UserPosts = require("./Services/UserPosts");
+
+
+const userPosts = new UserPosts(knex);
+
+// app.get("/", async (req, res) => {
+//     let data = await userPosts.list(req.auth.user);
+
+//     let array = data.map((x) => x.content);
+//     console.log(array);
+
+//     res.render("index", {
+//         username: req.auth.user,
+//         written_text: Array,
+//     })
+// })
+
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -63,6 +80,7 @@ app.use(passportFunctions.initialize());
 app.use(passportFunctions.session());
 app.use("/", authRouter.router());
 app.use("/", viewRouter.router());
+app.use("api/notes", new ViewRouter(userPosts).router());
 
 const io=socketio(server);
 

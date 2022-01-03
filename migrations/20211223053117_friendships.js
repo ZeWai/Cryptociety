@@ -1,9 +1,9 @@
 exports.up = function (knex) {
   return knex.schema.createTable('friendships', function (table) {
-    table.integer('request_friend').references('user_profile.id');
-    table.integer('accept_friend').references('user_profile.id');
+    table.integer('request_id').references('user_profile.id');
+    table.integer('user_profile_id');
+    table.string('relation');
     table.timestamps(false, true);
-    table.string('type');
   });
 };
 
