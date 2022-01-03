@@ -21,6 +21,7 @@ class ViewRouter {
     router.delete("/setting", isLoggedIn, this.deleteSetting.bind(this));
     router.get("/group/setting", isLoggedIn, this.getGroupSetting.bind(this));
     router.post("/group/create", isLoggedIn, this.postGroupCreate.bind(this));
+    router.put("/slogan/setting", isLoggedIn, this.putSlogan.bind(this));;
     router.get("/api/setting", isLoggedIn, this.getApiSetting.bind(this));
     router.get("/download/album/:name", isLoggedIn, this.getDownloadAlbum.bind(this));
     router.delete("/delete/album/", isLoggedIn, this.deleteAlbum.bind(this));
@@ -706,6 +707,25 @@ class ViewRouter {
           })
         })
     }
+  }
+  async putSlogan(req, res) {
+    let data = req.body.input
+    //json to object
+    data = JSON.parse(data)
+    if (data.slogan.length < 1) {
+      data.slogan = ""
+    }
+    //updata server
+    await this.knex("user_profile")
+      .where("id", req.user.id)
+      .update({
+        slogan: data.slogan
+      })
+      .then(() => {
+        res.json({
+          "slogan": `${data.slogan}`
+        })
+      })
   }
 }
 

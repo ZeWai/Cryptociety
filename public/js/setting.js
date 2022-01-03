@@ -483,7 +483,7 @@ $().ready(() => {
         if (data.solgon.length < 1) {
           $(`#slogan_input`).attr(`placeholder`, "Please say something...")
         } else {
-          $(`#slogan_input`).attr(`placeholder`, data.solgon)
+          $(`#slogan_input`).attr(`placeholder`, data.slogan)
         }
       },
       error: (err) => {
