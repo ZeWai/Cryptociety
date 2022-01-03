@@ -1,4 +1,5 @@
 // Youtube videos api
+const FormData = require('form-data');
 const fetch = require("node-fetch");
 const { YOUTUBE_API_KEY } = require("./config");
 if (!YOUTUBE_API_KEY) {
@@ -23,7 +24,7 @@ async function getYoutubeResults(query, resultsPerPage, pageToken) {
 async function main() {
   const videoData = [];
 
-  let totalPages = 5;
+  let totalPages = 1;
   let nextPageToken = undefined;
 
   for (let i = 0; i < totalPages; i++) {
@@ -36,10 +37,7 @@ async function main() {
 
   let formData = new FormData();
 
-  for( let key in item ) {
-      formData.append(key, item[key]);
-  }
-  formData.append("videoLinks", videos);
+  formData.append("videoLinks", JSON.stringify(videos));
   $.ajax({
       url: ("/videos"),
       method: "post",
