@@ -5,9 +5,12 @@ const fs = require("fs");
 const fileUpload = require('express-fileupload');
 require('dotenv').config();
 
+// environment config setup
+const config = require("./config.json").development;
+
 //express setting
 const app = express();
-const port = 3000;
+const port = config;
 
 // https setup
 const https = require('https');
@@ -42,17 +45,10 @@ const UserPosts = require("./Services/UserPosts");
 
 const userPosts = new UserPosts(knex);
 
-// app.get("/", async (req, res) => {
-//     let data = await userPosts.list(req.auth.user);
 
-//     let array = data.map((x) => x.content);
-//     console.log(array);
 
-//     res.render("index", {
-//         username: req.auth.user,
-//         written_text: Array,
-//     })
-// })
+
+
 
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));

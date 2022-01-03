@@ -22,7 +22,11 @@ class ViewRouter {
     router.get("/group/setting", isLoggedIn, this.getGroupSetting.bind(this));
     router.post("/group/create", isLoggedIn, this.postGroupCreate.bind(this));
     router.get("/api/setting", isLoggedIn, this.getApiSetting.bind(this));
-    router.get("/download/album/:name", isLoggedIn, this.getDownloadAlbum.bind(this));
+    router.get(
+      "/download/album/:name",
+      isLoggedIn,
+      this.getDownloadAlbum.bind(this)
+    );
     router.delete("/delete/album/", isLoggedIn, this.deleteAlbum.bind(this));
     router.get("/subscribers", isLoggedIn, this.getSubscribers.bind(this));
     router.get("/followers", isLoggedIn, this.getFollowers.bind(this));
@@ -36,13 +40,13 @@ class ViewRouter {
   }
   getLogout(req, res) {
     req.logout();
-    res.redirect('/');
-  };
+    res.redirect("/");
+  }
 
   getLogin(req, res) {
     res.render("page/login", {
       title: "Login",
-      page: "login"
+      page: "login",
     });
   }
   getIndex(req, res) {
@@ -51,7 +55,7 @@ class ViewRouter {
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let db = rows[req.user.id - 1]
+        let db = rows[req.user.id - 1];
         res.render("page/index", {
           title: "Index",
           page: "index",
@@ -60,17 +64,19 @@ class ViewRouter {
           slogan: db.slogan,
           icon: () => {
             //check icon Exists
-            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
-            console.log(iconExists)
+            const iconExists = fs.existsSync(
+              `./public/image/uploaded/userIcon_${req.user.id}.png`
+            );
+            console.log(iconExists);
             if (iconExists) {
-              let img = `/image/uploaded/userIcon_${req.user.id}.png`
+              let img = `/image/uploaded/userIcon_${req.user.id}.png`;
               return img;
             } else {
               return `/image/uploaded/userIcon.png`;
             }
-          }
+          },
         });
-      })
+      });
   }
 
   getHome(req, res) {
@@ -79,7 +85,7 @@ class ViewRouter {
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let db = rows[req.user.id - 1]
+        let db = rows[req.user.id - 1];
         res.render("page/index", {
           title: "Index",
           page: "index",
@@ -88,22 +94,24 @@ class ViewRouter {
           slogan: db.slogan,
           icon: () => {
             //check icon Exists
-            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+            const iconExists = fs.existsSync(
+              `./public/image/uploaded/userIcon_${req.user.id}.png`
+            );
             if (iconExists) {
-              let img = `/image/uploaded/userIcon_${req.user.id}.png`
+              let img = `/image/uploaded/userIcon_${req.user.id}.png`;
               return img;
             } else {
               return `/image/uploaded/userIcon.png`;
             }
-          }
+          },
         });
-      })
+      });
   }
 
   getSignup(req, res) {
     res.render("page/signup", {
       title: "Signup",
-      page: "signup"
+      page: "signup",
     });
   }
 
@@ -113,7 +121,7 @@ class ViewRouter {
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let db = rows[req.user.id - 1]
+        let db = rows[req.user.id - 1];
         res.render("page/index", {
           title: "Index",
           page: "index",
@@ -122,61 +130,62 @@ class ViewRouter {
           slogan: db.slogan,
           icon: () => {
             //check icon Exists
-            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+            const iconExists = fs.existsSync(
+              `./public/image/uploaded/userIcon_${req.user.id}.png`
+            );
             if (iconExists) {
-              let img = `/image/uploaded/userIcon_${req.user.id}.png`
+              let img = `/image/uploaded/userIcon_${req.user.id}.png`;
               return img;
             } else {
               return `/image/uploaded/userIcon.png`;
             }
-          }
+          },
         });
-      })
+      });
   }
 
   async putProfile(req, res) {
-    const data = JSON.parse(req.body.action)
-    const targetId = data.target
-    const action = data.action
-    const id = req.user.id
+    const data = JSON.parse(req.body.action);
+    const targetId = data.target;
+    const action = data.action;
+    const id = req.user.id;
     //check exist
     await this.knex("friendships")
       .where({
         request_id: targetId,
-        user_profile_id: id
+        user_profile_id: id,
       })
       .select()
       .then((rows) => {
-        const firend = rows[0]
+        const firend = rows[0];
         if (firend) {
           if (action !== "remove") {
             //change relation
             this.knex("friendships")
               .where("request_id", targetId)
               .update({
-                relation: action
+                relation: action,
               })
               .then(() => {
                 res.json({
-                  "action": `${action}`,
-                  "err": "update success!"
-                })
-              })
+                  action: `${action}`,
+                  err: "update success!",
+                });
+              });
           } else {
             //change relation
             this.knex("friendships")
               .where("request_id", targetId)
               .update({
-                relation: ""
+                relation: "",
               })
               .then(() => {
                 res.json({
-                  "action": `${action}`,
-                  "err": "update success!"
-                })
-              })
+                  action: `${action}`,
+                  err: "update success!",
+                });
+              });
           }
-
         } else {
           if (action !== "remove") {
             //insert relation
@@ -184,32 +193,31 @@ class ViewRouter {
               .insert({
                 request_id: targetId,
                 relation: action,
-                user_profile_id: id
+                user_profile_id: id,
               })
               .then(() => {
                 res.json({
-                  "action": `${action}`,
-                  "err": "Insert success!"
-                })
-              })
+                  action: `${action}`,
+                  err: "Insert success!",
+                });
+              });
           } else {
             //insert relation
             this.knex("friendships")
               .insert({
                 request_id: targetId,
                 relation: "",
-                user_profile_id: id
+                user_profile_id: id,
               })
               .then(() => {
                 res.json({
-                  "action": `${action}`,
-                  "err": "Insert success!"
-                })
-              })
+                  action: `${action}`,
+                  err: "Insert success!",
+                });
+              });
           }
         }
-      })
-
+      });
   }
 
   getAdmin(req, res) {
@@ -219,7 +227,7 @@ class ViewRouter {
   get404(req, res) {
     res.status(404).render("page/404", {
       title: "404",
-      page: "404"
+      page: "404",
     });
   }
 
@@ -229,7 +237,7 @@ class ViewRouter {
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let db = rows[req.user.id - 1]
+        let db = rows[req.user.id - 1];
         res.render("page/setting", {
           title: "Setting",
           page: "setting",
@@ -241,41 +249,51 @@ class ViewRouter {
           gender: db.gender,
           // birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
           country: db.country,
-          joinDate: `${db.created_at.getFullYear()}-${db.created_at.getMonth() + 1}-${db.created_at.getDate()}`,
+          joinDate: `${db.created_at.getFullYear()}-${
+            db.created_at.getMonth() + 1
+          }-${db.created_at.getDate()}`,
           slogan: db.slogan,
           icon: () => {
             //check icon Exists
-            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+            const iconExists = fs.existsSync(
+              `./public/image/uploaded/userIcon_${req.user.id}.png`
+            );
             if (iconExists) {
-              let img = `/image/uploaded/userIcon_${req.user.id}.png`
+              let img = `/image/uploaded/userIcon_${req.user.id}.png`;
               return img;
             } else {
               return `/image/uploaded/userIcon.png`;
             }
-          }
+          },
         });
-      })
+      });
   }
   postSetting(req, res) {
-    let data = req.files.files
-    fs.writeFile(`./public/image/uploaded/userIcon_${req.user.id}.png`, data.data, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        res.render("page/setting", {
-          icon: () => {
-            //check icon Exists
-            const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
-            if (iconExists) {
-              let img = `/image/uploaded/userIcon_${req.user.id}.png`
-              return img;
-            } else {
-              return `/image/uploaded/userIcon.png`;
-            }
-          }
-        })
+    let data = req.files.files;
+    fs.writeFile(
+      `./public/image/uploaded/userIcon_${req.user.id}.png`,
+      data.data,
+      (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.render("page/setting", {
+            icon: () => {
+              //check icon Exists
+              const iconExists = fs.existsSync(
+                `./public/image/uploaded/userIcon_${req.user.id}.png`
+              );
+              if (iconExists) {
+                let img = `/image/uploaded/userIcon_${req.user.id}.png`;
+                return img;
+              } else {
+                return `/image/uploaded/userIcon.png`;
+              }
+            },
+          });
+        }
       }
-    })
+    );
   }
   putSetting(req, res) {
     //get db data
@@ -283,42 +301,47 @@ class ViewRouter {
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let db = rows[req.user.id - 1]
-        let data = req.body.input
+        let db = rows[req.user.id - 1];
+        let data = req.body.input;
         //json to object
-        data = JSON.parse(data)
+        data = JSON.parse(data);
         //verify password
         if (data.password_verify !== db.password) {
           res.json({
-            "verify": "fail",
-            "err": "Incorret password! Please try again!"
-          })
+            verify: "fail",
+            err: "Incorret password! Please try again!",
+          });
           data.password_verify = "";
         } else {
-          //check less 6 characters username  
+          //check less 6 characters username
           if (data.new_username) {
             if (data.new_username.length < 6) {
               res.json({
-                "verify": "fail",
-                "err": "Username can not less than 6 characters!"
-              })
+                verify: "fail",
+                err: "Username can not less than 6 characters!",
+              });
               data.new_username = "";
             }
           }
           //check password
           if (data.new_password) {
-            if (data.new_password.length < 8 || data.confirm_new_password.length < 8 || data.new_password.length == 0 || data.confirm_new_password.length == 0) {
+            if (
+              data.new_password.length < 8 ||
+              data.confirm_new_password.length < 8 ||
+              data.new_password.length == 0 ||
+              data.confirm_new_password.length == 0
+            ) {
               res.json({
-                "verify": "fail",
-                "err": "Password can not less than 8 characters!",
-              })
+                verify: "fail",
+                err: "Password can not less than 8 characters!",
+              });
               data.new_password = "";
               data.confirm_new_password = "";
             } else if (data.new_password !== data.confirm_new_password) {
               res.json({
-                "verify": "fail",
-                "err": "Confirm password is incorrect!",
-              })
+                verify: "fail",
+                err: "Confirm password is incorrect!",
+              });
               data.new_password = "";
               data.confirm_new_password = "";
             }
@@ -333,13 +356,15 @@ class ViewRouter {
               })
               .then(() => {
                 res.json({
-                  "verify": "success",
-                  "username": `${data.new_username}`,
-                  "gender": `${db.gender}`,
-                  "birthday": `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
-                  "country": `${db.country}`
-                })
-              })
+                  verify: "success",
+                  username: `${data.new_username}`,
+                  gender: `${db.gender}`,
+                  birthday: `${db.date_of_birth.getFullYear()}-${
+                    db.date_of_birth.getMonth() + 1
+                  }-${db.date_of_birth.getDate()}`,
+                  country: `${db.country}`,
+                });
+              });
           }
           //update password
           if (data.new_password.length > 0) {
@@ -347,17 +372,19 @@ class ViewRouter {
             this.knex("user_profile")
               .where("id", req.user.id)
               .update({
-                password: data.new_password
+                password: data.new_password,
               })
               .then(() => {
                 res.json({
-                  "verify": "success",
-                  "username": `${db.username}`,
-                  "gender": `${db.gender}`,
-                  "birthday": `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
-                  "country": `${db.country}`
-                })
-              })
+                  verify: "success",
+                  username: `${db.username}`,
+                  gender: `${db.gender}`,
+                  birthday: `${db.date_of_birth.getFullYear()}-${
+                    db.date_of_birth.getMonth() + 1
+                  }-${db.date_of_birth.getDate()}`,
+                  country: `${db.country}`,
+                });
+              });
           }
           //update gender
           if (data.new_gender.length > 0) {
@@ -365,17 +392,19 @@ class ViewRouter {
             this.knex("user_profile")
               .where("id", req.user.id)
               .update({
-                gender: data.new_gender
+                gender: data.new_gender,
               })
               .then(() => {
                 res.json({
-                  "verify": "success",
-                  "username": `${db.new_username}`,
-                  "gender": `${data.new_gender}`,
-                  "birthday": `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
-                  "country": `${db.country}`
-                })
-              })
+                  verify: "success",
+                  username: `${db.new_username}`,
+                  gender: `${data.new_gender}`,
+                  birthday: `${db.date_of_birth.getFullYear()}-${
+                    db.date_of_birth.getMonth() + 1
+                  }-${db.date_of_birth.getDate()}`,
+                  country: `${db.country}`,
+                });
+              });
           }
           //update birthday
           if (data.new_birthday.length > 0) {
@@ -383,17 +412,17 @@ class ViewRouter {
             this.knex("user_profile")
               .where("id", req.user.id)
               .update({
-                date_of_birth: data.new_birthday
+                date_of_birth: data.new_birthday,
               })
               .then(() => {
                 res.json({
-                  "verify": "success",
-                  "username": `${db.username}`,
-                  "gender": `${db.gender}`,
-                  "birthday": `${data.new_birthday}`,
-                  "country": `${db.country}`
-                })
-              })
+                  verify: "success",
+                  username: `${db.username}`,
+                  gender: `${db.gender}`,
+                  birthday: `${data.new_birthday}`,
+                  country: `${db.country}`,
+                });
+              });
           }
           //update country
           if (data.new_country.length > 0) {
@@ -401,20 +430,22 @@ class ViewRouter {
             this.knex("user_profile")
               .where("id", req.user.id)
               .update({
-                country: data.new_country
+                country: data.new_country,
               })
               .then(() => {
                 res.json({
-                  "verify": "success",
-                  "username": `${db.username}`,
-                  "gender": `${db.gender}`,
-                  "birthday": `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
-                  "country": `${data.new_country}`
-                })
-              })
+                  verify: "success",
+                  username: `${db.username}`,
+                  gender: `${db.gender}`,
+                  birthday: `${db.date_of_birth.getFullYear()}-${
+                    db.date_of_birth.getMonth() + 1
+                  }-${db.date_of_birth.getDate()}`,
+                  country: `${data.new_country}`,
+                });
+              });
           }
         }
-      })
+      });
   }
   deleteSetting(req, res) {
     fs.unlink(`./public/image/uploaded/userIcon_${req.user.id}.png`, (err) => {
@@ -425,41 +456,43 @@ class ViewRouter {
     res.render("page/setting", {
       icon: () => {
         //check icon Exists
-        const iconExists = fs.existsSync(`./public/image/uploaded/userIcon_${req.user.id}.png`)
+        const iconExists = fs.existsSync(
+          `./public/image/uploaded/userIcon_${req.user.id}.png`
+        );
         if (iconExists) {
-          let img = `/image/uploaded/userIcon_${req.user.id}.png`
+          let img = `/image/uploaded/userIcon_${req.user.id}.png`;
           return img;
         } else {
           return `/image/uploaded/userIcon.png`;
         }
-      }
+      },
     });
   }
 
   putSlogan(req, res) {
-    let data = req.body.input
+    let data = req.body.input;
     //json to object
-    data = JSON.parse(data)
+    data = JSON.parse(data);
     if (data.slogan.length < 1) {
-      data.slogan = ""
+      data.slogan = "";
     }
     //updata server
     this.knex("user_profile")
       .where("id", req.user.id)
       .update({
-        slogan: data.slogan
+        slogan: data.slogan,
       })
       .then(() => {
         res.json({
-          "solgon": `${data.slogan}`
-        })
-      })
+          solgon: `${data.slogan}`,
+        });
+      });
   }
   getApiSetting(req, res) {
     let files = fs.readdirSync("./public/image/photo");
     res.json({
-      "photo": files
-    })
+      photo: files,
+    });
   }
   getGroupSetting(req, res) {
     //Get db data
@@ -467,53 +500,52 @@ class ViewRouter {
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let db = rows[req.user.id - 1]
+        let db = rows[req.user.id - 1];
         if (db.group !== null) {
           res.json({
-            "group": "false",
-            "err": "One account create a group only!"
-          })
+            group: "false",
+            err: "One account create a group only!",
+          });
         } else if (db.admin === "group") {
           res.json({
-            "group": "false",
-            "err": "Create group by user right only!"
-          })
+            group: "false",
+            err: "Create group by user right only!",
+          });
         } else {
           res.json({
-            "group": "true"
-          })
+            group: "true",
+          });
         }
-      })
+      });
   }
   async postGroupCreate(req, res) {
-    let data = req.body.files
+    let data = req.body.files;
     //json to object
-    data = JSON.parse(data)
+    data = JSON.parse(data);
     //check email
     if (data.email_address.length < 8 || data.email_address.length == 0) {
       res.json({
-        "create": "false",
-        "err": "Incorret email!"
-      })
+        create: "false",
+        err: "Incorret email!",
+      });
       //check username
     } else if (data.username.length < 6 || data.username.length == 0) {
       res.json({
-        "create": "false",
-        "err": "Group name can not less than 6 characters!"
-      })
+        create: "false",
+        err: "Group name can not less than 6 characters!",
+      });
       //check password
     } else if (data.password.length < 8 || data.password.length == 0) {
       res.json({
-        "create": "false",
-        "err": "Password can not less than 8 characters!"
-      })
+        create: "false",
+        err: "Password can not less than 8 characters!",
+      });
       //check country
-    }
-    else if (data.country.length < 1) {
+    } else if (data.country.length < 1) {
       res.json({
-        "create": "false",
-        "err": "Please select the location!"
-      })
+        create: "false",
+        err: "Please select the location!",
+      });
     } else {
       //updata server
       await this.knex("user_profile")
@@ -523,22 +555,21 @@ class ViewRouter {
         })
         .then(() => {
           res.json({
-            "create": "true",
-            "err": "Group create success!"
-          })
-        })
+            create: "true",
+            err: "Group create success!",
+          });
+        });
       //create group to server
-      await this.knex("user_profile")
-        .insert({
-          email_address: data.email_address,
-          username: data.username,
-          password: data.password,
-          country: data.country,
-          slogan: data.slogan,
-          admin: data.admin,
-          gender: data.gender,
-          date_of_birth: data.date_of_birth
-        })
+      await this.knex("user_profile").insert({
+        email_address: data.email_address,
+        username: data.username,
+        password: data.password,
+        country: data.country,
+        slogan: data.slogan,
+        admin: data.admin,
+        gender: data.gender,
+        date_of_birth: data.date_of_birth,
+      });
     }
   }
 
@@ -566,13 +597,9 @@ class ViewRouter {
   }
   async getProfile(req, res) {
     await this.knex("user_profile")
-      .join(
-        "friendships",
-        "friendships.request_id",
-        "user_profile.id"
-      )
+      .join("friendships", "friendships.request_id", "user_profile.id")
       .where({
-        id: req.params.id
+        id: req.params.id,
       })
       .select(
         "user_profile.username",
@@ -585,50 +612,50 @@ class ViewRouter {
       )
       .then((data) => {
         if (data[0]) {
-          res.render(`page/profile`,
-            {
-              title: "Profile",
-              page: "profile",
-              layout: "other",
-              id: data[0].id,
-              username: data[0].username,
-              gender: data[0].gender,
-              birthday: `${data[0].date_of_birth.getFullYear()}-${data[0].date_of_birth.getMonth() + 1}-${data[0].date_of_birth.getDate()}`,
-              country: data[0].country,
-              slogan: data[0].solgan,
-              follow: () => {
-                if (data[0].relation === "subscriber") {
-                  return "hidden"
-                }
-              },
-              unfollow: () => {
-                if (data[0].relation !== "subscriber") {
-                  return "hidden"
-                }
-              },
-              remove: () => {
-                if (data[0].relation !== "follower") {
-                  return "hidden"
-                }
-              },
-              block: () => {
-                if (data[0].relation === "block") {
-                  return "hidden"
-                }
+          res.render(`page/profile`, {
+            title: "Profile",
+            page: "profile",
+            layout: "other",
+            id: data[0].id,
+            username: data[0].username,
+            gender: data[0].gender,
+            birthday: `${data[0].date_of_birth.getFullYear()}-${
+              data[0].date_of_birth.getMonth() + 1
+            }-${data[0].date_of_birth.getDate()}`,
+            country: data[0].country,
+            slogan: data[0].solgan,
+            follow: () => {
+              if (data[0].relation === "subscriber") {
+                return "hidden";
               }
-            })
+            },
+            unfollow: () => {
+              if (data[0].relation !== "subscriber") {
+                return "hidden";
+              }
+            },
+            remove: () => {
+              if (data[0].relation !== "follower") {
+                return "hidden";
+              }
+            },
+            block: () => {
+              if (data[0].relation === "block") {
+                return "hidden";
+              }
+            },
+          });
         } else {
-          res.render(`page/404`,
-            {
-              title: "404",
-              page: "404"
-            })
+          res.render(`page/404`, {
+            title: "404",
+            page: "404",
+          });
         }
-      })
+      });
   }
   deleteAlbum(req, res) {
     //get data form fontend
-    let data = req.body.image
+    let data = req.body.image;
     //remove image
     fs.unlink(`./ public / image / photo / ${data}`, (err) => {
       if (err) {
@@ -637,79 +664,56 @@ class ViewRouter {
     });
   }
   async getSubscribers(req, res) {
-    const id = req.user.id
+    const id = req.user.id;
     //get subscribers list form db
     await this.knex("friendships")
       .join("user_profile", "user_profile.id", "friendships.request_id")
       .where({
         relation: "subscriber",
-        user_profile_id: id
+        user_profile_id: id,
       })
       .select("user_profile.id", "user_profile.username")
       .then((data) => {
-        res.json(data)
-      })
+        res.json(data);
+      });
   }
   async getFollowers(req, res) {
-    const id = req.user.id
+    const id = req.user.id;
     //get followers list form db
     await this.knex("friendships")
       .join("user_profile", "user_profile.id", "friendships.request_id")
       .where({
         relation: "follower",
-        user_profile_id: id
+        user_profile_id: id,
       })
       .select("user_profile.id", "user_profile.username")
       .then((data) => {
-        res.json(data)
-      })
+        res.json(data);
+      });
   }
   getMarket(req, res) {
     res.render("page/market", {
       title: "Market",
       page: "market",
-      layout: "other"
+      layout: "other",
     });
   }
 
   async getContent(req, res) {
     console.log("working as intended");
-      let query = this.knex
-        .select("written_text", "profile_id", "user_post.id")
-        .from("user_post")
-        .innerJoin("user_profile", "user_post.profile_id", "user_profile.id")
-        .orderBy("user_post", "desc");
+    let query = this.knex
+      .select("written_text", "profile_id", "user_post.id", "created_at")
+      .from("user_post")
+      .innerJoin("user_profile", "user_post.profile_id", "user_profile.id")
+      .orderBy("user_post", "desc");
 
-      return query.then((rows) => {
-        console.log(rows);
-        return rows.map((row) => ({
-          id: row.id,
-          written_text: row.content
-        }))
-      })
-        
-    // res.render("page/index", {
-    //   msg: "content",
-    //   user: 
-    // })
-    
-
-
+    return query.then((data) => {
+      console.log(data);
+      res.render("/page/index", {
+        content: data,
+      });
+    });
   }
 }
-
-  
-
-
-
-
-
-
- 
-
- 
-
-
-
 
 module.exports = ViewRouter;

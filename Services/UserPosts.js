@@ -4,7 +4,7 @@ class UserPosts {
     }
 
 
-    async add(note, user, pUrl, vUrl) {
+    async add(note, user) {
         let query = await this.knex 
             .select("id")
             .from("user_profile")
@@ -17,8 +17,6 @@ class UserPosts {
                 .insert({
                     written_text: note,
                     profile_id: query[0].id,
-                    photoURL: pUrl,
-                    videoURL: vUrl,
                 })
                 .into("user_post");
         } else {
@@ -33,7 +31,7 @@ class UserPosts {
                 .from("user_post")
                 .innerJoin("user_profile", "user_post.profile_id", "user_profile.id")
                 .where("user_profile.username", user)
-                .orderBy("user_post.id", "asc");
+                .orderBy("user_post.written_text", "desc");
 
             return query.then((rows) => {
                 console.log(rows);
