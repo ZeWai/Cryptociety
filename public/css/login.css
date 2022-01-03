@@ -108,3 +108,7 @@ canvas {
   height: 100vh;
   z-index: -2;
 }
+
+#wrongmessage {
+  color: red;
+}

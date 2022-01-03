@@ -43,7 +43,8 @@ gethomepage(req, res) {
   getLogin(req, res) {
     res.render("page/login", {
       title: "Login",
-      page: "login"
+      page: "login",
+      error: req.flash("error"),
     });
   }
   getIndex(req, res) {
@@ -196,7 +197,8 @@ gethomepage(req, res) {
   getSignup(req, res) {
     res.render("page/signup", {
       title: "Signup",
-      page: "signup"
+      page: "signup",
+      error: req.flash("error"),
     });
   }
 

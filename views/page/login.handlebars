@@ -7,7 +7,7 @@
   <div class="center">
 
     <div class="logo"><img src="../image/btn/logo_btn.png" /></div>
-    <div class="description"><a>Society of cryptocurrency</a></div>
+    <div class="description"><a>Society of Cryptocurrency</a></div>
     <div class="inputarea" >
     <form action="/login" method="post">
       <label for="username">Username :</label><input id="username" name="username" type="text" autocomplete="username" required />
@@ -18,7 +18,12 @@
         <button type="submit">login</button></a>
         </form>
       {{!<button>Forget password</button>}}
-      <br /><br /><br />
+      <br />
+      
+        {{#if error}}
+        <p id="wrongmessage">{{error}}</p>
+        {{/if}}
+      <br />
       <a href="/auth/gmail">
         <button>Login with google</button>
       </a>

@@ -4,23 +4,37 @@ const { engine } = require("express-handlebars");
 const fs = require("fs");
 const fileUpload = require('express-fileupload');
 require('dotenv').config();
-
+const flash = require("express-flash");
 //express setting
 const app = express();
 const port = 3000;
 
+const formatMessage = require('./message');
+const {
+  userJoin,
+  getCurrentUser,
+  userLeave,
+  getRoomUsers
+} = require('./users');
+
+
 // https setup
 const https = require('https');
+
+const socketio = require("socket.io");
+
 const options = {
     cert: fs.readFileSync('./localhost.crt'),
     key: fs.readFileSync('./localhost.key')
 }
+const server = https.createServer(options, app);
+
 require('https').globalAgent.options.rejectUnauthorized = false;
 
 //public css
 app.use(express.static(__dirname + "/public"));
 app.use(fileUpload());
-
+app.use(flash());
 //handlebars setting
 app.engine("handlebars", engine({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
@@ -50,8 +64,61 @@ app.use(passportFunctions.session());
 app.use("/", authRouter.router());
 app.use("/", viewRouter.router());
 
+const io=socketio(server);
+
+io.on('connection', socket => {
+  socket.on('joinRoom', ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
+
+    socket.join(user.room);
+
+    // Welcome current user
+    socket.emit('message', formatMessage("System message", `Welcome to chatroom`));
+
+    // Broadcast when a user connects
+    socket.broadcast
+      .to(user.room)
+      .emit(
+        'message',
+        formatMessage("System message", `${user.username} has joined the chat`)
+      );
+
+    // Send users and room info
+    io.to(user.room).emit('roomUsers', {
+      room: user.room,
+      users: getRoomUsers(user.room)
+    });
+  });
+
+  // Listen for chatMessage
+  socket.on('chatMessage', msg => {
+    const user = getCurrentUser(socket.id);
+
+    io.to(user.room).emit('message', formatMessage(user.username, msg));
+  });
+
+  // Runs when client disconnects
+  socket.on('disconnect', () => {
+    const user = userLeave(socket.id);
+
+    if (user) {
+      io.to(user.room).emit(
+        'message',
+        formatMessage("System message", `${user.username} has left the chat`)
+      );
+
+      // Send users and room info
+      io.to(user.room).emit('roomUsers', {
+        room: user.room,
+        users: getRoomUsers(user.room)
+      });
+    }
+  });
+});
+
+
 
 // listen to https server
-https.createServer(options, app).listen(port, () => {
+server.listen(port, () => {
     console.log(`Server is running and listening to port ${port} !`)
 });

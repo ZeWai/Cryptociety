@@ -17,7 +17,7 @@ module.exports = new LocalStrategy(async (username, password, done) => {
     if (users.length > 0) {
       // return false - user already exists
       return done(null, false, {
-        message: "user already exists",
+        message: "Username already exists.",
       });
     }
     // otherwise, hash their password

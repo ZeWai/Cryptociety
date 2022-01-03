@@ -8,8 +8,9 @@ class AuthRouter {
     router.post(
       "/signup",
       passportFunctions.authenticate("local-signup", {
-        successRedirect: "/index"
-
+        successRedirect: "/index",
+        failureRedirect: "/signup", 
+        failureFlash: true,
       })
     );
 
@@ -17,9 +18,11 @@ class AuthRouter {
       "/login",
       passportFunctions.authenticate("local-login", {
         successRedirect: "/index",
-        failureRedirect: "/",
+        failureRedirect: "/login", 
+        failureFlash: true,
       })
     );
+// document.getElementById("wrongmessage").style.display = block
 
     router.get(
       "/auth/gmail",
@@ -27,7 +30,6 @@ class AuthRouter {
         scope: ["profile", "email"],
       })
     );
-
     router.get(
       "/auth/gmail/callback",
       passportFunctions.authenticate("google", {

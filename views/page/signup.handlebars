@@ -3,20 +3,24 @@
 
 </div>
 <div class="container">
-    <form action="/signup" method="post" class="center">
+    <div class="center">
+    
         <p>Create Account</p>
-        <div class="form">
+        <form action="/signup" method="post">
             <div class="email">
-                <label for="username">Email
-                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:&emsp;</label><input
+                <label for="username">Username
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:&emsp;</label><input
                     id="username" name="username" type="text" autocomplete="username" size="25" required />
             </div>
+                {{#if error}}
+                <p id="wrongmessage">{{error}}</p>
+                {{/if}}
             {{!-- <div class="SecurityQ1">
                 <label for="SecurityQ1">Security Question 1 :&emsp;</label><input id="SecurityQ1" name="SecurityQ1"
                     type="text" size="30" required />
             </div> --}}
             <div class="password">
-                <label for="password">Password &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:&emsp;</label><input
+                <label for="password">Password &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:&emsp;</label><input 
                     size="25" id="password" name="password" type="password" autocomplete="password" required />
             </div>
             {{!-- <div class="SecurityAns1">
@@ -56,10 +60,12 @@
                 <label for="SecurityAns3">Security Answer 3 &emsp;&emsp;:&emsp;</label><input id="SecurityAns3"
                     name="SecurityAns3" type="text" size="30" required />
             </div>--}}
-        </div>
-        <button>Submit</button>
-        <button style="margin-left: 100px">Cancel</button>
-    </form>
+            <br><br>
+        <button>Create account</button>
+        </form>
+            <a href="/login">
+            <button>Back to login page</button></a>
+        </div></div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
 <script src="../js/loginbackground.js"></script>

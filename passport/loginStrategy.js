@@ -16,7 +16,7 @@
      // if user doesn't exist, then return false - it doesn't exist
      if (users.length == 0) {
        return done(null, false, {
-         message: "username does not exists",
+         message: "User does not exists",
        });
      }
      // otherwise, get the user
@@ -33,7 +33,7 @@
      } else {
        // otherwise, give them a message - incorrect credentials
        return done(null, false, {
-         message: "incorrect credentials",
+         message: "Wrong password. Please try again.",
        });
      }
    } catch (err) {
