@@ -176,6 +176,10 @@ function getByuserProfile(userProfile) {
   return knex("user_profile").select("*").where("id", id);
 }
 
+function getSearchUser(username) {
+  return knex(TABLE_NAME).select("*").where('username', 'like', `%${term}%`)
+}
+
 module.exports = {
   //   postUser: postUser,
   verify: verify,
@@ -188,6 +192,7 @@ module.exports = {
   getByFacebookId: getByFacebookId,
   getByGmailId: getByGmailId,
   postFacebook: postFacebook,
+  getSearchUser: getSearchUser
 };
 
 /**********************************************

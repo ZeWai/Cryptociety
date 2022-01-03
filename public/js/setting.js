@@ -100,7 +100,6 @@ $().ready(() => {
       url: "subscribers",
       method: "get",
       success: (data) => {
-        console.log(data)
         if (data) {
           let subscriber = "";
           $.each(data, (index) => {

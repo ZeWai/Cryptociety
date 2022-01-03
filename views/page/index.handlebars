@@ -6,32 +6,32 @@
         </div>
         <h4 class="username">{{username}}</h4>
         <p class="slogan">{{slogan}}</p>
-        <button class="tablinks" onclick="SelectFunction(event, 'content_list')" id="defaultOpen">Post</button>
+        <button class="tablinks" id="create_post">Post</button>
         <button class="tablinks" onclick="SelectFunction(event, 'Group')">Group</button>
         <button class="tablinks" onclick="SelectFunction(event, 'Follower')">Follower</button>
         <button class="tablinks" onclick="SelectFunction(event, 'Chatroom')" id="chatroom">Chatroom</button>
         <a href="setting" style="text-decoration:none"><button>Setting</button></a>
     </div>
     <div class="sectionright">
-        <div id="content_list" class="tabcontent text-center">
-            <div class="row">
+        <section class="title" id="content_list" hidden>
+            <div class="row text-center">
                 <h3>Content</h3>
-                <ul id="content_ul">
-                    <li>
-                        <div id="content_owner_info">
-                            <img src="../../../image/uploaded/userIcon_1.png" alt="content_owner_icon">
-                            <p id="content_owner">Miofong</p>
-                        </div>
-                        <div id="content_owner_info">
-                            <p id="content_post_date">Miofong</p>
-                            <p id="content_post_text">
-                                dsfdsojfoidsjofjdspojfopidsijfopdsjopfijdsopfjopdsjfopsdjpfojdspofjipo
-                            </p>
-                        </div>
-                    </li>
-                </ul>
+                <ul id="content_ul"></ul>
             </div>
-        </div>
+        </section>
+        <div id="create_post_btn" class="tabcontent"></div>
+        <section class="title" id="create_post_section" hidden>
+            <div class="row text-center">
+                <h3>Create Post</h3>
+                <div id="content_wrapper">
+                    <input class="form-control" type="text" placeholder="Entry something..." id="article">
+                </div>
+                <div>
+                    <a class="btn submit col-12" id="article_submit_btn">Submit<i class="fas fa-paper-plane"></i></a>
+                    <a class="btn cancel" id="article_cancel_btn">Cancel<i class="fas fa-trash-alt"></i></a>
+                </div>
+            </div>
+        </section>
         <div id="Group" class="tabcontent">
             <h3>Group</h3>
             <p>Group List</p>

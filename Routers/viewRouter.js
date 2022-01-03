@@ -30,7 +30,9 @@ class ViewRouter {
     router.get("/profile/:id", isLoggedIn, this.getProfile.bind(this));
     router.put("/profile/:id", isLoggedIn, this.putProfile.bind(this));
     router.get("/404", this.get404.bind(this));
-    router.get("/logout", isLoggedIn, this.getLogout.bind(this))
+    router.get("/logout", isLoggedIn, this.getLogout.bind(this));
+    router.get("/content", isLoggedIn, this.getContent.bind(this));
+    router.post("/create/article", isLoggedIn, this.postArticle.bind(this));
     return router;
   }
   getLogout(req, res) {
@@ -238,7 +240,7 @@ class ViewRouter {
           username: db.username,
           password: "********",
           gender: db.gender,
-          birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
+          // birthday: `${db.date_of_birth.getFullYear()}-${db.date_of_birth.getMonth() + 1}-${db.date_of_birth.getDate()}`,
           country: db.country,
           joinDate: `${db.created_at.getFullYear()}-${db.created_at.getMonth() + 1}-${db.created_at.getDate()}`,
           slogan: db.slogan,
@@ -669,6 +671,37 @@ class ViewRouter {
       page: "market",
       layout: "other"
     });
+  }
+
+  async getContent(req, res) {
+    await this.knex("user_post")
+      .join("user_profile", "user_profile.id", "user_post.profile_id")
+      .select()
+      .then((rows) => {
+        res.json(rows)
+      })
+  }
+  async postArticle(req, res) {
+    const article = JSON.parse(req.body.msg)
+    const user = req.user.id
+    if (article.article.length < 1) {
+      res.json({
+        "post": "false",
+        "err": "Please enter something!"
+      })
+    } else {
+      //create article to db
+      await this.knex("user_post")
+        .insert({
+          profile_id: user,
+          written_text: article.article
+        }).then(() => {
+          res.json({
+            "post": "true",
+            "err": "Insert success!"
+          })
+        })
+    }
   }
 }
 

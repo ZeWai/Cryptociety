@@ -37,6 +37,8 @@ const AuthRouter = require("./Routers/authRouter");
 const authRouter = new AuthRouter();
 const ViewRouter = require("./Routers/viewRouter");
 const viewRouter = new ViewRouter(knex);
+const UserPosts = require("./Services/UserPosts");
+const userPosts = new UserPosts(knex);
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -49,6 +51,7 @@ app.use(passportFunctions.initialize());
 app.use(passportFunctions.session());
 app.use("/", authRouter.router());
 app.use("/", viewRouter.router());
+app.use("api/notes", new ViewRouter(userPosts).router());
 
 // listen to https server
 https.createServer(options, app).listen(port, () => {
