@@ -2,6 +2,7 @@
 const express = require("express");
 const isLoggedIn = require("../authFuncs/auth.js").isLoggedIn;
 const isLoggedInAdmin = require("../authFuncs/auth.js").isLoggedInAdmin;
+var bcrypt = require("bcrypt");
 const fs = require("fs");
 
 class ViewRouter {
@@ -333,7 +334,8 @@ class ViewRouter {
       .where("id", req.user.id)
       .from("user_profile")
       .then((rows) => {
-        let db = rows[req.user.id - 1]
+        let db = rows[0]
+        console.log(db)
         res.render("page/setting", {
           title: "Setting",
           page: "setting",
@@ -386,18 +388,28 @@ class ViewRouter {
       .where("id", req.user.id)
       .select("*")
       .from("user_profile")
-      .then((rows) => {
+      .then( (rows) => {
         let db = rows[0]
         let data = req.body.input
-        //json to object
         data = JSON.parse(data)
+        console.log(db.hash)
+        console.log(data.password_verify)
+        //json to object
+        let compare;
+          bcrypt.compare(data.password_verify, db.hash, function (err, result) {
+            if (err) { console.log(err) }
+            else {
+              return result;
+            }
+          });
+                console.log(bcrypt.compare)
         //verify password
         if (data.password_verify !== db.password) {
           res.json({
             "verify": "fail",
             "err": "Incorret password! Please try again!"
           })
-          data.password_verify = "";
+          data = "";
         } else {
           //check less 6 characters username  
           if (data.new_username) {
