@@ -6,9 +6,9 @@ exports.up = function (knex) {
     table.string("country", 255);
     table.date("date_of_birth").defaultTo("1900-01-01");
     table.string("username", 255);
-    table.string("gender");
+    table.string("gender").defaultTo("N/A");
     table.string("admin");
-    table.string("slogan");
+    table.string("slogan").defaultTo("This person is lazy. No slogan is left.");
     table.string("group");
     table.string("hash");
     table.string("access_token");

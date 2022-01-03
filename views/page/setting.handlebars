@@ -18,7 +18,7 @@
             </div>
             <div class="col-12 message" id="userIdNumber">
                 <p id="userId">Id : {{userId}}</p>
-                <p id="email">email : {{email}}</p>
+                {{!-- <p id="email">email : {{email}}</p> --}}
             </div>
             <div class="row">
                 <div class="col-6 subscriber" id="subscriber">
@@ -28,7 +28,7 @@
                     <a class="btn" href="#" id="follower_list_btn">Followers</a>
                 </div>
             </div>
-            <div class="col-12" id="darkMode" hidden>
+            {{!-- <div class="col-12" id="darkMode" hidden>
                 <div class="col-6 info">
                     <p>Dark Mode</p>
                 </div>
@@ -37,11 +37,11 @@
                         <span class="slider round"></span>
                     </label>
                 </div>
-            </div>
+            </div> --}}
             <div class="col-12 info" id="userName">
                 <div class="row">
                     <div class="col-6">
-                        <p id="currentUsername">{{username}}</p>
+                        <p id="currentUsername">Username : {{username}}</p>
                     </div>
                     <div class="col-6">
                         <a class="btn edit" href="#" id="edit_username_btn">Edit<i class="fas fa-edit"></i></a>
@@ -51,7 +51,7 @@
             <div class="col-12 info" id="password">
                 <div class="row">
                     <div class="col-6">
-                        <p id="currentPassword" type="password">********</p>
+                        <p id="currentPassword" type="password">Edit password</p>
                     </div>
                     <div class="col-6">
                         <a class="btn edit" href="#" id="edit_passoword_btn">Edit<i class="fas fa-edit"></i></a>
@@ -61,7 +61,7 @@
             <div class="col-12 info" id="gender">
                 <div class="row">
                     <div class="col-6">
-                        <p id="currentGender">{{gender}}</p>
+                        <p id="currentGender">Gender : {{gender}}</p>
                     </div>
                     <div class="col-6">
                         <a class="btn edit" href="#" id="edit_gender_btn">Edit<i class="fas fa-edit"></i></a>
@@ -71,7 +71,7 @@
             <div class="col-12 info" id="birthday">
                 <div class="row">
                     <div class="col-6">
-                        <p id="currentBrithday">{{birthday}}</p>
+                        <p id="currentBrithday">Date of Birthday : {{birthday}}</p>
                     </div>
                     <div class="col-6">
                         <a class="btn edit" href="#" id="edit_birthday_btn">Edit<i class="fas fa-edit"></i></a>
@@ -81,7 +81,7 @@
             <div class="col-12 info" id="country">
                 <div class="row">
                     <div class="col-6">
-                        <p id="currentContry">{{country}}</p>
+                        <p id="currentContry">Country : {{country}}</p>
                     </div>
                     <div class="col-6">
                         <a class="btn edit" href="#" id="edit_country_btn">Edit<i class="fas fa-edit"></i></a>
@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="col-12 message" id="joinDate">
-                <p id="joinDay">Join : {{joinDate}}</p>
+                <p id="joinDay">Join at : {{joinDate}}</p>
             </div>
             <div class="col-12">
                 <form>
