@@ -281,10 +281,11 @@ class ViewRouter {
   putSetting(req, res) {
     //get db data
     this.knex
+      .where("id", req.user.id)
       .select("*")
       .from("user_profile")
       .then((rows) => {
-        let db = rows[req.user.id - 1]
+        let db = rows[0]
         let data = req.body.input
         //json to object
         data = JSON.parse(data)
