@@ -492,25 +492,6 @@ $().ready(() => {
     })
   })
 
-  //redirect subscriber profile handling
-  $(`#subscriber_btn`).attr("href", `https://www.google.com/`)
-
-  //redirect follower profile handling
-  $(`#follower_btn`).attr("href", `https://www.google.com/`)
-
-  //unfollow button handling
-  $(`#unfollow_btn`).click(() => {
-    alert("unfollow")
-  })
-  //follow button handling
-  $(`#follow_btn`).click(() => {
-    alert("follow")
-  })
-  //remove button handling
-  $(`#remove_btn`).click(() => {
-    alert("remove")
-  })
-
   //Submit handling
   let input = ["#password_verify", "#new_username", "#new_password", "#confirm_new_password", "#new_gender", "#new_birthday", "#new_country"]
   //info edit submit button
