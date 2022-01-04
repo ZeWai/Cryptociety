@@ -4,15 +4,19 @@ $().ready(() => {
     method: `get`,
     success: (data) => {
       $(`#content_list`).attr("hidden", false)
+      let dataIndex = [];
       if (data) {
         let content = "";
+        console.log(data)
         $.each(data, (index) => {
           //remove old li
           $(`#content_${data[index].id}_li`).remove()
+          dataIndex.unshift(data[index].id)
+          console.log(dataIndex)
           //add new data
           content +=
             `
-              <li class="row" id="content_${data[index].id}_li>
+                <li class="row" id="content_${dataIndex[index]}_li>
                 <div class="row">
                   <div class="col-2">
                     <img src="../../../image/uploaded/userIcon_${data[index].profile_id}.png" id="content_owner_icon">

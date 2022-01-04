@@ -3,6 +3,7 @@ const express = require("express");
 const isLoggedIn = require("../authFuncs/auth.js").isLoggedIn;
 const isLoggedInAdmin = require("../authFuncs/auth.js").isLoggedInAdmin;
 var bcrypt = require("bcrypt");
+var hashfunction = require("../passport/hashfunction")
 const fs = require("fs");
 
 class ViewRouter {
@@ -382,29 +383,22 @@ class ViewRouter {
       }
     })
   }
-  putSetting(req, res) {
+  async putSetting(req, res) {
     //get db data
     this.knex
       .where("id", req.user.id)
       .select("*")
       .from("user_profile")
-      .then( (rows) => {
+      .then( async(rows) => {
         let db = rows[0]
         let data = req.body.input
         data = JSON.parse(data)
         console.log(db.hash)
         console.log(data.password_verify)
-        //json to object
-        let compare;
-          bcrypt.compare(data.password_verify, db.hash, function (err, result) {
-            if (err) { console.log(err) }
-            else {
-              return result;
-            }
-          });
-                console.log(bcrypt.compare)
+        let compareresult = await hashfunction.checkPassword(data.password_verify,db.hash).then((hash)=> hash)
+                console.log(compareresult)
         //verify password
-        if (data.password_verify !== db.password) {
+        if (compareresult !== true) {
           res.json({
             "verify": "fail",
             "err": "Incorret password! Please try again!"
@@ -792,10 +786,11 @@ class ViewRouter {
   async getContent(req, res) {
     
     await this.knex("user_post")
-      .join("user_profile", "user_profile.id", "user_post.profile_id")
-      .select()
+      .join("user_profile", "user_profile.id","user_post.profile_id")
+      .select("*")
       .then((rows) => {
         res.json(rows)
+        console.log(rows)
       })
   }
   async postArticle(req, res) {
